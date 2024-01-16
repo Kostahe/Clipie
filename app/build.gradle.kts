@@ -67,4 +67,9 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+    // Jetpack navigation
+    val jetpackNavigationVersion = "2.7.6"
+    implementation("androidx.navigation:navigation-fragment-ktx:$jetpackNavigationVersion")
+    implementation("androidx.navigation:navigation-ui-ktx:$jetpackNavigationVersion")
 }
