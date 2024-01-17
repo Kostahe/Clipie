@@ -1,15 +1,18 @@
 package com.clipie
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import com.clipie.ui.NavGraphs
+import com.ramcosta.composedestinations.DestinationsNavHost
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity)
-
-
-
+        setContent {
+            DestinationsNavHost(navGraph = NavGraphs.root)
+        }
     }
 }
+
 
