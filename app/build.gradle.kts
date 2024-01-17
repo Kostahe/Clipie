@@ -70,9 +70,10 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
 
-    // Navigation Compose (not googles one)
-    implementation("io.github.raamcosta.compose-destinations:animations-core:1.9.61")
-    ksp("io.github.raamcosta.compose-destinations:ksp:1.9.61")
+    // Compose destinations
+    val composeDestinations = "1.9.61"
+    implementation("io.github.raamcosta.compose-destinations:animations-core:$composeDestinations")
+    ksp("io.github.raamcosta.compose-destinations:ksp:$composeDestinations")
 
 
 }
