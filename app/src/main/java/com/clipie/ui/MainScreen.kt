@@ -17,7 +17,6 @@ import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Send
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -32,6 +31,7 @@ import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -64,7 +64,7 @@ val listOfItems: List<BottomNavigationItem> = listOf(
 @Preview
 @Composable
 fun MainScreen() {
-var expanded by rememberSaveable { mutableStateOf(false) }
+    var expanded by rememberSaveable { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -76,9 +76,9 @@ var expanded by rememberSaveable { mutableStateOf(false) }
                         fontWeight = FontWeight.Bold,
                         color = Black
                     )
-                    if (expanded){
+                    if (expanded) {
                         IconChanger(Icon = Icons.Outlined.KeyboardArrowUp)
-                    }else {
+                    } else {
                         IconChanger(Icon = Icons.Outlined.KeyboardArrowDown)
                     }
                 }
@@ -92,7 +92,8 @@ var expanded by rememberSaveable { mutableStateOf(false) }
                                 text = "Following",
                                 style = MaterialTheme.typography.headlineSmall,
                             )
-                            Icon(imageVector = Icons.Outlined.Person, contentDescription = null,
+                            Icon(
+                                imageVector = Icons.Outlined.Person, contentDescription = null,
                                 Modifier.offset(130.dp, 3.dp)
                             )
                         },
@@ -106,23 +107,28 @@ var expanded by rememberSaveable { mutableStateOf(false) }
                                 text = "Favorites",
                                 style = MaterialTheme.typography.headlineSmall
                             )
-                            Icon(imageVector = Icons.Outlined.Star, contentDescription = null,
+                            Icon(
+                                imageVector = Icons.Outlined.Star, contentDescription = null,
                                 Modifier.offset(130.dp, 4.dp)
                             )
                         },
                         onClick = { /*TODO*/ })
-
                 }
             },
                 actions = {
                     IconButton(onClick = { /*TODO*/ }) {
-                        Icon(imageVector = Icons.Outlined.FavoriteBorder, contentDescription = null, Modifier.size(30.dp))
+                        Icon(
+                            imageVector = Icons.Outlined.FavoriteBorder,
+                            contentDescription = null,
+                            Modifier.size(30.dp)
+                        )
                     }
                     IconButton(onClick = { /*TODO*/ }) {
-                        Icon(imageVector = Icons.Outlined.Send, contentDescription = null, Modifier
-                            .rotate(325f)
-                            .size(34.dp)
-                            .offset(0.dp, (-4).dp)
+                        Icon(
+                            imageVector = Icons.Outlined.Send, contentDescription = null, Modifier
+                                .rotate(325f)
+                                .size(34.dp)
+                                .offset(0.dp, (-4).dp)
                         )
                     }
                 }
@@ -184,9 +190,7 @@ fun MainScreenBottomBar(
     }
 }
 
-
-
 @Composable
-fun IconChanger(Icon: ImageVector){
+fun IconChanger(Icon: ImageVector) {
     Icon(imageVector = Icon, contentDescription = null)
 }
