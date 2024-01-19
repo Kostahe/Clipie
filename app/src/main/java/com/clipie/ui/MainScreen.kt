@@ -133,9 +133,9 @@ fun MainScreenTopBar() {
                 color = Black
             )
             if (expanded) {
-                IconChanger(Icon = Icons.Outlined.KeyboardArrowUp)
+                Icon(imageVector = Icons.Outlined.KeyboardArrowDown, contentDescription = null)
             } else {
-                IconChanger(Icon = Icons.Outlined.KeyboardArrowDown)
+                Icon(imageVector = Icons.Outlined.KeyboardArrowUp, contentDescription = null)
             }
         }
         DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }
@@ -191,7 +191,3 @@ fun MainScreenTopBar() {
     )
 }
 
-@Composable
-fun IconChanger(Icon: ImageVector) {
-    Icon(imageVector = Icon, contentDescription = null)
-}
