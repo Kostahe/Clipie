@@ -1,9 +1,7 @@
 package com.clipie.ui
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -60,80 +58,15 @@ val listOfItems: List<BottomNavigationItem> = listOf(
     BottomNavigationItem("Profile", Icons.Filled.AccountCircle, Icons.Outlined.AccountCircle, false)
 )
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Destination(start = true)
 @Preview
 @Composable
 fun MainScreen() {
-    var expanded by rememberSaveable { mutableStateOf(false) }
+
 
     Scaffold(
         topBar = {
-            TopAppBar(title = {
-                TextButton(onClick = { expanded = true }) {
-                    Text(
-                        text = "For you",
-                        style = MaterialTheme.typography.headlineLarge,
-                        fontWeight = FontWeight.Bold,
-                        color = Black
-                    )
-                    if (expanded) {
-                        IconChanger(Icon = Icons.Outlined.KeyboardArrowUp)
-                    } else {
-                        IconChanger(Icon = Icons.Outlined.KeyboardArrowDown)
-                    }
-                }
-                DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }
-                ) {
-                    DropdownMenuItem(
-                        modifier = Modifier
-                            .size(width = 180.dp, height = 40.dp),
-                        text = {
-                            Text(
-                                text = "Following",
-                                style = MaterialTheme.typography.headlineSmall,
-                            )
-                            Icon(
-                                imageVector = Icons.Outlined.Person, contentDescription = null,
-                                Modifier.offset(130.dp, 3.dp)
-                            )
-                        },
-                        onClick = { /*TODO*/ })
-
-                    DropdownMenuItem(
-                        modifier = Modifier
-                            .size(width = 180.dp, height = 40.dp),
-                        text = {
-                            Text(
-                                text = "Favorites",
-                                style = MaterialTheme.typography.headlineSmall
-                            )
-                            Icon(
-                                imageVector = Icons.Outlined.Star, contentDescription = null,
-                                Modifier.offset(130.dp, 4.dp)
-                            )
-                        },
-                        onClick = { /*TODO*/ })
-                }
-            },
-                actions = {
-                    IconButton(onClick = { /*TODO*/ }) {
-                        Icon(
-                            imageVector = Icons.Outlined.FavoriteBorder,
-                            contentDescription = null,
-                            Modifier.size(30.dp)
-                        )
-                    }
-                    IconButton(onClick = { /*TODO*/ }) {
-                        Icon(
-                            imageVector = Icons.Outlined.Send, contentDescription = null, Modifier
-                                .rotate(325f)
-                                .size(34.dp)
-                                .offset(0.dp, (-4).dp)
-                        )
-                    }
-                }
-            )
+            MainScreenTopBar()
         },
         bottomBar = {
             MainScreenBottomBar()
@@ -187,7 +120,74 @@ fun MainScreenBottomBar(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun IconChanger(Icon: ImageVector) {
-    Icon(imageVector = Icon, contentDescription = null)
+fun MainScreenTopBar() {
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    TopAppBar(title = {
+        TextButton(onClick = { expanded = true }) {
+            Text(
+                text = "For you",
+                style = MaterialTheme.typography.headlineLarge,
+                fontWeight = FontWeight.Bold,
+                color = Black
+            )
+            if (expanded) {
+                Icon(imageVector = Icons.Outlined.KeyboardArrowDown, contentDescription = null)
+            } else {
+                Icon(imageVector = Icons.Outlined.KeyboardArrowUp, contentDescription = null)
+            }
+        }
+        DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }
+        ) {
+            DropdownMenuItem(
+                modifier = Modifier
+                    .size(width = 180.dp, height = 40.dp),
+                text = {
+                    Text(
+                        text = "Following",
+                        style = MaterialTheme.typography.headlineSmall,
+                    )
+                    Icon(
+                        imageVector = Icons.Outlined.Person, contentDescription = null,
+                        Modifier.offset(130.dp, 3.dp)
+                    )
+                },
+                onClick = { /*TODO*/ })
+
+            DropdownMenuItem(
+                modifier = Modifier
+                    .size(width = 180.dp, height = 40.dp),
+                text = {
+                    Text(
+                        text = "Favorites",
+                        style = MaterialTheme.typography.headlineSmall
+                    )
+                    Icon(
+                        imageVector = Icons.Outlined.Star, contentDescription = null,
+                        Modifier.offset(130.dp, 4.dp)
+                    )
+                },
+                onClick = { /*TODO*/ })
+        }
+    },
+        actions = {
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(
+                    imageVector = Icons.Outlined.FavoriteBorder,
+                    contentDescription = null,
+                    Modifier.size(30.dp)
+                )
+            }
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(
+                    imageVector = Icons.Outlined.Send, contentDescription = null, Modifier
+                        .rotate(325f)
+                        .size(34.dp)
+                        .offset(0.dp, (-4).dp)
+                )
+            }
+        }
+    )
 }
+
