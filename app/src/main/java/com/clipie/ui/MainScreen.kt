@@ -132,11 +132,11 @@ fun MainScreenTopBar() {
                 fontWeight = FontWeight.Bold,
                 color = Black
             )
-            if (expanded) {
-                Icon(imageVector = Icons.Outlined.KeyboardArrowDown, contentDescription = null)
-            } else {
-                Icon(imageVector = Icons.Outlined.KeyboardArrowUp, contentDescription = null)
-            }
+            Icon(
+                imageVector = if (expanded) Icons.Outlined.KeyboardArrowDown else Icons.Outlined.KeyboardArrowUp,
+                contentDescription = null,
+                modifier = Modifier.padding(start = 3.dp, top = 5.dp)
+            )
         }
         DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }
         ) {
