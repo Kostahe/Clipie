@@ -22,9 +22,11 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.AccountCircle
+import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.AddCircle
 import androidx.compose.material.icons.outlined.KeyboardArrowDown
 import androidx.compose.material.icons.outlined.KeyboardArrowUp
+import androidx.compose.material.icons.outlined.List
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.PlayArrow
 import androidx.compose.material.icons.outlined.Search
@@ -53,6 +55,16 @@ import androidx.compose.ui.unit.dp
 import com.clipie.ui.theme.Black
 import com.ramcosta.composedestinations.annotation.Destination
 
+
+val TopListOfItems: List<TopNavigationItem> = listOf(
+    TopNavigationItem("ForYouDropDownMenu", Icons.Outlined.KeyboardArrowDown, Icons.Outlined.KeyboardArrowUp, true),
+    TopNavigationItem("Notifications", Icons.Outlined.FavoriteBorder, Icons.Outlined.FavoriteBorder, true),
+    TopNavigationItem("Send", Icons.Outlined.Send, Icons.Outlined.Send, true),
+    TopNavigationItem("Profiles", Icons.Outlined.KeyboardArrowDown, Icons.Outlined.KeyboardArrowUp, true),
+    TopNavigationItem("Create", Icons.Filled.AddCircle, Icons.Outlined.AddCircle, true),
+    TopNavigationItem(null, Icons.Outlined.List, Icons.Outlined.List, true)
+)
+
 val listOfItems: List<BottomNavigationItem> = listOf(
     BottomNavigationItem("Home", Icons.Filled.Home, Icons.Outlined.Home, true),
     BottomNavigationItem("Search", Icons.Filled.Search, Icons.Outlined.Search, false),
@@ -61,7 +73,8 @@ val listOfItems: List<BottomNavigationItem> = listOf(
     BottomNavigationItem("Profile", Icons.Filled.AccountCircle, Icons.Outlined.AccountCircle, false)
 )
 
-@Destination(start = false)
+
+@Destination(start = true)
 @Preview
 @Composable
 fun MainScreen() {
@@ -82,6 +95,13 @@ fun MainScreen() {
         }
     }
 }
+
+data class TopNavigationItem(
+    val title: String?,
+    val selectedIcon: ImageVector,
+    val unselectedIcon: ImageVector,
+    val hasNews: Boolean
+)
 
 data class BottomNavigationItem(
     val title: String,
@@ -128,19 +148,31 @@ fun MainScreenBottomBar(
 fun MainScreenTopBar() {
     var expanded by rememberSaveable { mutableStateOf(false) }
     TopAppBar(title = {
-        TextButton(onClick = { expanded = true }) {
-            Text(
-                text = "For you",
-                style = MaterialTheme.typography.headlineLarge,
-                fontWeight = FontWeight.Bold,
-                color = Black
-            )
-            Icon(
-                imageVector = if (expanded) Icons.Outlined.KeyboardArrowDown else Icons.Outlined.KeyboardArrowUp,
-                contentDescription = null,
-                modifier = Modifier.padding(start = 3.dp, top = 5.dp)
-            )
+
+        BadgedBox(badge = {
+            if (TopListOfItems[0].hasNews) {
+                Badge(Modifier.offset(x = (-9).dp, y = 35.dp)
+                    .size(8.dp)
+                )
+            }
+        }) {
+            TextButton(onClick = { expanded = true }) {
+                Text(
+                    text = "For you",
+                    style = MaterialTheme.typography.headlineLarge,
+                    fontWeight = FontWeight.Bold,
+                    color = Black
+                )
+                Icon(
+                    imageVector = if (expanded) TopListOfItems[0].selectedIcon else TopListOfItems[0].unselectedIcon,
+                    contentDescription = TopListOfItems[0].title,
+                    modifier = Modifier.padding(start = 3.dp, top = 5.dp)
+                )
+            }
         }
+
+
+
         DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }
         ) {
             DropdownMenuItem(
@@ -173,24 +205,48 @@ fun MainScreenTopBar() {
                 },
                 onClick = { /*TODO*/ })
         }
+
+
     },
         actions = {
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(
-                    imageVector = Icons.Outlined.FavoriteBorder,
-                    contentDescription = null,
-                    Modifier.size(30.dp)
-                )
+            BadgedBox(badge = {
+                if (TopListOfItems[1].hasNews) {
+                    Badge(Modifier.offset(x = (-8).dp, y = 13.dp)
+                        .size(8.dp)
+                    )
+                }
+            }) {
+                IconButton(onClick = { /*TODO*/ }) {
+                    Icon(
+                        imageVector = TopListOfItems[1].unselectedIcon,
+                        contentDescription = TopListOfItems[1].title,
+                        Modifier.size(30.dp)
+                    )
+                }
             }
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(
-                    imageVector = Icons.Outlined.Send, contentDescription = null, Modifier
-                        .rotate(325f)
-                        .size(34.dp)
-                        .offset(0.dp, (-4).dp)
-                )
+            BadgedBox(badge = {
+                if (TopListOfItems[2].hasNews) {
+                    Badge(Modifier.offset(x = (-9).dp, y = 13.dp)
+                        .size(8.dp)
+                    )
+                }
+            }) {
+                IconButton(onClick = { /*TODO*/ }) {
+                    Icon(
+                        imageVector = TopListOfItems[2].unselectedIcon,
+                        contentDescription = TopListOfItems[2].title,
+                        Modifier
+                            .rotate(330f)
+                            .size(30.dp)
+                            .offset(0.dp, (-4).dp)
+                    )
+                }
             }
+
+
         }
+
+
     )
 }
 

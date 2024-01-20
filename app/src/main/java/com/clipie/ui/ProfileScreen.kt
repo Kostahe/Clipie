@@ -8,15 +8,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.AddCircle
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material.icons.outlined.KeyboardArrowDown
-import androidx.compose.material.icons.outlined.KeyboardArrowUp
-import androidx.compose.material.icons.outlined.List
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.Badge
@@ -36,14 +32,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.clipie.ui.theme.Black
 import com.ramcosta.composedestinations.annotation.Destination
 
 
-@Destination(start = true)
+@Destination(start = false)
 @Preview
 @Composable
 fun ProfileScreen() {
@@ -64,7 +59,6 @@ fun ProfileScreen() {
         }
     }
 }
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -104,20 +98,27 @@ fun ProfileScreenBottomBar(
 fun ProfileScreenTopBar() {
     var expanded by rememberSaveable { mutableStateOf(false) }
     TopAppBar(title = {
-        TextButton(onClick = { expanded = true }) {
-            Text(
-                text = "Insert user name here",
-                style = MaterialTheme.typography.headlineLarge,
-                fontWeight = FontWeight.Bold,
-                color = Black,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = 1
-            )
-            Icon(
-                imageVector = if (expanded) Icons.Outlined.KeyboardArrowDown else Icons.Outlined.KeyboardArrowUp,
-                contentDescription = null,
-                modifier = Modifier.padding(start = 3.dp, top = 5.dp)
-            )
+
+        BadgedBox(badge = {
+            if (TopListOfItems[3].hasNews) {
+                Badge(Modifier.offset(x = (-9).dp, y = 35.dp)
+                    .size(8.dp)
+                )
+            }
+        }) {
+            TextButton(onClick = { expanded = true }) {
+                Text(
+                    text = "User name here",
+                    style = MaterialTheme.typography.headlineLarge,
+                    fontWeight = FontWeight.Bold,
+                    color = Black
+                )
+                Icon(
+                    imageVector = if (expanded) TopListOfItems[3].selectedIcon else TopListOfItems[3].unselectedIcon,
+                    contentDescription = TopListOfItems[3].title,
+                    modifier = Modifier.padding(start = 3.dp, top = 5.dp)
+                )
+            }
         }
         DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }
         ) {
@@ -126,7 +127,7 @@ fun ProfileScreenTopBar() {
                     .size(width = 180.dp, height = 40.dp),
                 text = {
                     Text(
-                        text = "Following",
+                        text = "TO DO!!!",
                         style = MaterialTheme.typography.headlineSmall,
                     )
                     Icon(
@@ -141,7 +142,7 @@ fun ProfileScreenTopBar() {
                     .size(width = 180.dp, height = 40.dp),
                 text = {
                     Text(
-                        text = "Favorites",
+                        text = "TO DO!!!",
                         style = MaterialTheme.typography.headlineSmall
                     )
                     Icon(
@@ -153,20 +154,39 @@ fun ProfileScreenTopBar() {
         }
     },
         actions = {
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(
-                    imageVector = Icons.Outlined.AddCircle,
-                    contentDescription = null,
-                    Modifier.size(30.dp)
-                )
+            BadgedBox(badge = {
+                if (TopListOfItems[4].hasNews) {
+                    Badge(Modifier.offset(x = (-8).dp, y = 13.dp)
+                        .size(8.dp)
+                    )
+                }
+            }) {
+                IconButton(onClick = { /*TODO*/ }) {
+                    Icon(
+                        imageVector = TopListOfItems[4].unselectedIcon,
+                        contentDescription = TopListOfItems[4].title,
+                        Modifier.size(30.dp)
+                    )
+                }
             }
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(
-                    imageVector = Icons.Outlined.List, contentDescription = null, Modifier
-                        .size(70.dp)
-                        .offset(x = (-9).dp)
-                )
+            BadgedBox(badge = {
+                if (TopListOfItems[5].hasNews) {
+                    Badge(Modifier.offset(x = (-9).dp, y = 13.dp)
+                        .size(8.dp)
+                    )
+                }
+            }) {
+                IconButton(onClick = { /*TODO*/ }) {
+                    Icon(
+                        imageVector = TopListOfItems[5].unselectedIcon,
+                        contentDescription = TopListOfItems[5].title,
+                        Modifier
+                            .size(80.dp)
+                            .offset((-9).dp, (0).dp)
+                    )
+                }
             }
         }
     )
 }
+
