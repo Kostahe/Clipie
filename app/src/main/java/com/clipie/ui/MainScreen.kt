@@ -58,7 +58,7 @@ val listOfItems: List<BottomNavigationItem> = listOf(
     BottomNavigationItem("Profile", Icons.Filled.AccountCircle, Icons.Outlined.AccountCircle, false)
 )
 
-@Destination(start = true)
+//@Destination(start = true)
 @Preview
 @Composable
 fun MainScreen() {
