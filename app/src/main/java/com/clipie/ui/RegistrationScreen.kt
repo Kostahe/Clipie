@@ -54,7 +54,7 @@ fun RegistrationScreen() {
             color = Color(142, 144, 146),
             textAlign = TextAlign.Center,
             fontSize = 20.sp,
-            fontWeight = FontWeight.W600
+            fontWeight = FontWeight.W700
         )
         OutlinedTextField(
             value = email,
