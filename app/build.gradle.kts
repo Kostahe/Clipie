@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -75,5 +76,10 @@ dependencies {
     implementation("io.github.raamcosta.compose-destinations:animations-core:$composeDestinations")
     ksp("io.github.raamcosta.compose-destinations:ksp:$composeDestinations")
 
-
+    // Firebase
+    val firebaseBOMVersion = "32.7.1"
+    implementation(platform("com.google.firebase:firebase-bom:$firebaseBOMVersion"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-firestore")
 }
