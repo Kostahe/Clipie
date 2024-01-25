@@ -1,5 +1,6 @@
 package com.clipie.ui
 
+import android.health.connect.datatypes.units.Length
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -46,6 +47,7 @@ import androidx.compose.ui.unit.dp
 import com.clipie.R
 import com.clipie.ui.theme.Black
 import com.ramcosta.composedestinations.annotation.Destination
+
 
 
 @Destination(start = true)
@@ -122,7 +124,8 @@ fun ProfileScreenTopBar() {
         }) {
             TextButton(onClick = { accountSheetOpenSwitch = true }) {
                 Text(
-                    text = "Insert user name",
+                    modifier = Modifier.offset(x = -10.dp),
+                    text = "Insert user name here",
                     style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.Bold,
                     color = Black,
@@ -132,7 +135,7 @@ fun ProfileScreenTopBar() {
                 Icon(
                     imageVector = if (accountSheetOpenSwitch) TopListOfItems[3].selectedIcon else TopListOfItems[3].unselectedIcon,
                     contentDescription = TopListOfItems[3].title,
-                    modifier = Modifier.padding(start = 2.dp, top = 5.dp)
+                    modifier = Modifier.padding(start = 20.dp, top = 5.dp)
                 )
             }
         }
