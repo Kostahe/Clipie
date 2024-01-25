@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.sp
 import com.clipie.ui.theme.lobsterFontFamily
 import com.ramcosta.composedestinations.annotation.Destination
 
-@Destination(start = false)
+@Destination()
 @Composable
 fun RegistrationScreen() {
     var email by rememberSaveable {
