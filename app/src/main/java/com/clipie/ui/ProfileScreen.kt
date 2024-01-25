@@ -121,10 +121,14 @@ fun ProfileScreenTopBar() {
                 )
             }
         }) {
-            TextButton(onClick = { accountSheetOpenSwitch = true }) {
+            TextButton(onClick = { accountSheetOpenSwitch = true }, modifier = Modifier
+            ) {
                 Text(
-                    modifier = Modifier.offset(x = (-10).dp),
-                    text = "Insert user name here",
+                    modifier = Modifier
+                        .offset(x = (-5).dp)
+                        .weight(1f, false)
+                        .padding(1.dp),
+                    text = "Insert username here",
                     style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.Bold,
                     color = Black,
