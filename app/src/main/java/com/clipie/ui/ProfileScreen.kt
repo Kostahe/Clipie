@@ -1,6 +1,5 @@
 package com.clipie.ui
 
-import android.health.connect.datatypes.units.Length
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -124,7 +123,7 @@ fun ProfileScreenTopBar() {
         }) {
             TextButton(onClick = { accountSheetOpenSwitch = true }) {
                 Text(
-                    modifier = Modifier.offset(x = -10.dp),
+                    modifier = Modifier.offset(x = (-10).dp),
                     text = "Insert user name here",
                     style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.Bold,
@@ -191,7 +190,7 @@ fun ProfileScreenTopBar() {
                     )
                 }
             }
-//                Collumn of unselected accounts
+//                Column of unselected accounts
 
 
 
