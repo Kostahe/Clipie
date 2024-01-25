@@ -5,7 +5,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -41,6 +40,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.clipie.R
@@ -122,15 +122,17 @@ fun ProfileScreenTopBar() {
         }) {
             TextButton(onClick = { accountSheetOpenSwitch = true }) {
                 Text(
-                    text = "User name here",
-                    style = MaterialTheme.typography.headlineLarge,
+                    text = "Insert user name",
+                    style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.Bold,
-                    color = Black
+                    color = Black,
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1
                 )
                 Icon(
                     imageVector = if (accountSheetOpenSwitch) TopListOfItems[3].selectedIcon else TopListOfItems[3].unselectedIcon,
                     contentDescription = TopListOfItems[3].title,
-                    modifier = Modifier.padding(start = 3.dp, top = 5.dp)
+                    modifier = Modifier.padding(start = 2.dp, top = 5.dp)
                 )
             }
         }

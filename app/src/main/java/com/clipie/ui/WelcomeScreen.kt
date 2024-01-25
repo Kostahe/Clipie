@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.sp
 import com.clipie.R
 import com.ramcosta.composedestinations.annotation.Destination
 
-@Destination(start = true)
+@Destination(start = false)
 @Composable
 fun WelcomeScreen() {
     Column(
