@@ -1,4 +1,4 @@
-package com.clipie.data.model
+package com.clipie.domain.model
 
 import com.google.firebase.firestore.ServerTimestamp
 import java.util.Date
