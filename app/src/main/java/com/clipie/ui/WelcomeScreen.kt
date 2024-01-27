@@ -30,7 +30,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 
 @Destination
-@RootNavGraph(start = true)
+@RootNavGraph(start = false)
 @Composable
 fun WelcomeScreen() {
     Column(
