@@ -82,9 +82,7 @@ fun ProfileScreen() {
 fun ProfileScreenBottomBar(
     modifier: Modifier = Modifier
 ) {
-    var selectedItem by rememberSaveable {
-        mutableIntStateOf(0)
-    }
+    var selectedItem by rememberSaveable { mutableIntStateOf(0) }
     BottomAppBar {
         Row(
             modifier
@@ -116,7 +114,9 @@ fun ProfileScreenTopBar() {
     val accountSheetState = rememberModalBottomSheetState()
     var accountSheetOpenSwitch by rememberSaveable { mutableStateOf(false) }
     val createSheetState = rememberModalBottomSheetState()
-    var createSheetOpenSwitch by rememberSaveable { mutableStateOf(true)}
+    var createSheetOpenSwitch by rememberSaveable { mutableStateOf(false) }
+    val listsSheetState = rememberModalBottomSheetState()
+    var listsSheetOpenSwitch by rememberSaveable { mutableStateOf(false) }
     TopAppBar(title = {
 
         BadgedBox(badge = {
@@ -128,7 +128,8 @@ fun ProfileScreenTopBar() {
                 )
             }
         }) {
-            TextButton(onClick = { accountSheetOpenSwitch = true }, modifier = Modifier
+            TextButton(
+                onClick = { accountSheetOpenSwitch = true }, modifier = Modifier
             ) {
                 Text(
                     modifier = Modifier
@@ -180,34 +181,40 @@ fun ProfileScreenTopBar() {
 //--------------Selected account
 
                 AccountItem("Franta", painterResource(id = R.drawable.temp_acc_pfp), true)
-                AccountItem("Bob", painterResource(id = R.drawable.temp_acc_pfp), false)
+
 
 //--------------Unselected account
 
+                AccountItem("Bob", painterResource(id = R.drawable.temp_acc_pfp), false)
 
 //--------------Add account
 
                 Row(modifier = Modifier
-                    .clickable { Log.d("currentProfileRow", "Current account has been clicked!!!") }
+                    .clickable {
+                        Log.d(
+                            "currentProfileRow",
+                            "Current account has been clicked!!!"
+                        )
+                    }
                     .fillMaxWidth()
                     .fillMaxHeight(0.1f),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Spacer(modifier = Modifier.width(20.dp))
-                        Icon(
-                            imageVector = Icons.Outlined.Add,
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(65.dp)
-                                .clip(CircleShape)
-                                .border(1.dp, Color.Gray, CircleShape)
-                        )
-                        Text(
-                            text = "Add account",
-                            Modifier.padding(start = 20.dp),
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold,
-                        )
+                    Icon(
+                        imageVector = Icons.Outlined.Add,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(65.dp)
+                            .clip(CircleShape)
+                            .border(1.dp, Color.Gray, CircleShape)
+                    )
+                    Text(
+                        text = "Add account",
+                        Modifier.padding(start = 20.dp),
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold,
+                    )
                 }
 
             }
@@ -224,6 +231,15 @@ fun ProfileScreenTopBar() {
 
             }
         }
+
+        if (listsSheetOpenSwitch) {
+            ModalBottomSheet(
+                onDismissRequest = { listsSheetOpenSwitch = false },
+                sheetState = listsSheetState
+            ) {
+
+            }
+        }
     },
         actions = {
             BadgedBox(badge = {
@@ -235,7 +251,7 @@ fun ProfileScreenTopBar() {
                     )
                 }
             }) {
-                IconButton(onClick = { /*TODO*/ }) {
+                IconButton(onClick = { createSheetOpenSwitch = true }) {
                     Icon(
                         imageVector = TopListOfItems[4].unselectedIcon,
                         contentDescription = TopListOfItems[4].title,
@@ -246,27 +262,27 @@ fun ProfileScreenTopBar() {
             BadgedBox(badge = {
                 if (TopListOfItems[5].hasNews) {
                     Badge(
-                        Modifier
-                            .offset(x = (-9).dp, y = 13.dp)
+                        Modifier.offset(x = (-9).dp, y = 13.dp)
                             .size(8.dp)
                     )
                 }
             }) {
-                IconButton(onClick = { /*TODO*/ }) {
+                IconButton(onClick = { listsSheetOpenSwitch = true }) {
                     Icon(
                         imageVector = TopListOfItems[5].unselectedIcon,
                         contentDescription = TopListOfItems[5].title,
-                        Modifier
+                        Modifier.offset((-9).dp, (0).dp)
                             .size(80.dp)
-                            .offset((-9).dp, (0).dp)
+
                     )
                 }
             }
         }
     )
 }
+
 @Composable
-fun AccountItem(accountName:String, pfp: Painter, selected: Boolean) {
+fun AccountItem(accountName: String, pfp: Painter, selected: Boolean) {
 
     Row(modifier = Modifier
         .clickable { Log.d("currentProfileRow", "Current account has been clicked!!!") }
