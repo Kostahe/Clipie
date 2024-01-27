@@ -46,10 +46,10 @@ import androidx.compose.ui.unit.dp
 import com.clipie.R
 import com.clipie.ui.theme.Black
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootNavGraph
 
 
-
-@Destination(start = true)
+@Destination
 @Preview
 @Composable
 fun ProfileScreen() {

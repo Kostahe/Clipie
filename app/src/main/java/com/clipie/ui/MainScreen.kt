@@ -73,7 +73,7 @@ val listOfItems: List<BottomNavigationItem> = listOf(
 )
 
 
-@Destination(start = false)
+@Destination
 @Preview
 @Composable
 fun MainScreen() {
