@@ -24,8 +24,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.clipie.ui.theme.lobsterFontFamily
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootNavGraph
 
-@Destination()
+@Destination
+@RootNavGraph
 @Composable
 fun RegistrationScreen() {
     var email by rememberSaveable {
@@ -74,17 +76,3 @@ fun RegistrationScreen() {
         )
     }
 }
-
-@Composable
-fun CustomOutlinedTextField(
-    value: String,
-    label: String,
-    onValueChange: (String) -> Unit
-) {
-    OutlinedTextField(
-        value = value,
-        onValueChange = onValueChange,
-        label = {Text(text = label)}
-    )
-}
-
