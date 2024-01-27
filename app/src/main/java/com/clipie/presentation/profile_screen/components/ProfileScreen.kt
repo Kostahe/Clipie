@@ -4,7 +4,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.mutableStateOf
 import android.util.Log
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -56,7 +55,6 @@ import com.ramcosta.composedestinations.annotation.Destination
 
 
 @Destination
-@RootNavGraph(start = true)
 @Preview
 @Composable
 fun ProfileScreen() {
