@@ -3,7 +3,7 @@ package com.clipie
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.clipie.ui.NavGraphs
+import com.clipie.presentation.NavGraphs
 import com.ramcosta.composedestinations.DestinationsNavHost
 import dagger.hilt.android.AndroidEntryPoint
 
