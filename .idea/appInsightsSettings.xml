@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.clipie" />
+                  <option name="mobileSdkAppId" value="1:1063022751276:android:0ff6608a59ddec83582b89" />
+                  <option name="projectId" value="clipie-8ca63" />
+                  <option name="projectNumber" value="1063022751276" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
