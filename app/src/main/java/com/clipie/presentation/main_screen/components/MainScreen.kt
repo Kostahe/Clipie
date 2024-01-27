@@ -1,4 +1,4 @@
-package com.clipie.ui
+package com.clipie.presentation.main_screen.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
