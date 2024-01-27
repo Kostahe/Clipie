@@ -1,4 +1,4 @@
-package com.clipie.ui
+package com.clipie.presentation.registration_screen.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -27,7 +27,6 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 
 @Destination
-@RootNavGraph
 @Composable
 fun RegistrationScreen() {
     var email by rememberSaveable {

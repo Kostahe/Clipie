@@ -1,10 +1,9 @@
-package com.clipie.ui
+package com.clipie.presentation.profile_screen.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.mutableStateOf
 import android.util.Log
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -49,13 +48,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.clipie.R
+import com.clipie.presentation.main_screen.components.TopListOfItems
+import com.clipie.presentation.main_screen.components.listOfItems
 import com.clipie.ui.theme.Black
 import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.annotation.RootNavGraph
 
 
 @Destination
-@RootNavGraph(start = true)
 @Preview
 @Composable
 fun ProfileScreen() {
