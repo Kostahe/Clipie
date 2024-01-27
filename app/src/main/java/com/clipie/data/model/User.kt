@@ -8,5 +8,6 @@ data class User(
     val profileName: String = "",
     val firstName: String = "",
     val secondName: String = "",
+    val email: String = "",
     @ServerTimestamp val signUpDate: Date = Date()
 )
