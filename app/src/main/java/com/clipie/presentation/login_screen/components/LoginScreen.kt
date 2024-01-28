@@ -67,7 +67,7 @@ fun LoginScreen(
         )
         Row {
             Spacer(modifier = Modifier.width(140.dp))
-            TextButton(onClick = { /*TODO*/ }) {
+            TextButton(onClick = {  }) {
                 Text(
                     text = stringResource(R.string.forgot_password),
                     color = Color.White
