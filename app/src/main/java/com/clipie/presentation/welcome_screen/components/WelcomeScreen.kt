@@ -26,6 +26,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.clipie.R
+import com.clipie.presentation.destinations.LoginScreenDestination
 import com.clipie.presentation.destinations.RegistrationScreenDestination
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
@@ -62,7 +63,7 @@ fun WelcomeScreen(
         OutlinedButton(
             border = BorderStroke(1.dp, Color.White),
             colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.White),
-            onClick = { },
+            onClick = { navController.navigate(LoginScreenDestination) },
             contentPadding = PaddingValues(horizontal = 80.dp, vertical = 15.dp)
         ) {
             Text(
