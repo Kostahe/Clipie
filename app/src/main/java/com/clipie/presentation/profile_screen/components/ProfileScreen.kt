@@ -1,18 +1,15 @@
 package com.clipie.presentation.profile_screen.components
 
-import android.graphics.drawable.VectorDrawable
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.mutableStateOf
 import android.util.Log
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -30,7 +27,6 @@ import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Divider
-import androidx.compose.material3.DividerDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.RadioButton
@@ -155,21 +151,7 @@ fun ProfileScreenTopBar() {
                 )
             }
         }
-        data class Account(
-            val pfp: Painter,
-            val name: String,
-            val notificationCount: Int,
-        )
 
-        val imagePainter: Painter = painterResource(id = R.drawable.temp_acc_pfp)
-
-        val userAccountList: List<Account> = listOf(
-            Account(
-                imagePainter, "Franta", 69
-            ), Account(
-                painterResource(id = R.drawable.ic_launcher_background), "vlad", 2
-            )
-        )
         if (accountSheetOpenSwitch) {
 
 
