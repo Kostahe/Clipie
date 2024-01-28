@@ -53,7 +53,11 @@ fun WelcomeScreen(
         )
         Text(text = "Clipie", color = Color.White, fontWeight = FontWeight.W700, fontSize = 50.sp)
         Spacer(modifier = Modifier.height(130.dp))
-        Image(painter = painterResource(id = R.drawable.app_logo), contentDescription = null, modifier = Modifier.size(140.dp))
+        Image(
+            painter = painterResource(id = R.drawable.app_logo),
+            contentDescription = null,
+            modifier = Modifier.size(140.dp)
+        )
         Spacer(modifier = Modifier.height(180.dp))
         OutlinedButton(
             border = BorderStroke(1.dp, Color.White),
@@ -65,7 +69,6 @@ fun WelcomeScreen(
                 text = "Log in".uppercase(), fontSize = 20.sp, fontWeight = FontWeight.W800
             )
         }
-        Spacer(modifier = Modifier.height(5.dp))
         Row {
             Text(
                 text = "Don't have account?",
@@ -84,4 +87,3 @@ fun WelcomeScreen(
         }
     }
 }
-
