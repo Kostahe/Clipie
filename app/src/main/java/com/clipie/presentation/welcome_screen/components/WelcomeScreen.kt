@@ -26,13 +26,17 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.clipie.R
+import com.clipie.presentation.destinations.RegistrationScreenDestination
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Destination
-@RootNavGraph(start = false)
+@RootNavGraph(start = true)
 @Composable
-fun WelcomeScreen() {
+fun WelcomeScreen(
+    navController: DestinationsNavigator
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -69,13 +73,12 @@ fun WelcomeScreen() {
                 modifier = Modifier.padding(top = 14.dp)
             )
             TextButton(
-                onClick = {  },
+                onClick = { navController.navigate(RegistrationScreenDestination) },
             ) {
                 Text(
                     text = "Sign up",
                     textDecoration = TextDecoration.Underline,
                     color = Color.White,
-
                 )
             }
         }

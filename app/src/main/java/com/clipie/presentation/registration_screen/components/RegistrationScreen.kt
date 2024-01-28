@@ -25,10 +25,13 @@ import androidx.compose.ui.unit.sp
 import com.clipie.ui.theme.lobsterFontFamily
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Destination
 @Composable
-fun RegistrationScreen() {
+fun RegistrationScreen(
+    navController: DestinationsNavigator
+) {
     var email by rememberSaveable {
         mutableStateOf("")
     }
