@@ -26,13 +26,18 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.clipie.R
+import com.clipie.presentation.destinations.LoginScreenDestination
+import com.clipie.presentation.destinations.RegistrationScreenDestination
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Destination
-@RootNavGraph(start = false)
+@RootNavGraph(start = true)
 @Composable
-fun WelcomeScreen() {
+fun WelcomeScreen(
+    navController: DestinationsNavigator
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -49,19 +54,22 @@ fun WelcomeScreen() {
         )
         Text(text = "Clipie", color = Color.White, fontWeight = FontWeight.W700, fontSize = 50.sp)
         Spacer(modifier = Modifier.height(130.dp))
-        Image(painter = painterResource(id = R.drawable.app_logo), contentDescription = null, modifier = Modifier.size(140.dp))
+        Image(
+            painter = painterResource(id = R.drawable.app_logo),
+            contentDescription = null,
+            modifier = Modifier.size(140.dp)
+        )
         Spacer(modifier = Modifier.height(180.dp))
         OutlinedButton(
             border = BorderStroke(1.dp, Color.White),
             colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.White),
-            onClick = { },
+            onClick = { navController.navigate(LoginScreenDestination) },
             contentPadding = PaddingValues(horizontal = 80.dp, vertical = 15.dp)
         ) {
             Text(
                 text = "Log in".uppercase(), fontSize = 20.sp, fontWeight = FontWeight.W800
             )
         }
-        Spacer(modifier = Modifier.height(5.dp))
         Row {
             Text(
                 text = "Don't have account?",
@@ -69,16 +77,14 @@ fun WelcomeScreen() {
                 modifier = Modifier.padding(top = 14.dp)
             )
             TextButton(
-                onClick = {  },
+                onClick = { navController.navigate(RegistrationScreenDestination) },
             ) {
                 Text(
                     text = "Sign up",
                     textDecoration = TextDecoration.Underline,
                     color = Color.White,
-
                 )
             }
         }
     }
 }
-
