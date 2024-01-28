@@ -26,6 +26,7 @@ import androidx.compose.material.icons.outlined.AddCircle
 import androidx.compose.material.icons.outlined.KeyboardArrowDown
 import androidx.compose.material.icons.outlined.KeyboardArrowUp
 import androidx.compose.material.icons.outlined.List
+import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.PlayArrow
 import androidx.compose.material.icons.outlined.Search
@@ -61,7 +62,7 @@ val TopListOfItems: List<TopNavigationItem> = listOf(
     TopNavigationItem("Send", Icons.Outlined.Send, Icons.Outlined.Send, true),
     TopNavigationItem("Profiles", Icons.Outlined.KeyboardArrowDown, Icons.Outlined.KeyboardArrowUp, true),
     TopNavigationItem("Create", Icons.Filled.AddCircle, Icons.Outlined.AddCircle, true),
-    TopNavigationItem(null, Icons.Outlined.List, Icons.Outlined.List, true)
+    TopNavigationItem(null, Icons.Outlined.List, Icons.Outlined.Menu, true)
 )
 
 val listOfItems: List<BottomNavigationItem> = listOf(

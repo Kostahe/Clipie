@@ -1,14 +1,18 @@
 package com.clipie.presentation.profile_screen.components
 
+import android.graphics.drawable.VectorDrawable
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.mutableStateOf
 import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -18,12 +22,15 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
+import androidx.compose.material.icons.outlined.PlayArrow
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.Divider
+import androidx.compose.material3.DividerDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.RadioButton
@@ -42,6 +49,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -60,14 +68,11 @@ import com.ramcosta.composedestinations.annotation.Destination
 fun ProfileScreen() {
 
 
-    Scaffold(
-        topBar = {
-            ProfileScreenTopBar()
-        },
-        bottomBar = {
-            ProfileScreenBottomBar()
-        }
-    ) { padding ->
+    Scaffold(topBar = {
+        ProfileScreenTopBar()
+    }, bottomBar = {
+        ProfileScreenBottomBar()
+    }) { padding ->
         LazyColumn(
             modifier = Modifier.padding(padding)
         ) {
@@ -160,14 +165,9 @@ fun ProfileScreenTopBar() {
 
         val userAccountList: List<Account> = listOf(
             Account(
-                imagePainter,
-                "Franta",
-                69
-            ),
-            Account(
-                painterResource(id = R.drawable.ic_launcher_background),
-                "vlad",
-                2
+                imagePainter, "Franta", 69
+            ), Account(
+                painterResource(id = R.drawable.ic_launcher_background), "vlad", 2
             )
         )
         if (accountSheetOpenSwitch) {
@@ -192,14 +192,12 @@ fun ProfileScreenTopBar() {
                 Row(modifier = Modifier
                     .clickable {
                         Log.d(
-                            "currentProfileRow",
-                            "Current account has been clicked!!!"
+                            "currentProfileRow", "Current account has been clicked!!!"
                         )
                     }
                     .fillMaxWidth()
                     .fillMaxHeight(0.1f),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
+                    verticalAlignment = Alignment.CenterVertically) {
                     Spacer(modifier = Modifier.width(20.dp))
                     Icon(
                         imageVector = Icons.Outlined.Add,
@@ -222,12 +220,25 @@ fun ProfileScreenTopBar() {
 
 
         if (createSheetOpenSwitch) {
-            //            Create ModalBottomSheet
+//      Create ModalBottomSheet
             ModalBottomSheet(
                 onDismissRequest = { createSheetOpenSwitch = false },
                 sheetState = createSheetState,
             ) {
-
+                Box(
+                    modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = "Create",
+                        style = MaterialTheme.typography.headlineSmall,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+                Divider()
+                CreateBottomSheetItem(text = "Clip", icon = Icons.Outlined.PlayArrow)
+                CreateBottomSheetItem(text = "Post", icon = Icons.Outlined.PlayArrow)
+                CreateBottomSheetItem(text = "Story", icon = Icons.Outlined.PlayArrow)
+                CreateBottomSheetItem(text = "Story Highlight", icon = Icons.Outlined.PlayArrow)
 
             }
         }
@@ -240,56 +251,57 @@ fun ProfileScreenTopBar() {
 
             }
         }
-    },
-        actions = {
-            BadgedBox(badge = {
-                if (TopListOfItems[4].hasNews) {
-                    Badge(
-                        Modifier
-                            .offset(x = (-8).dp, y = 13.dp)
-                            .size(8.dp)
-                    )
-                }
-            }) {
-                IconButton(onClick = { createSheetOpenSwitch = true }) {
-                    Icon(
-                        imageVector = TopListOfItems[4].unselectedIcon,
-                        contentDescription = TopListOfItems[4].title,
-                        Modifier.size(30.dp)
-                    )
-                }
+    }, actions = {
+        BadgedBox(badge = {
+            if (TopListOfItems[4].hasNews) {
+                Badge(
+                    Modifier
+                        .offset(x = (-8).dp, y = 13.dp)
+                        .size(8.dp)
+                )
             }
-            BadgedBox(badge = {
-                if (TopListOfItems[5].hasNews) {
-                    Badge(
-                        Modifier.offset(x = (-9).dp, y = 13.dp)
-                            .size(8.dp)
-                    )
-                }
-            }) {
-                IconButton(onClick = { listsSheetOpenSwitch = true }) {
-                    Icon(
-                        imageVector = TopListOfItems[5].unselectedIcon,
-                        contentDescription = TopListOfItems[5].title,
-                        Modifier.offset((-9).dp, (0).dp)
-                            .size(80.dp)
-
-                    )
-                }
+        }) {
+            IconButton(onClick = { createSheetOpenSwitch = true }) {
+                Icon(
+                    imageVector = TopListOfItems[4].unselectedIcon,
+                    contentDescription = TopListOfItems[4].title,
+                    Modifier.size(30.dp)
+                )
             }
         }
-    )
+
+        BadgedBox(badge = {
+            if (TopListOfItems[5].hasNews) {
+                Badge(
+                    Modifier
+                        .offset(x = (-9).dp, y = 13.dp)
+                        .size(8.dp)
+                )
+            }
+        }) {
+            IconButton(onClick = { listsSheetOpenSwitch = true }) {
+                Icon(
+                    imageVector = TopListOfItems[5].unselectedIcon,
+                    contentDescription = TopListOfItems[5].title,
+                    Modifier
+                        .size(40.dp)
+                )
+            }
+        }
+    })
 }
 
 @Composable
 fun AccountItem(accountName: String, pfp: Painter, selected: Boolean) {
 
     Row(modifier = Modifier
-        .clickable { Log.d("currentProfileRow", "Current account has been clicked!!!") }
+        .clickable {
+            Log.d(
+                "currentProfileRow", "Current account has been clicked!!!"
+            )
+        }
         .fillMaxWidth()
-        .fillMaxHeight(0.1f),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
+        .fillMaxHeight(0.1f), verticalAlignment = Alignment.CenterVertically) {
         Spacer(modifier = Modifier.width(20.dp))
         Row(
             modifier = Modifier.weight(1f)
@@ -314,4 +326,25 @@ fun AccountItem(accountName: String, pfp: Painter, selected: Boolean) {
             selected = selected, onClick = { }, modifier = Modifier.weight(0.2f)
         )
     }
+}
+
+@Composable
+fun CreateBottomSheetItem(text: String, icon: ImageVector, contentDescription: String? = null) {
+    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.clickable {}.fillMaxWidth()) {
+        Box(contentAlignment = Alignment.Center, modifier = Modifier.size(40.dp)) {
+            Icon(
+                imageVector = icon, contentDescription = contentDescription,
+                modifier = Modifier.size(35.dp)
+            )
+        }
+        Text(
+            text = text,
+            style = MaterialTheme.typography.headlineSmall, modifier = Modifier.padding(vertical = 10.dp)
+        )
+    }
+    Divider(
+        modifier = Modifier
+            .offset(42.dp)
+    )
+
 }
