@@ -1,5 +1,9 @@
 package com.clipie.domain.repository
 
-interface AuthenticationRepository {
+import com.clipie.domain.entities.State
+import com.clipie.domain.model.User
 
+interface AuthenticationRepository {
+    fun signUp(email: String, password: String, user: User, result: (State<Unit>) -> Unit)
+    fun updateUser(user: User, result: (State<Unit>) -> Unit)
 }
