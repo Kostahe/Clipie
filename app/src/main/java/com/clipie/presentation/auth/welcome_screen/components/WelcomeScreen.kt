@@ -1,4 +1,4 @@
-package com.clipie.presentation.welcome_screen.components
+package com.clipie.presentation.auth.welcome_screen.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
