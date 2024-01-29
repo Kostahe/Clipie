@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -216,12 +217,16 @@ fun ProfileScreenTopBar() {
                         fontWeight = FontWeight.Bold
                     )
                 }
+                Spacer(modifier = Modifier.height(15.dp))
                 Divider()
                 CreateBottomSheetItem(text = "Clip", icon = Icons.Outlined.PlayArrow)
                 CreateBottomSheetItem(text = "Post", icon = Icons.Outlined.PlayArrow)
                 CreateBottomSheetItem(text = "Story", icon = Icons.Outlined.PlayArrow)
                 CreateBottomSheetItem(text = "Story Highlight", icon = Icons.Outlined.PlayArrow)
-
+                CreateBottomSheetItem(text = "Live", icon = Icons.Outlined.PlayArrow)
+                CreateBottomSheetItem(text = "Made for you", icon = Icons.Outlined.PlayArrow)
+                CreateBottomSheetItem(text = "Fundraiser", icon = Icons.Outlined.PlayArrow)
+                Spacer(modifier = Modifier.height(80.dp))
             }
         }
 
@@ -312,7 +317,9 @@ fun AccountItem(accountName: String, pfp: Painter, selected: Boolean) {
 
 @Composable
 fun CreateBottomSheetItem(text: String, icon: ImageVector, contentDescription: String? = null) {
-    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.clickable {}.fillMaxWidth()) {
+    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier
+        .clickable {}
+        .fillMaxWidth()) {
         Box(contentAlignment = Alignment.Center, modifier = Modifier.size(40.dp)) {
             Icon(
                 imageVector = icon, contentDescription = contentDescription,
