@@ -1,4 +1,4 @@
-package com.clipie.presentation.login_screen
+package com.clipie.presentation.auth.login_screen
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
