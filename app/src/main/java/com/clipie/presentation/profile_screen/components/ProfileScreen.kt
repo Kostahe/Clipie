@@ -49,6 +49,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -64,7 +65,6 @@ import com.ramcosta.composedestinations.annotation.Destination
 @Preview
 @Composable
 fun ProfileScreen() {
-
 
     Scaffold(topBar = {
         ProfileScreenTopBar()
@@ -192,7 +192,7 @@ fun ProfileScreenTopBar() {
                             .border(1.dp, Color.Gray, CircleShape)
                     )
                     Text(
-                        text = "Add account",
+                        text = stringResource(R.string.add_account),
                         Modifier.padding(start = 20.dp),
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
@@ -214,7 +214,7 @@ fun ProfileScreenTopBar() {
                     modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "Create",
+                        text = stringResource(R.string.create),
                         style = MaterialTheme.typography.headlineSmall,
                         fontWeight = FontWeight.Bold
                     )
@@ -222,13 +222,13 @@ fun ProfileScreenTopBar() {
 
                     Spacer(modifier = Modifier.height(15.dp))
                     Divider()
-                    CreateBottomSheetItem(text = "Clip", icon = Icons.Outlined.PlayArrow){}
-                    CreateBottomSheetItem(text = "Post", icon = Icons.Outlined.PlayArrow){}
-                    CreateBottomSheetItem(text = "Story", icon = Icons.Outlined.PlayArrow){}
-                    CreateBottomSheetItem(text = "Story Highlight", icon = Icons.Outlined.PlayArrow){}
-                    CreateBottomSheetItem(text = "Live", icon = Icons.Outlined.PlayArrow){}
-                    CreateBottomSheetItem(text = "Made for you", icon = Icons.Outlined.PlayArrow){}
-                    CreateBottomSheetItem(text = "Fundraiser", icon = Icons.Outlined.PlayArrow){
+                    CreateBottomSheetItem(text = stringResource(R.string.clip), icon = Icons.Outlined.PlayArrow){}
+                    CreateBottomSheetItem(text = stringResource(R.string.post), icon = Icons.Outlined.PlayArrow){}
+                    CreateBottomSheetItem(text = stringResource(R.string.story), icon = Icons.Outlined.PlayArrow){}
+                    CreateBottomSheetItem(text = stringResource(R.string.story_highlight), icon = Icons.Outlined.PlayArrow){}
+                    CreateBottomSheetItem(text = stringResource(R.string.live), icon = Icons.Outlined.PlayArrow){}
+                    CreateBottomSheetItem(text = stringResource(R.string.made_for_you), icon = Icons.Outlined.PlayArrow){}
+                    CreateBottomSheetItem(text = stringResource(R.string.fundraiser), icon = Icons.Outlined.PlayArrow){
                         Log.d("Tag232323", "fundraiser has been clicked")
                     }
 
