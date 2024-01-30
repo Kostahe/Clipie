@@ -5,21 +5,26 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.mutableStateOf
 import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.PlayArrow
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -47,6 +52,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -61,7 +67,6 @@ import com.ramcosta.composedestinations.annotation.Destination
 @Preview
 @Composable
 fun ProfileScreen() {
-
 
     Scaffold(topBar = {
         ProfileScreenTopBar()
@@ -189,7 +194,7 @@ fun ProfileScreenTopBar() {
                             .border(1.dp, Color.Gray, CircleShape)
                     )
                     Text(
-                        text = "Add account",
+                        text = stringResource(R.string.add_account),
                         Modifier.padding(start = 20.dp),
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
@@ -205,21 +210,29 @@ fun ProfileScreenTopBar() {
             ModalBottomSheet(
                 onDismissRequest = { createSheetOpenSwitch = false },
                 sheetState = createSheetState,
+                modifier = Modifier.requiredHeight(1130.dp)
             ) {
                 Box(
                     modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "Create",
+                        text = stringResource(R.string.create),
                         style = MaterialTheme.typography.headlineSmall,
                         fontWeight = FontWeight.Bold
                     )
                 }
-                Divider()
-                CreateBottomSheetItem(text = "Clip", icon = Icons.Outlined.PlayArrow)
-                CreateBottomSheetItem(text = "Post", icon = Icons.Outlined.PlayArrow)
-                CreateBottomSheetItem(text = "Story", icon = Icons.Outlined.PlayArrow)
-                CreateBottomSheetItem(text = "Story Highlight", icon = Icons.Outlined.PlayArrow)
+
+                    Spacer(modifier = Modifier.height(15.dp))
+                    Divider()
+                    CreateBottomSheetItem(text = stringResource(R.string.clip), icon = Icons.Outlined.PlayArrow){}
+                    CreateBottomSheetItem(text = stringResource(R.string.post), icon = Icons.Outlined.PlayArrow){}
+                    CreateBottomSheetItem(text = stringResource(R.string.story), icon = Icons.Outlined.PlayArrow){}
+                    CreateBottomSheetItem(text = stringResource(R.string.story_highlight), icon = Icons.Outlined.PlayArrow){}
+                    CreateBottomSheetItem(text = stringResource(R.string.live), icon = Icons.Outlined.PlayArrow){}
+                    CreateBottomSheetItem(text = stringResource(R.string.made_for_you), icon = Icons.Outlined.PlayArrow){}
+                    CreateBottomSheetItem(text = stringResource(R.string.fundraiser), icon = Icons.Outlined.PlayArrow){
+                        Log.d("Tag232323", "fundraiser has been clicked")
+                    }
 
             }
         }
@@ -229,6 +242,7 @@ fun ProfileScreenTopBar() {
                 onDismissRequest = { listsSheetOpenSwitch = false },
                 sheetState = listsSheetState
             ) {
+                ListsBottomSheetItem("Settings and Privacy", Icons.Outlined.Settings, 169)
 
             }
         }
@@ -310,11 +324,13 @@ fun AccountItem(accountName: String, pfp: Painter, selected: Boolean) {
 }
 
 @Composable
-fun CreateBottomSheetItem(text: String, icon: ImageVector, contentDescription: String? = null) {
-    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.clickable {}.fillMaxWidth()) {
+fun CreateBottomSheetItem(text: String, icon: ImageVector, iconContentDescription: String? = null, onClick:()->Unit) {
+    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier
+        .clickable { onClick() }
+        .fillMaxWidth()) {
         Box(contentAlignment = Alignment.Center, modifier = Modifier.size(40.dp)) {
             Icon(
-                imageVector = icon, contentDescription = contentDescription,
+                imageVector = icon, contentDescription = iconContentDescription,
                 modifier = Modifier.size(35.dp)
             )
         }
@@ -328,4 +344,19 @@ fun CreateBottomSheetItem(text: String, icon: ImageVector, contentDescription: S
             .offset(42.dp)
     )
 
+}
+
+@Composable
+fun ListsBottomSheetItem (text: String, icon: ImageVector, notificationCount: Int, iconContentDescription: String? = null) {
+
+    Row(modifier = Modifier.fillMaxWidth()) {
+        Icon(imageVector = icon, contentDescription = iconContentDescription)
+        Text(text = text, style = MaterialTheme.typography.headlineSmall, modifier = Modifier.padding(vertical = 10.dp))
+        Text(text = if(notificationCount < 100) {notificationCount.toString()}else{" 99+ "},
+//            Remove if a simular concept is used somewhere else and make a global function
+            modifier = Modifier.offset(130.dp)
+            .background(Color.Red, shape = RoundedCornerShape(100)),
+            style = MaterialTheme.typography.labelLarge
+        )
+    }
 }
