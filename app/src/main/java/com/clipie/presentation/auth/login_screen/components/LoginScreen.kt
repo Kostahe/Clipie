@@ -1,4 +1,4 @@
-package com.clipie.presentation.login_screen.components
+package com.clipie.presentation.auth.login_screen.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -30,6 +30,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.clipie.R
+import com.clipie.presentation.NavGraphs
 import com.clipie.ui.theme.lobsterFontFamily
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -74,7 +75,11 @@ fun LoginScreen(
                 )
             }
         }
-        LoginScreenButton(modifier = Modifier.width(275.dp), onClick = {}, text = "Login")
+        LoginScreenButton(
+            modifier = Modifier.width(275.dp),
+            onClick = { navController.navigate(NavGraphs.main.route)},
+            text = "Login"
+        )
     }
 }
 
