@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -207,6 +208,7 @@ fun ProfileScreenTopBar() {
             ModalBottomSheet(
                 onDismissRequest = { createSheetOpenSwitch = false },
                 sheetState = createSheetState,
+                modifier = Modifier.requiredHeight(1130.dp)
             ) {
                 Box(
                     modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center
@@ -217,16 +219,19 @@ fun ProfileScreenTopBar() {
                         fontWeight = FontWeight.Bold
                     )
                 }
-                Spacer(modifier = Modifier.height(15.dp))
-                Divider()
-                CreateBottomSheetItem(text = "Clip", icon = Icons.Outlined.PlayArrow)
-                CreateBottomSheetItem(text = "Post", icon = Icons.Outlined.PlayArrow)
-                CreateBottomSheetItem(text = "Story", icon = Icons.Outlined.PlayArrow)
-                CreateBottomSheetItem(text = "Story Highlight", icon = Icons.Outlined.PlayArrow)
-                CreateBottomSheetItem(text = "Live", icon = Icons.Outlined.PlayArrow)
-                CreateBottomSheetItem(text = "Made for you", icon = Icons.Outlined.PlayArrow)
-                CreateBottomSheetItem(text = "Fundraiser", icon = Icons.Outlined.PlayArrow)
-                Spacer(modifier = Modifier.height(80.dp))
+
+                    Spacer(modifier = Modifier.height(15.dp))
+                    Divider()
+                    CreateBottomSheetItem(text = "Clip", icon = Icons.Outlined.PlayArrow){}
+                    CreateBottomSheetItem(text = "Post", icon = Icons.Outlined.PlayArrow){}
+                    CreateBottomSheetItem(text = "Story", icon = Icons.Outlined.PlayArrow){}
+                    CreateBottomSheetItem(text = "Story Highlight", icon = Icons.Outlined.PlayArrow){}
+                    CreateBottomSheetItem(text = "Live", icon = Icons.Outlined.PlayArrow){}
+                    CreateBottomSheetItem(text = "Made for you", icon = Icons.Outlined.PlayArrow){}
+                    CreateBottomSheetItem(text = "Fundraiser", icon = Icons.Outlined.PlayArrow){
+                        Log.d("Tag232323", "fundraiser has been clicked")
+                    }
+
             }
         }
 
@@ -316,9 +321,9 @@ fun AccountItem(accountName: String, pfp: Painter, selected: Boolean) {
 }
 
 @Composable
-fun CreateBottomSheetItem(text: String, icon: ImageVector, contentDescription: String? = null) {
+fun CreateBottomSheetItem(text: String, icon: ImageVector, contentDescription: String? = null, onClick:()->Unit) {
     Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier
-        .clickable {}
+        .clickable { onClick() }
         .fillMaxWidth()) {
         Box(contentAlignment = Alignment.Center, modifier = Modifier.size(40.dp)) {
             Icon(
