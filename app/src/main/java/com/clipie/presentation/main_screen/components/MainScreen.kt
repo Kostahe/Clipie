@@ -47,6 +47,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -57,7 +58,6 @@ import com.clipie.presentation.destinations.HomeScreenDestination
 import com.clipie.presentation.destinations.ProfileScreenDestination
 import com.clipie.presentation.home_screen.components.HomeScreen
 import com.clipie.presentation.profile_screen.components.ProfileScreen
-import com.clipie.ui.theme.Black
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.NavGraph
@@ -189,7 +189,7 @@ fun MainScreenTopBar() {
                     text = "For you",
                     style = MaterialTheme.typography.headlineLarge,
                     fontWeight = FontWeight.Bold,
-                    color = Black
+                    color = Color.Black
                 )
                 Icon(
                     imageVector = if (expanded) TopListOfItems[0].selectedIcon else TopListOfItems[0].unselectedIcon,
