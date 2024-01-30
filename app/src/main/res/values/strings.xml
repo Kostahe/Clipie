@@ -13,4 +13,11 @@
     <string name="fundraiser">Fundraiser</string>
     <string name="create">Create</string>
     <string name="add_account">Add account</string>
+    <string name="clipie">Clipie</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="log_in">Log in</string>
+    <string name="password_visible">Password visible</string>
+    <string name="password_invisible">Password invisible</string>
+    <string name="create_new_account">Create new account</string>
 </resources>

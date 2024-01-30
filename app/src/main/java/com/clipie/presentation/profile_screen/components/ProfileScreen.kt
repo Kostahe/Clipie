@@ -60,7 +60,6 @@ import androidx.compose.ui.unit.dp
 import com.clipie.R
 import com.clipie.presentation.main_screen.components.TopListOfItems
 import com.clipie.presentation.main_screen.components.listOfItems
-import com.clipie.ui.theme.Black
 import com.ramcosta.composedestinations.annotation.Destination
 
 
@@ -145,7 +144,7 @@ fun ProfileScreenTopBar() {
                     text = "Insert username here",
                     style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.Bold,
-                    color = Black,
+                    color = Color.Black,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1
                 )
