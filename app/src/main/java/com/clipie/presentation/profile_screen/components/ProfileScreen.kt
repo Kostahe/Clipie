@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.mutableStateOf
 import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -19,9 +20,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.PlayArrow
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -240,6 +243,7 @@ fun ProfileScreenTopBar() {
                 onDismissRequest = { listsSheetOpenSwitch = false },
                 sheetState = listsSheetState
             ) {
+                ListsBottomSheetItem("Settings and Privacy", Icons.Outlined.Settings, 169)
 
             }
         }
@@ -321,13 +325,13 @@ fun AccountItem(accountName: String, pfp: Painter, selected: Boolean) {
 }
 
 @Composable
-fun CreateBottomSheetItem(text: String, icon: ImageVector, contentDescription: String? = null, onClick:()->Unit) {
+fun CreateBottomSheetItem(text: String, icon: ImageVector, iconContentDescription: String? = null, onClick:()->Unit) {
     Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier
         .clickable { onClick() }
         .fillMaxWidth()) {
         Box(contentAlignment = Alignment.Center, modifier = Modifier.size(40.dp)) {
             Icon(
-                imageVector = icon, contentDescription = contentDescription,
+                imageVector = icon, contentDescription = iconContentDescription,
                 modifier = Modifier.size(35.dp)
             )
         }
@@ -341,4 +345,19 @@ fun CreateBottomSheetItem(text: String, icon: ImageVector, contentDescription: S
             .offset(42.dp)
     )
 
+}
+
+@Composable
+fun ListsBottomSheetItem (text: String, icon: ImageVector, notificationCount: Int, iconContentDescription: String? = null) {
+
+    Row(modifier = Modifier.fillMaxWidth()) {
+        Icon(imageVector = icon, contentDescription = iconContentDescription)
+        Text(text = text, style = MaterialTheme.typography.headlineSmall, modifier = Modifier.padding(vertical = 10.dp))
+        Text(text = if(notificationCount < 100) {notificationCount.toString()}else{" 99+ "},
+//            Remove if a simular concept is used somewhere else and make a global function
+            modifier = Modifier.offset(130.dp)
+            .background(Color.Red, shape = RoundedCornerShape(100)),
+            style = MaterialTheme.typography.labelLarge
+        )
+    }
 }
