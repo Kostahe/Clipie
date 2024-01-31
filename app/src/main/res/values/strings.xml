@@ -3,4 +3,21 @@
     <string name="app_name">Clipie</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="clip">Clip</string>
+    <string name="post">Post</string>
+    <string name="story">Story</string>
+    <string name="story_highlight">Story Highlight</string>
+    <string name="live">Live</string>
+    <string name="made_for_you">Made for you</string>
+    <string name="fundraiser">Fundraiser</string>
+    <string name="create">Create</string>
+    <string name="add_account">Add account</string>
+    <string name="clipie">Clipie</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="log_in">Log in</string>
+    <string name="password_visible">Password visible</string>
+    <string name="password_invisible">Password invisible</string>
+    <string name="create_new_account">Create new account</string>
 </resources>

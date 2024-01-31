@@ -1,4 +1,4 @@
-package com.clipie.presentation.main_screen.components
+package com.clipie.presentation.screens.main_screen.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.AddCircle
@@ -26,6 +25,7 @@ import androidx.compose.material.icons.outlined.AddCircle
 import androidx.compose.material.icons.outlined.KeyboardArrowDown
 import androidx.compose.material.icons.outlined.KeyboardArrowUp
 import androidx.compose.material.icons.outlined.List
+import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.PlayArrow
 import androidx.compose.material.icons.outlined.Search
@@ -47,21 +47,37 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.clipie.ui.theme.Black
+import androidx.navigation.compose.rememberNavController
+import com.clipie.presentation.screens.NavGraphs
+import com.clipie.presentation.screens.destinations.HomeScreenDestination
+import com.clipie.presentation.screens.destinations.ProfileScreenDestination
+import com.clipie.presentation.screens.profile_screen.components.ProfileScreen
+import com.clipie.presentation.screens.home_screen.components.HomeScreen
+import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.NavGraph
+import com.ramcosta.composedestinations.annotation.RootNavGraph
+import com.ramcosta.composedestinations.manualcomposablecalls.composable
 
 
 val TopListOfItems: List<TopNavigationItem> = listOf(
-    TopNavigationItem("ForYouDropDownMenu", Icons.Outlined.KeyboardArrowDown, Icons.Outlined.KeyboardArrowUp, true),
-    TopNavigationItem("Notifications", Icons.Outlined.FavoriteBorder, Icons.Outlined.FavoriteBorder, true),
+    TopNavigationItem(
+        "ForYouDropDownMenu", Icons.Outlined.KeyboardArrowDown, Icons.Outlined.KeyboardArrowUp, true
+    ),
+    TopNavigationItem(
+        "Notifications", Icons.Outlined.FavoriteBorder, Icons.Outlined.FavoriteBorder, true
+    ),
     TopNavigationItem("Send", Icons.Outlined.Send, Icons.Outlined.Send, true),
-    TopNavigationItem("Profiles", Icons.Outlined.KeyboardArrowDown, Icons.Outlined.KeyboardArrowUp, true),
+    TopNavigationItem(
+        "Profiles", Icons.Outlined.KeyboardArrowDown, Icons.Outlined.KeyboardArrowUp, true
+    ),
     TopNavigationItem("Create", Icons.Filled.AddCircle, Icons.Outlined.AddCircle, true),
-    TopNavigationItem(null, Icons.Outlined.List, Icons.Outlined.List, true)
+    TopNavigationItem(null, Icons.Outlined.List, Icons.Outlined.Menu, true)
 )
 
 val listOfItems: List<BottomNavigationItem> = listOf(
@@ -72,26 +88,37 @@ val listOfItems: List<BottomNavigationItem> = listOf(
     BottomNavigationItem("Profile", Icons.Filled.AccountCircle, Icons.Outlined.AccountCircle, false)
 )
 
+@RootNavGraph
+@NavGraph
+annotation class MainNavGraph(
+    val start: Boolean = false
+)
 
+@MainNavGraph(start = true)
 @Destination
 @Preview
 @Composable
 fun MainScreen() {
+    val navController = rememberNavController()
 
-
-    Scaffold(
-        topBar = {
-            MainScreenTopBar()
-        },
-        bottomBar = {
-            MainScreenBottomBar()
-        }
-    ) { padding ->
-        LazyColumn(
+    Scaffold(topBar = {
+        MainScreenTopBar()
+    }, bottomBar = {
+        MainScreenBottomBar()
+    }) { padding ->
+        DestinationsNavHost(
+            navGraph = NavGraphs.main,
+            navController = navController,
             modifier = Modifier.padding(padding)
         ) {
-
+            composable(HomeScreenDestination) {
+                HomeScreen()
+            }
+            composable(ProfileScreenDestination) {
+                ProfileScreen()
+            }
         }
+
     }
 }
 
@@ -150,8 +177,10 @@ fun MainScreenTopBar() {
 
         BadgedBox(badge = {
             if (TopListOfItems[0].hasNews) {
-                Badge(Modifier.offset(x = (-9).dp, y = 35.dp)
-                    .size(8.dp)
+                Badge(
+                    Modifier
+                        .offset(x = (-9).dp, y = 35.dp)
+                        .size(8.dp)
                 )
             }
         }) {
@@ -160,7 +189,7 @@ fun MainScreenTopBar() {
                     text = "For you",
                     style = MaterialTheme.typography.headlineLarge,
                     fontWeight = FontWeight.Bold,
-                    color = Black
+                    color = Color.Black
                 )
                 Icon(
                     imageVector = if (expanded) TopListOfItems[0].selectedIcon else TopListOfItems[0].unselectedIcon,
@@ -172,80 +201,72 @@ fun MainScreenTopBar() {
 
 
 
-        DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }
-        ) {
-            DropdownMenuItem(
-                modifier = Modifier
-                    .size(width = 180.dp, height = 40.dp),
-                text = {
-                    Text(
-                        text = "Following",
-                        style = MaterialTheme.typography.headlineSmall,
-                    )
-                    Icon(
-                        imageVector = Icons.Outlined.Person, contentDescription = null,
-                        Modifier.offset(130.dp, 3.dp)
-                    )
-                },
-                onClick = { /*TODO*/ })
+        DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+            DropdownMenuItem(modifier = Modifier.size(width = 180.dp, height = 40.dp), text = {
+                Text(
+                    text = "Following",
+                    style = MaterialTheme.typography.headlineSmall,
+                )
+                Icon(
+                    imageVector = Icons.Outlined.Person,
+                    contentDescription = null,
+                    Modifier.offset(130.dp, 3.dp)
+                )
+            }, onClick = { /*TODO*/ })
 
-            DropdownMenuItem(
-                modifier = Modifier
-                    .size(width = 180.dp, height = 40.dp),
-                text = {
-                    Text(
-                        text = "Favorites",
-                        style = MaterialTheme.typography.headlineSmall
-                    )
-                    Icon(
-                        imageVector = Icons.Outlined.Star, contentDescription = null,
-                        Modifier.offset(130.dp, 4.dp)
-                    )
-                },
-                onClick = { /*TODO*/ })
+            DropdownMenuItem(modifier = Modifier.size(width = 180.dp, height = 40.dp), text = {
+                Text(
+                    text = "Favorites", style = MaterialTheme.typography.headlineSmall
+                )
+                Icon(
+                    imageVector = Icons.Outlined.Star,
+                    contentDescription = null,
+                    Modifier.offset(130.dp, 4.dp)
+                )
+            }, onClick = { /*TODO*/ })
         }
 
 
-    },
-        actions = {
-            BadgedBox(badge = {
-                if (TopListOfItems[1].hasNews) {
-                    Badge(Modifier.offset(x = (-8).dp, y = 13.dp)
+    }, actions = {
+        BadgedBox(badge = {
+            if (TopListOfItems[1].hasNews) {
+                Badge(
+                    Modifier
+                        .offset(x = (-8).dp, y = 13.dp)
                         .size(8.dp)
-                    )
-                }
-            }) {
-                IconButton(onClick = { /*TODO*/ }) {
-                    Icon(
-                        imageVector = TopListOfItems[1].unselectedIcon,
-                        contentDescription = TopListOfItems[1].title,
-                        Modifier.size(30.dp)
-                    )
-                }
+                )
             }
-            BadgedBox(badge = {
-                if (TopListOfItems[2].hasNews) {
-                    Badge(Modifier.offset(x = (-9).dp, y = 13.dp)
+        }) {
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(
+                    imageVector = TopListOfItems[1].unselectedIcon,
+                    contentDescription = TopListOfItems[1].title,
+                    Modifier.size(30.dp)
+                )
+            }
+        }
+        BadgedBox(badge = {
+            if (TopListOfItems[2].hasNews) {
+                Badge(
+                    Modifier
+                        .offset(x = (-9).dp, y = 13.dp)
                         .size(8.dp)
-                    )
-                }
-            }) {
-                IconButton(onClick = { /*TODO*/ }) {
-                    Icon(
-                        imageVector = TopListOfItems[2].unselectedIcon,
-                        contentDescription = TopListOfItems[2].title,
-                        Modifier
-                            .rotate(330f)
-                            .size(30.dp)
-                            .offset(0.dp, (-4).dp)
-                    )
-                }
+                )
             }
-
-
+        }) {
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(
+                    imageVector = TopListOfItems[2].unselectedIcon,
+                    contentDescription = TopListOfItems[2].title,
+                    Modifier
+                        .rotate(330f)
+                        .size(30.dp)
+                        .offset(0.dp, (-4).dp)
+                )
+            }
         }
 
 
-    )
+    })
 }
 

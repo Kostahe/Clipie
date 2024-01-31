@@ -86,5 +86,5 @@ dependencies {
     // Hilt
     val hiltVersion = "2.48"
     implementation("com.google.dagger:hilt-android:$hiltVersion")
-    ksp("com.google.dagger:hilt-android-compiler:2.48")
+    ksp("com.google.dagger:hilt-android-compiler:$hiltVersion")
 }

@@ -1,4 +1,4 @@
-package com.clipie.presentation.profile_screen
+package com.clipie.presentation.screens.profile_screen
 
 import androidx.lifecycle.ViewModel
 import javax.inject.Inject

@@ -1,11 +1,11 @@
-package com.clipie.presentation.registration_screen
+package com.clipie.presentation.screens.auth.login_screen
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class RegistrationViewModel @Inject constructor(
+class LoginViewModel @Inject constructor(
 
 ): ViewModel() {
 
