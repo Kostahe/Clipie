@@ -1,4 +1,4 @@
-package com.clipie.presentation.auth.registration_screen.components
+package com.clipie.presentation.screens.auth.registration_screen.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer

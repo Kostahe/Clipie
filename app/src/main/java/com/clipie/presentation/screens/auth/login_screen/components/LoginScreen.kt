@@ -1,4 +1,4 @@
-package com.clipie.presentation.auth.login_screen.components
+package com.clipie.presentation.screens.auth.login_screen.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background

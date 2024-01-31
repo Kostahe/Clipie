@@ -1,4 +1,4 @@
-package com.clipie.presentation.profile_screen.components
+package com.clipie.presentation.screens.profile_screen.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
@@ -58,8 +58,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.clipie.R
-import com.clipie.presentation.main_screen.components.TopListOfItems
-import com.clipie.presentation.main_screen.components.listOfItems
+import com.clipie.presentation.screens.main_screen.components.TopListOfItems
+import com.clipie.presentation.screens.main_screen.components.listOfItems
 import com.clipie.ui.theme.Black
 import com.ramcosta.composedestinations.annotation.Destination
 
