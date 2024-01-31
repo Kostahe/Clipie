@@ -26,16 +26,19 @@ import com.clipie.presentation.screens.auth.components.AuthenticationButton
 import com.clipie.presentation.screens.auth.components.AuthenticationOutlinedButton
 import com.clipie.presentation.screens.auth.components.AuthenticationPasswordTextField
 import com.clipie.presentation.screens.auth.components.AuthenticationTextField
+import com.clipie.presentation.screens.destinations.RegistrationScreenDestination
 import com.clipie.ui.theme.Background
-import com.clipie.ui.theme.lobsterFontFamily
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootNavGraph
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 
 @Composable
-@Preview
 @Destination
+@RootNavGraph(start = true)
 fun LoginScreen(
     modifier: Modifier = Modifier,
+    navigator: DestinationsNavigator
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -61,7 +64,7 @@ fun LoginScreen(
             onValueChange = {},
             label = stringResource(R.string.password),
             imeAction = ImeAction.Done,
-            modifier = modifier.padding(top = 5.dp),
+            modifier = Modifier.padding(top = 5.dp),
         )
         AuthenticationButton(
             modifier = Modifier
@@ -69,7 +72,7 @@ fun LoginScreen(
                 .padding(10.dp)
             , onClick = {}, text = stringResource(R.string.log_in)
         )
-        TextButton(onClick = { }) {
+        TextButton(onClick = {  }) {
             Text(
                 text = stringResource(R.string.forgot_password), color = Color(0xFF1c2b33)
             )
@@ -78,7 +81,7 @@ fun LoginScreen(
             modifier = Modifier
                 .width(275.dp)
                 .padding(top = 200.dp),
-            onClick = { /*TODO*/ },
+            onClick = { navigator.navigate(RegistrationScreenDestination) },
             text = stringResource(R.string.create_new_account)
         )
     }
