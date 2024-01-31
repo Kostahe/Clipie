@@ -87,7 +87,7 @@ fun AuthenticationPasswordTextField(
                 }
             }
         },
-        shape = RoundedCornerShape(50),
+        shape = RoundedCornerShape(25),
         modifier = modifier
             .onFocusChanged {
                 focusedColor = if (it.isFocused) {

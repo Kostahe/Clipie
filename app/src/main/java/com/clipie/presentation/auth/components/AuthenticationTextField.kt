@@ -54,6 +54,7 @@ fun AuthenticationTextField(
             focusedLabelColor = FocusedOnTextField,
             unfocusedLabelColor = UnFocusedOnTextField
         ),
+        shape = RoundedCornerShape(25),
         modifier = modifier
             .onFocusChanged {
                 focusedColor = if (it.isFocused) {
