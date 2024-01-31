@@ -1,4 +1,4 @@
-package com.clipie.presentation.screens.home_screen.components
+package com.clipie.presentation.home_screen.components
 
 import androidx.compose.runtime.Composable
 import com.ramcosta.composedestinations.annotation.Destination
