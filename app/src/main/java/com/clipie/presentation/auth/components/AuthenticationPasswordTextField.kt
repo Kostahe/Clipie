@@ -1,4 +1,4 @@
-package com.clipie.presentation.screens.auth.components
+package com.clipie.presentation.auth.components
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.shape.RoundedCornerShape

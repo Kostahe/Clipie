@@ -1,6 +1,5 @@
-package com.clipie.presentation.screens.auth.login_screen.components
+package com.clipie.presentation.auth.login_screen.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -18,15 +17,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.clipie.R
-import com.clipie.presentation.screens.auth.components.AuthenticationButton
-import com.clipie.presentation.screens.auth.components.AuthenticationOutlinedButton
-import com.clipie.presentation.screens.auth.components.AuthenticationPasswordTextField
-import com.clipie.presentation.screens.auth.components.AuthenticationTextField
-import com.clipie.presentation.screens.destinations.RegistrationScreenDestination
+import com.clipie.presentation.auth.components.AuthenticationButton
+import com.clipie.presentation.auth.components.AuthenticationOutlinedButton
+import com.clipie.presentation.auth.components.AuthenticationPasswordTextField
+import com.clipie.presentation.auth.components.AuthenticationTextField
+import com.clipie.presentation.destinations.RegistrationScreenDestination
 import com.clipie.ui.theme.Background
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
