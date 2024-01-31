@@ -17,8 +17,8 @@ class RegistrationViewModel @Inject constructor(
     private val _state = MutableStateFlow(RegistrationState())
     val state = _state.asStateFlow()
 
-    fun createUser(username: String, password: String, user: User) {
-        repository.createUser(username, password, user) {
+    fun createUser(email: String, password: String, user: User) {
+        repository.createUser(email, password, user) {
             _state.value.state = it
         }
     }

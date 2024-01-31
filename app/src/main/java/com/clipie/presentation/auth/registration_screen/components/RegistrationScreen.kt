@@ -21,12 +21,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.clipie.R
+import com.clipie.domain.model.User
 import com.clipie.presentation.auth.components.AuthenticationButton
 import com.clipie.presentation.auth.components.AuthenticationPasswordTextField
 import com.clipie.presentation.auth.components.AuthenticationTextField
+import com.clipie.presentation.auth.registration_screen.RegistrationViewModel
 import com.clipie.ui.theme.Background
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Destination
@@ -35,6 +40,7 @@ fun RegistrationScreen(
     modifier: Modifier = Modifier,
     navigator: DestinationsNavigator
 ) {
+    val viewModel = hiltViewModel<RegistrationViewModel>()
     var email by rememberSaveable {
         mutableStateOf("")
     }
@@ -58,21 +64,21 @@ fun RegistrationScreen(
         )
         Spacer(modifier = Modifier.height(170.dp))
         AuthenticationTextField(
-            value = "",
-            onValueChange = {},
+            value = email,
+            onValueChange = {email = it},
             label = stringResource(R.string.email),
             imeAction = ImeAction.Next
         )
         AuthenticationTextField(
-            value = "",
-            onValueChange = {},
+            value = username,
+            onValueChange = {username = it},
             label = stringResource(R.string.username),
             imeAction = ImeAction.Done,
             modifier = modifier.padding(top = 5.dp),
         )
         AuthenticationPasswordTextField(
-            value = "",
-            onValueChange = {},
+            value = password,
+            onValueChange = {password = it},
             label = stringResource(R.string.password),
             imeAction = ImeAction.Done,
             modifier = modifier.padding(top = 5.dp),
@@ -80,8 +86,8 @@ fun RegistrationScreen(
         AuthenticationButton(
             modifier = Modifier
                 .width(275.dp)
-                .padding(10.dp)
-            , onClick = {},
+                .padding(10.dp),
+            onClick = {viewModel.createUser(email, password, User(username = username, email = email))},
             text = stringResource(id = R.string.create_account)
         )
         TextButton(
