@@ -1,4 +1,4 @@
-package com.clipie.presentation.screens.main_screen.components
+package com.clipie.presentation.main_screen.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -53,11 +53,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
-import com.clipie.presentation.screens.NavGraphs
-import com.clipie.presentation.screens.destinations.HomeScreenDestination
-import com.clipie.presentation.screens.destinations.ProfileScreenDestination
-import com.clipie.presentation.screens.profile_screen.components.ProfileScreen
-import com.clipie.presentation.screens.home_screen.components.HomeScreen
+import com.clipie.presentation.NavGraphs
+import com.clipie.presentation.destinations.HomeScreenDestination
+import com.clipie.presentation.destinations.ProfileScreenDestination
+import com.clipie.presentation.profile_screen.components.ProfileScreen
+import com.clipie.presentation.home_screen.components.HomeScreen
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.NavGraph
