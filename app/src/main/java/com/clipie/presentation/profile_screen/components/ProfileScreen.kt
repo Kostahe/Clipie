@@ -352,8 +352,8 @@ fun ListsBottomSheetItem (text: String, icon: ImageVector, notificationCount: In
     Row(modifier = Modifier.fillMaxWidth()) {
         Icon(imageVector = icon, contentDescription = iconContentDescription)
         Text(text = text, style = MaterialTheme.typography.headlineSmall, modifier = Modifier.padding(vertical = 10.dp))
-        Text(text = if(notificationCount < 100) {notificationCount.toString()}else{" 99+ "},
-//            Remove if a simular concept is used somewhere else and make a global function
+        Text(text = if(notificationCount < 100) {notificationCount.toString()} else {" 99+ "},
+//            Remove if a similar concept is used somewhere else and make a global function
             modifier = Modifier.offset(130.dp)
             .background(Color.Red, shape = RoundedCornerShape(100)),
             style = MaterialTheme.typography.labelLarge
