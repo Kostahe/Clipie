@@ -5,9 +5,7 @@ import java.util.Date
 
 data class User(
     var id: String = "",
-    val profileName: String = "",
-    val firstName: String = "",
-    val secondName: String = "",
+    val username: String = "",
     val email: String = "",
     @ServerTimestamp val signUpDate: Date = Date()
 )
