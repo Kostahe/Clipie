@@ -26,8 +26,8 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.clipie.R
-import com.clipie.presentation.destinations.LoginScreenDestination
-import com.clipie.presentation.destinations.RegistrationScreenDestination
+import com.clipie.presentation.screens.destinations.LoginScreenDestination
+import com.clipie.presentation.screens.destinations.RegistrationScreenDestination
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
