@@ -1,5 +1,6 @@
 package com.clipie.presentation.screens.auth.login_screen.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -7,12 +8,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
@@ -40,12 +43,12 @@ fun LoginScreen(
             .fillMaxSize()
             .background(color = Background)
     ) {
-        Spacer(modifier = Modifier.height(220.dp))
-        Text(
-            text = stringResource(R.string.clipie),
-            fontFamily = lobsterFontFamily,
-            fontSize = 60.sp,
-            color = Color.Black
+        Spacer(modifier = Modifier.height(170.dp))
+        Icon(
+            painter = painterResource(id = R.drawable.app_logo),
+            contentDescription = null,
+            tint = Color.Black,
+            modifier = Modifier.padding(bottom = 30.dp)
         )
         AuthenticationTextField(
             value = "",
@@ -58,10 +61,13 @@ fun LoginScreen(
             onValueChange = {},
             label = stringResource(R.string.password),
             imeAction = ImeAction.Done,
-            modifier = modifier.padding(top = 10.dp),
+            modifier = modifier.padding(top = 5.dp),
         )
         AuthenticationButton(
-            modifier = Modifier.width(275.dp), onClick = {}, text = stringResource(R.string.log_in)
+            modifier = Modifier
+                .width(275.dp)
+                .padding(10.dp)
+            , onClick = {}, text = stringResource(R.string.log_in)
         )
         TextButton(onClick = { }) {
             Text(
@@ -69,7 +75,9 @@ fun LoginScreen(
             )
         }
         AuthenticationOutlinedButton(
-            modifier = Modifier.width(275.dp),
+            modifier = Modifier
+                .width(275.dp)
+                .padding(top = 200.dp),
             onClick = { /*TODO*/ },
             text = stringResource(R.string.create_new_account)
         )
