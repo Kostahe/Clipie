@@ -11,7 +11,7 @@ class AuthenticationRepositoryImpl @Inject constructor(
     private val authentication: FirebaseAuth,
     private val database: FirebaseFirestore
 ) : AuthenticationRepository {
-    override fun signUp(email: String, password: String, user: User, result: (State<Unit>) -> Unit) {
+    override fun createUser(email: String, password: String, user: User, result: (State<Unit>) -> Unit) {
         authentication.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
