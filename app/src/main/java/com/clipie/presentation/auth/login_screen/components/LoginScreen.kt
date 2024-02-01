@@ -11,6 +11,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,11 +22,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.clipie.R
 import com.clipie.presentation.auth.components.AuthenticationButton
 import com.clipie.presentation.auth.components.AuthenticationOutlinedButton
 import com.clipie.presentation.auth.components.AuthenticationPasswordTextField
 import com.clipie.presentation.auth.components.AuthenticationTextField
+import com.clipie.presentation.auth.login_screen.LoginViewModel
 import com.clipie.presentation.destinations.RegistrationScreenDestination
 import com.clipie.ui.theme.Background
 import com.ramcosta.composedestinations.annotation.Destination
@@ -37,6 +43,13 @@ fun LoginScreen(
     modifier: Modifier = Modifier,
     navigator: DestinationsNavigator
 ) {
+    val viewModel = hiltViewModel<LoginViewModel>()
+    var email by rememberSaveable {
+        mutableStateOf("")
+    }
+    var password by rememberSaveable {
+        mutableStateOf("")
+    }
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
@@ -51,14 +64,14 @@ fun LoginScreen(
             modifier = Modifier.padding(bottom = 30.dp)
         )
         AuthenticationTextField(
-            value = "",
-            onValueChange = {},
+            value = email,
+            onValueChange = { email = it },
             label = stringResource(R.string.email),
             imeAction = ImeAction.Next
         )
         AuthenticationPasswordTextField(
-            value = "",
-            onValueChange = {},
+            value = password,
+            onValueChange = { password = it },
             label = stringResource(R.string.password),
             imeAction = ImeAction.Done,
             modifier = Modifier.padding(top = 5.dp),
@@ -66,12 +79,14 @@ fun LoginScreen(
         AuthenticationButton(
             modifier = Modifier
                 .width(275.dp)
-                .padding(10.dp)
-            , onClick = {}, text = stringResource(R.string.log_in)
+                .padding(10.dp),
+            onClick = { viewModel.login(email, password) },
+            text = stringResource(R.string.log_in)
         )
         TextButton(onClick = {  }) {
             Text(
-                text = stringResource(R.string.forgot_password), color = Color(0xFF1c2b33)
+                text = stringResource(R.string.forgot_password),
+                color = Color(0xFF1c2b33)
             )
         }
         AuthenticationOutlinedButton(
