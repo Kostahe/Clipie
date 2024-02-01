@@ -70,7 +70,6 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
-
     // Compose destinations
     val composeDestinations = "1.9.61"
     implementation("io.github.raamcosta.compose-destinations:animations-core:$composeDestinations")
@@ -88,5 +87,11 @@ dependencies {
     implementation("com.google.dagger:hilt-android:$hiltVersion")
     ksp("com.google.dagger:hilt-android-compiler:$hiltVersion")
 
-    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
+    // Navigation hilt
+    val hiltNavigationVersion = "1.1.0"
+    implementation("androidx.hilt:hilt-navigation-compose:$hiltNavigationVersion")
+
+    //Gson
+    val gsonVersion = "2.10.1"
+    implementation("com.google.code.gson:gson:$gsonVersion")
 }
