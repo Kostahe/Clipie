@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -23,9 +22,13 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
+import androidx.compose.material.icons.outlined.CheckCircle
+import androidx.compose.material.icons.outlined.Face
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.PlayArrow
 import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -63,6 +66,7 @@ import com.clipie.R
 import com.clipie.presentation.main_screen.components.TopListOfItems
 import com.clipie.presentation.main_screen.components.listOfItems
 import com.clipie.ui.theme.ButtonBackground
+import com.clipie.ui.theme.DividerColor
 import com.ramcosta.composedestinations.annotation.Destination
 
 
@@ -119,11 +123,11 @@ fun ProfileScreenBottomBar(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileScreenTopBar() {
-    val accountSheetState = rememberModalBottomSheetState()
+    val accountSheetState = rememberModalBottomSheetState(false)
     var accountSheetOpenSwitch by rememberSaveable { mutableStateOf(false) }
-    val createSheetState = rememberModalBottomSheetState()
+    val createSheetState = rememberModalBottomSheetState(true)
     var createSheetOpenSwitch by rememberSaveable { mutableStateOf(false) }
-    val listsSheetState = rememberModalBottomSheetState()
+    val listsSheetState = rememberModalBottomSheetState(true)
     var listsSheetOpenSwitch by rememberSaveable { mutableStateOf(false) }
     TopAppBar(title = {
 
@@ -211,7 +215,7 @@ fun ProfileScreenTopBar() {
             ModalBottomSheet(
                 onDismissRequest = { createSheetOpenSwitch = false },
                 sheetState = createSheetState,
-                modifier = Modifier.requiredHeight(1130.dp)
+                modifier = Modifier.height(550.dp)
             ) {
                 Box(
                     modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center
@@ -223,8 +227,8 @@ fun ProfileScreenTopBar() {
                     )
                 }
 
-                Spacer(modifier = Modifier.height(15.dp))
-                Divider()
+                Spacer(modifier = Modifier.height(12.dp))
+                Divider(color = DividerColor)
                 CreateBottomSheetItem(
                     text = stringResource(R.string.clip),
                     icon = Icons.Outlined.PlayArrow
@@ -260,9 +264,14 @@ fun ProfileScreenTopBar() {
         if (listsSheetOpenSwitch) {
             ModalBottomSheet(
                 onDismissRequest = { listsSheetOpenSwitch = false },
-                sheetState = listsSheetState
+                sheetState = listsSheetState,
+                modifier = Modifier
             ) {
-                ListsBottomSheetItem("Settings and Privacy", Icons.Outlined.Settings, 69)
+                ListsBottomSheetItem(
+                    text = "Settings and Privacy",
+                    icon = Icons.Outlined.Settings,
+                    notificationCount = 69
+                )
                 ListsBottomSheetItem(
                     text = "Your Activity",
                     icon = Icons.Outlined.Info,
@@ -273,6 +282,37 @@ fun ProfileScreenTopBar() {
                     icon = Icons.Outlined.Star,
                     notificationCount = 0
                 )
+                ListsBottomSheetItem(
+                    text = "Share Account",
+                    icon = Icons.Outlined.Share,
+                    notificationCount = 1
+                )
+                ListsBottomSheetItem(
+                    text = "Saved",
+                    icon = Icons.Outlined.Star,
+                    notificationCount = 36
+                )
+                ListsBottomSheetItem(
+                    text = "Supervision",
+                    icon = Icons.Outlined.Face,
+                    notificationCount = 0
+                )
+                ListsBottomSheetItem(
+                    text = "Verification",
+                    icon = Icons.Outlined.CheckCircle,
+                    notificationCount = 0
+                )
+                ListsBottomSheetItem(
+                    text = "Close Friends",
+                    icon = Icons.Outlined.Person,
+                    notificationCount = 0
+                )
+                ListsBottomSheetItem(
+                    text = "Favorites",
+                    icon = Icons.Outlined.Star,
+                    notificationCount = 22
+                )
+
             }
         }
     }, actions = {
@@ -371,12 +411,12 @@ fun CreateBottomSheetItem(
         Text(
             text = text,
             style = MaterialTheme.typography.headlineSmall,
-            modifier = Modifier.padding(vertical = 10.dp)
+            modifier = Modifier.padding(vertical = 9.dp)
         )
     }
     Divider(
-        modifier = Modifier
-            .offset(42.dp)
+        modifier = Modifier.offset(42.dp),
+        color = DividerColor
     )
 
 }
@@ -391,17 +431,17 @@ fun ListsBottomSheetItem(
     Row(modifier = Modifier
         .fillMaxWidth()
         .clickable { }
-        .fillMaxHeight(0.06f)) {
+    ) {
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier
-                .size(45.dp)
+                .size(50.dp)
                 .align(Alignment.CenterVertically)
         ) {
             Icon(
                 imageVector = icon,
                 contentDescription = iconContentDescription,
-                Modifier.size(35.dp)
+                Modifier.size(30.dp)
             )
         }
 
@@ -416,7 +456,7 @@ fun ListsBottomSheetItem(
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.CenterVertically)
-//            Don't forget to add a padding at the end
+                .padding(end = 12.dp)
         ) {
             Text(
                 text = notificationFormat(notificationCount),
