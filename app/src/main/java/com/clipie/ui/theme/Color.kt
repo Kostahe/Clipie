@@ -16,3 +16,4 @@ val FocusedOnTextField = Color(0xFF1c2b33)
 val CursorTextField = Color.Black
 val ButtonBackground = Color(0xFF4cb5f9)
 val OnButtonBackground = Color(0xFFfafafa)
+val DividerColor = Color(225,225,225)

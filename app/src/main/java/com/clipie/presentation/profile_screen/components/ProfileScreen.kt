@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -23,8 +22,14 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
+import androidx.compose.material.icons.outlined.CheckCircle
+import androidx.compose.material.icons.outlined.Face
+import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.PlayArrow
 import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material.icons.outlined.Share
+import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -60,6 +65,8 @@ import androidx.compose.ui.unit.dp
 import com.clipie.R
 import com.clipie.presentation.main_screen.components.TopListOfItems
 import com.clipie.presentation.main_screen.components.listOfItems
+import com.clipie.ui.theme.ButtonBackground
+import com.clipie.ui.theme.DividerColor
 import com.ramcosta.composedestinations.annotation.Destination
 
 
@@ -116,11 +123,11 @@ fun ProfileScreenBottomBar(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileScreenTopBar() {
-    val accountSheetState = rememberModalBottomSheetState()
+    val accountSheetState = rememberModalBottomSheetState(false)
     var accountSheetOpenSwitch by rememberSaveable { mutableStateOf(false) }
-    val createSheetState = rememberModalBottomSheetState()
+    val createSheetState = rememberModalBottomSheetState(true)
     var createSheetOpenSwitch by rememberSaveable { mutableStateOf(false) }
-    val listsSheetState = rememberModalBottomSheetState()
+    val listsSheetState = rememberModalBottomSheetState(true)
     var listsSheetOpenSwitch by rememberSaveable { mutableStateOf(false) }
     TopAppBar(title = {
 
@@ -157,7 +164,6 @@ fun ProfileScreenTopBar() {
         }
 
         if (accountSheetOpenSwitch) {
-
 
             ModalBottomSheet(
                 onDismissRequest = { accountSheetOpenSwitch = false },
@@ -206,11 +212,10 @@ fun ProfileScreenTopBar() {
 
 
         if (createSheetOpenSwitch) {
-//      Create ModalBottomSheet
             ModalBottomSheet(
                 onDismissRequest = { createSheetOpenSwitch = false },
                 sheetState = createSheetState,
-                modifier = Modifier.requiredHeight(1130.dp)
+                modifier = Modifier.height(550.dp)
             ) {
                 Box(
                     modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center
@@ -222,17 +227,36 @@ fun ProfileScreenTopBar() {
                     )
                 }
 
-                    Spacer(modifier = Modifier.height(15.dp))
-                    Divider()
-                    CreateBottomSheetItem(text = stringResource(R.string.clip), icon = Icons.Outlined.PlayArrow){}
-                    CreateBottomSheetItem(text = stringResource(R.string.post), icon = Icons.Outlined.PlayArrow){}
-                    CreateBottomSheetItem(text = stringResource(R.string.story), icon = Icons.Outlined.PlayArrow){}
-                    CreateBottomSheetItem(text = stringResource(R.string.story_highlight), icon = Icons.Outlined.PlayArrow){}
-                    CreateBottomSheetItem(text = stringResource(R.string.live), icon = Icons.Outlined.PlayArrow){}
-                    CreateBottomSheetItem(text = stringResource(R.string.made_for_you), icon = Icons.Outlined.PlayArrow){}
-                    CreateBottomSheetItem(text = stringResource(R.string.fundraiser), icon = Icons.Outlined.PlayArrow){
-                        Log.d("Tag232323", "fundraiser has been clicked")
-                    }
+                Spacer(modifier = Modifier.height(12.dp))
+                Divider(color = DividerColor)
+                CreateBottomSheetItem(
+                    text = stringResource(R.string.clip),
+                    icon = Icons.Outlined.PlayArrow
+                ) {}
+                CreateBottomSheetItem(
+                    text = stringResource(R.string.post),
+                    icon = Icons.Outlined.PlayArrow
+                ) {}
+                CreateBottomSheetItem(
+                    text = stringResource(R.string.story),
+                    icon = Icons.Outlined.PlayArrow
+                ) {}
+                CreateBottomSheetItem(
+                    text = stringResource(R.string.story_highlight),
+                    icon = Icons.Outlined.PlayArrow
+                ) {}
+                CreateBottomSheetItem(
+                    text = stringResource(R.string.live),
+                    icon = Icons.Outlined.PlayArrow
+                ) {}
+                CreateBottomSheetItem(
+                    text = stringResource(R.string.made_for_you),
+                    icon = Icons.Outlined.PlayArrow
+                ) {}
+                CreateBottomSheetItem(
+                    text = stringResource(R.string.fundraiser),
+                    icon = Icons.Outlined.PlayArrow
+                ) {}
 
             }
         }
@@ -240,9 +264,54 @@ fun ProfileScreenTopBar() {
         if (listsSheetOpenSwitch) {
             ModalBottomSheet(
                 onDismissRequest = { listsSheetOpenSwitch = false },
-                sheetState = listsSheetState
+                sheetState = listsSheetState,
+                modifier = Modifier
             ) {
-                ListsBottomSheetItem("Settings and Privacy", Icons.Outlined.Settings, 169)
+                ListsBottomSheetItem(
+                    text = "Settings and Privacy",
+                    icon = Icons.Outlined.Settings,
+                    notificationCount = 69
+                )
+                ListsBottomSheetItem(
+                    text = "Your Activity",
+                    icon = Icons.Outlined.Info,
+                    notificationCount = 420
+                )
+                ListsBottomSheetItem(
+                    text = "Archived",
+                    icon = Icons.Outlined.Star,
+                    notificationCount = 0
+                )
+                ListsBottomSheetItem(
+                    text = "Share Account",
+                    icon = Icons.Outlined.Share,
+                    notificationCount = 1
+                )
+                ListsBottomSheetItem(
+                    text = "Saved",
+                    icon = Icons.Outlined.Star,
+                    notificationCount = 36
+                )
+                ListsBottomSheetItem(
+                    text = "Supervision",
+                    icon = Icons.Outlined.Face,
+                    notificationCount = 0
+                )
+                ListsBottomSheetItem(
+                    text = "Verification",
+                    icon = Icons.Outlined.CheckCircle,
+                    notificationCount = 0
+                )
+                ListsBottomSheetItem(
+                    text = "Close Friends",
+                    icon = Icons.Outlined.Person,
+                    notificationCount = 0
+                )
+                ListsBottomSheetItem(
+                    text = "Favorites",
+                    icon = Icons.Outlined.Star,
+                    notificationCount = 22
+                )
 
             }
         }
@@ -324,7 +393,12 @@ fun AccountItem(accountName: String, pfp: Painter, selected: Boolean) {
 }
 
 @Composable
-fun CreateBottomSheetItem(text: String, icon: ImageVector, iconContentDescription: String? = null, onClick:()->Unit) {
+fun CreateBottomSheetItem(
+    text: String,
+    icon: ImageVector,
+    iconContentDescription: String? = null,
+    onClick: () -> Unit
+) {
     Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier
         .clickable { onClick() }
         .fillMaxWidth()) {
@@ -336,27 +410,71 @@ fun CreateBottomSheetItem(text: String, icon: ImageVector, iconContentDescriptio
         }
         Text(
             text = text,
-            style = MaterialTheme.typography.headlineSmall, modifier = Modifier.padding(vertical = 10.dp)
+            style = MaterialTheme.typography.headlineSmall,
+            modifier = Modifier.padding(vertical = 9.dp)
         )
     }
     Divider(
-        modifier = Modifier
-            .offset(42.dp)
+        modifier = Modifier.offset(42.dp),
+        color = DividerColor
     )
 
 }
 
 @Composable
-fun ListsBottomSheetItem (text: String, icon: ImageVector, notificationCount: Int, iconContentDescription: String? = null) {
+fun ListsBottomSheetItem(
+    text: String,
+    icon: ImageVector,
+    notificationCount: Int,
+    iconContentDescription: String? = null
+) {
+    Row(modifier = Modifier
+        .fillMaxWidth()
+        .clickable { }
+    ) {
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .size(50.dp)
+                .align(Alignment.CenterVertically)
+        ) {
+            Icon(
+                imageVector = icon,
+                contentDescription = iconContentDescription,
+                Modifier.size(30.dp)
+            )
+        }
 
-    Row(modifier = Modifier.fillMaxWidth()) {
-        Icon(imageVector = icon, contentDescription = iconContentDescription)
-        Text(text = text, style = MaterialTheme.typography.headlineSmall, modifier = Modifier.padding(vertical = 10.dp))
-        Text(text = if(notificationCount < 100) {notificationCount.toString()}else{" 99+ "},
-//            Remove if a simular concept is used somewhere else and make a global function
-            modifier = Modifier.offset(130.dp)
-            .background(Color.Red, shape = RoundedCornerShape(100)),
-            style = MaterialTheme.typography.labelLarge
+        Text(
+            text = text,
+            style = MaterialTheme.typography.headlineSmall,
+            modifier = Modifier.align(Alignment.CenterVertically)
         )
+
+        Box(
+            contentAlignment = Alignment.CenterEnd,
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.CenterVertically)
+                .padding(end = 12.dp)
+        ) {
+            Text(
+                text = notificationFormat(notificationCount),
+                modifier = Modifier
+                    .background(ButtonBackground, shape = RoundedCornerShape(100)),
+                style = MaterialTheme.typography.labelLarge, color = Color.White
+            )
+        }
+
     }
+}
+
+fun notificationFormat(notificationCount: Int): String {
+    val outPut: String = when (notificationCount) {
+        0 -> ""
+        in 1..99 -> "  $notificationCount  "
+        in 99..Int.MAX_VALUE -> "  99 + "
+        else -> " Unknown "
+    }
+    return outPut
 }
