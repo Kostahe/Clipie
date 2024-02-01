@@ -1,5 +1,6 @@
 package com.clipie.data.repository
 
+import com.clipie.data.common.FireStoreTable
 import com.clipie.domain.entities.State
 import com.clipie.domain.model.User
 import com.clipie.domain.repository.AuthenticationRepository
@@ -36,7 +37,7 @@ class AuthenticationRepositoryImpl @Inject constructor(
     }
 
     override fun updateUser(user: User, result: (State<Unit>) -> Unit)  {
-        val document = database.collection("user").document(user.id)
+        val document = database.collection(FireStoreTable.USER.tableName).document(user.id)
         document.set(user).addOnSuccessListener {
             result.invoke(State.Success(Unit))
         }.addOnFailureListener {
