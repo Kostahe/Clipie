@@ -1,4 +1,4 @@
-package com.clipie.presentation.profile_screen.components
+package com.clipie.presentation.main.profile_screen.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row

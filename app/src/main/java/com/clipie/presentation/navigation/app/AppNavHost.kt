@@ -8,7 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.clipie.presentation.auth.login_screen.components.LoginScreen
 import com.clipie.presentation.auth.registration_screen.components.RegistrationScreen
-import com.clipie.presentation.main_screen.components.MainScreen
+import com.clipie.presentation.main.main_screen.components.MainScreen
 
 @Composable
 fun AppNavHost(

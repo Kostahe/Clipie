@@ -1,4 +1,4 @@
-package com.clipie.presentation.home_screen
+package com.clipie.presentation.main.home_screen
 
 import androidx.lifecycle.ViewModel
 import javax.inject.Inject
