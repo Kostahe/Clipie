@@ -22,17 +22,20 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.clipie.R
 import com.clipie.domain.model.User
 import com.clipie.presentation.auth.components.AuthenticationButton
 import com.clipie.presentation.auth.components.AuthenticationPasswordTextField
 import com.clipie.presentation.auth.components.AuthenticationTextField
 import com.clipie.presentation.auth.registration_screen.RegistrationViewModel
+import com.clipie.presentation.navigation.app.AuthenticationNavConstant
 import com.clipie.ui.theme.Background
 
 @Composable
 fun RegistrationScreen(
     modifier: Modifier = Modifier,
+    navController: NavHostController
 ) {
     val viewModel = hiltViewModel<RegistrationViewModel>()
     var email by rememberSaveable {
@@ -78,14 +81,15 @@ fun RegistrationScreen(
             modifier = modifier.padding(top = 5.dp),
         )
         AuthenticationButton(
-            modifier = Modifier
-                .width(275.dp)
+            modifier = Modifier.width(275.dp)
                 .padding(10.dp),
-            onClick = {viewModel.createUser(email, password, User(username = username, email = email))},
+            onClick = {
+                navController.navigate(AuthenticationNavConstant.Login.route)
+                viewModel.createUser(email, password, User(email = email, username = username)) },
             text = stringResource(id = R.string.create_account)
         )
         TextButton(
-            onClick = {  },
+            onClick = { navController.navigate(AuthenticationNavConstant.Register.route) },
             modifier = Modifier.padding(top = 200.dp)
         ) {
             Text(
