@@ -7,6 +7,10 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.List
+import androidx.compose.material.icons.automirrored.filled.Send
+import androidx.compose.material.icons.automirrored.outlined.List
+import androidx.compose.material.icons.automirrored.outlined.Send
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Home
@@ -52,18 +56,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.compose.rememberNavController
-import com.clipie.presentation.NavGraphs
-import com.clipie.presentation.destinations.HomeScreenDestination
-import com.clipie.presentation.destinations.ProfileScreenDestination
-import com.clipie.presentation.profile_screen.components.ProfileScreen
-import com.clipie.presentation.home_screen.components.HomeScreen
-import com.ramcosta.composedestinations.DestinationsNavHost
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.annotation.NavGraph
-import com.ramcosta.composedestinations.annotation.RootNavGraph
-import com.ramcosta.composedestinations.manualcomposablecalls.composable
-
 
 val TopListOfItems: List<TopNavigationItem> = listOf(
     TopNavigationItem(
@@ -72,12 +64,12 @@ val TopListOfItems: List<TopNavigationItem> = listOf(
     TopNavigationItem(
         "Notifications", Icons.Outlined.FavoriteBorder, Icons.Outlined.FavoriteBorder, true
     ),
-    TopNavigationItem("Send", Icons.Outlined.Send, Icons.Outlined.Send, true),
+    TopNavigationItem("Send", Icons.AutoMirrored.Filled.Send, Icons.AutoMirrored.Outlined.Send, true),
     TopNavigationItem(
         "Profiles", Icons.Outlined.KeyboardArrowDown, Icons.Outlined.KeyboardArrowUp, true
     ),
     TopNavigationItem("Create", Icons.Filled.AddCircle, Icons.Outlined.AddCircle, true),
-    TopNavigationItem(null, Icons.Outlined.List, Icons.Outlined.Menu, true)
+    TopNavigationItem(null, Icons.AutoMirrored.Outlined.List, Icons.AutoMirrored.Filled.List, true)
 )
 
 val listOfItems: List<BottomNavigationItem> = listOf(
@@ -88,36 +80,16 @@ val listOfItems: List<BottomNavigationItem> = listOf(
     BottomNavigationItem("Profile", Icons.Filled.AccountCircle, Icons.Outlined.AccountCircle, false)
 )
 
-@RootNavGraph
-@NavGraph
-annotation class MainNavGraph(
-    val start: Boolean = false
-)
-
-@MainNavGraph(start = true)
-@Destination
 @Preview
 @Composable
 fun MainScreen() {
-    val navController = rememberNavController()
 
     Scaffold(topBar = {
         MainScreenTopBar()
     }, bottomBar = {
         MainScreenBottomBar()
     }) { padding ->
-        DestinationsNavHost(
-            navGraph = NavGraphs.main,
-            navController = navController,
-            modifier = Modifier.padding(padding)
-        ) {
-            composable(HomeScreenDestination) {
-                HomeScreen()
-            }
-            composable(ProfileScreenDestination) {
-                ProfileScreen()
-            }
-        }
+        Text(text = "", modifier = Modifier.padding(padding))
 
     }
 }
@@ -146,8 +118,7 @@ fun MainScreenBottomBar(
     }
     BottomAppBar {
         Row(
-            modifier
-                .fillMaxWidth()
+            modifier.fillMaxWidth()
                 .padding(horizontal = 16.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween

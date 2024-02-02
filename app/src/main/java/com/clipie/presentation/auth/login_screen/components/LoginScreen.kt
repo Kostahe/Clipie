@@ -1,6 +1,5 @@
 package com.clipie.presentation.auth.login_screen.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -31,17 +30,10 @@ import com.clipie.presentation.auth.components.AuthenticationOutlinedButton
 import com.clipie.presentation.auth.components.AuthenticationPasswordTextField
 import com.clipie.presentation.auth.components.AuthenticationTextField
 import com.clipie.presentation.auth.login_screen.LoginViewModel
-import com.clipie.presentation.destinations.RegistrationScreenDestination
-import com.clipie.ui.theme.Background
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.annotation.RootNavGraph
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Preview
 @PreviewLightDark
 @Composable
-@Destination
-@RootNavGraph(start = true)
 fun LoginScreen(
     modifier: Modifier = Modifier,
 ) {
@@ -83,7 +75,7 @@ fun LoginScreen(
             onClick = { viewModel.login(email, password) },
             text = stringResource(R.string.log_in)
         )
-        TextButton(onClick = {  }) {
+        TextButton(onClick = { }) {
             Text(
                 text = stringResource(R.string.forgot_password),
                 color = Color(0xFF1c2b33)
@@ -93,7 +85,7 @@ fun LoginScreen(
             modifier = Modifier
                 .width(275.dp)
                 .padding(top = 200.dp),
-            onClick = {  },
+            onClick = { },
             text = stringResource(R.string.create_new_account)
         )
     }

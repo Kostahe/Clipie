@@ -70,11 +70,6 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
-    // Compose destinations
-    val composeDestinations = "1.9.61"
-    implementation("io.github.raamcosta.compose-destinations:animations-core:$composeDestinations")
-    ksp("io.github.raamcosta.compose-destinations:ksp:$composeDestinations")
-
     // Firebase
     val firebaseBOMVersion = "32.7.1"
     implementation(platform("com.google.firebase:firebase-bom:$firebaseBOMVersion"))
@@ -86,6 +81,10 @@ dependencies {
     val hiltVersion = "2.48"
     implementation("com.google.dagger:hilt-android:$hiltVersion")
     ksp("com.google.dagger:hilt-android-compiler:$hiltVersion")
+
+    // Jetpack compose navigation
+    val navVersion = "2.7.6"
+    implementation("androidx.navigation:navigation-compose:$navVersion")
 
     // Navigation hilt
     val hiltNavigationVersion = "1.1.0"

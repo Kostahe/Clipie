@@ -22,7 +22,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.clipie.R
 import com.clipie.domain.model.User
 import com.clipie.presentation.auth.components.AuthenticationButton
@@ -30,15 +29,10 @@ import com.clipie.presentation.auth.components.AuthenticationPasswordTextField
 import com.clipie.presentation.auth.components.AuthenticationTextField
 import com.clipie.presentation.auth.registration_screen.RegistrationViewModel
 import com.clipie.ui.theme.Background
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.annotation.RootNavGraph
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
-@Destination
 @Composable
 fun RegistrationScreen(
     modifier: Modifier = Modifier,
-    navigator: DestinationsNavigator
 ) {
     val viewModel = hiltViewModel<RegistrationViewModel>()
     var email by rememberSaveable {
@@ -91,7 +85,7 @@ fun RegistrationScreen(
             text = stringResource(id = R.string.create_account)
         )
         TextButton(
-            onClick = { navigator.navigateUp() },
+            onClick = {  },
             modifier = Modifier.padding(top = 200.dp)
         ) {
             Text(

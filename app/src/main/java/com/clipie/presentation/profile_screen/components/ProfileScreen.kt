@@ -70,11 +70,7 @@ import com.clipie.R
 import com.clipie.presentation.main_screen.components.TopListOfItems
 import com.clipie.presentation.main_screen.components.listOfItems
 import com.clipie.ui.theme.ButtonBackground
-import com.clipie.ui.theme.ClipieTheme
-import com.ramcosta.composedestinations.annotation.Destination
 
-
-@Destination
 @PreviewLightDark
 @PreviewFontScale
 @PreviewScreenSizes
