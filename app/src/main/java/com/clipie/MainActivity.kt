@@ -8,6 +8,7 @@ import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.ui.Alignment
 import com.clipie.presentation.NavGraphs
+import com.clipie.ui.theme.ClipieTheme
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.animations.defaults.NestedNavGraphDefaultAnimations
@@ -30,7 +31,9 @@ class MainActivity : ComponentActivity() {
                         exitTransition = { slideOutHorizontally() }
                     ),
                 ))
-            DestinationsNavHost(navGraph = NavGraphs.root, engine = navHostEngine)
+            ClipieTheme {
+                DestinationsNavHost(navGraph = NavGraphs.root, engine = navHostEngine)
+            }
         }
     }
 }
