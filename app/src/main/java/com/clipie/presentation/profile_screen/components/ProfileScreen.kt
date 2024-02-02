@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
@@ -69,7 +70,7 @@ import com.clipie.R
 import com.clipie.presentation.main_screen.components.TopListOfItems
 import com.clipie.presentation.main_screen.components.listOfItems
 import com.clipie.ui.theme.ButtonBackground
-import com.clipie.ui.theme.DividerColor
+import com.clipie.ui.theme.ClipieTheme
 import com.ramcosta.composedestinations.annotation.Destination
 
 
@@ -87,7 +88,9 @@ fun ProfileScreen() {
         ProfileScreenBottomBar()
     }) { padding ->
         LazyColumn(
-            modifier = Modifier.padding(padding)
+            modifier = Modifier
+                .padding(padding)
+                .fillMaxSize()
         ) {
 
         }
@@ -157,7 +160,6 @@ fun ProfileScreenTopBar() {
                     text = "Insert username here",
                     style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.Bold,
-                    color = Color.Black,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1
                 )
@@ -175,17 +177,8 @@ fun ProfileScreenTopBar() {
                 onDismissRequest = { accountSheetOpenSwitch = false },
                 sheetState = accountSheetState,
             ) {
-
-//--------------Selected account
-
                 AccountItem("Franta", painterResource(id = R.drawable.temp_acc_pfp), true)
-
-
-//--------------Unselected account
-
                 AccountItem("Bob", painterResource(id = R.drawable.temp_acc_pfp), false)
-
-//--------------Add account
 
                 Row(modifier = Modifier
                     .clickable {
@@ -234,7 +227,7 @@ fun ProfileScreenTopBar() {
                 }
 
                 Spacer(modifier = Modifier.height(12.dp))
-                Divider(color = DividerColor)
+                Divider()
                 CreateBottomSheetItem(
                     text = stringResource(R.string.clip),
                     icon = Icons.Outlined.PlayArrow
@@ -422,7 +415,6 @@ fun CreateBottomSheetItem(
     }
     Divider(
         modifier = Modifier.offset(42.dp),
-        color = DividerColor
     )
 
 }
