@@ -19,7 +19,7 @@ class RegistrationViewModel @Inject constructor(
     val createAccount: ImmutableState<State<Unit>> = _createAccount
 
     fun createUser(email: String, password: String, user: User) {
-        repository.createUser(email, password, user) { state ->
+        repository.register(email, password, user) { state ->
             _createAccount.value = state
         }
     }
