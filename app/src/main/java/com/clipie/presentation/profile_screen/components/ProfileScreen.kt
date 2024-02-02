@@ -61,6 +61,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewFontScale
+import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import com.clipie.R
 import com.clipie.presentation.main_screen.components.TopListOfItems
@@ -71,6 +74,9 @@ import com.ramcosta.composedestinations.annotation.Destination
 
 
 @Destination
+@PreviewLightDark
+@PreviewFontScale
+@PreviewScreenSizes
 @Preview
 @Composable
 fun ProfileScreen() {
