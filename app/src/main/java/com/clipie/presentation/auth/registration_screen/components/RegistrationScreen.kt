@@ -89,7 +89,7 @@ fun RegistrationScreen(
             text = stringResource(id = R.string.create_account)
         )
         TextButton(
-            onClick = { navController.navigate(AuthenticationNavConstant.Register.route) },
+            onClick = { navController.navigate(AuthenticationNavConstant.Login.route) },
             modifier = Modifier.padding(top = 200.dp)
         ) {
             Text(
