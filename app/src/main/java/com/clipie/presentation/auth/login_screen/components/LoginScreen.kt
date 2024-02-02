@@ -21,6 +21,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.clipie.R
@@ -35,13 +37,13 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
-
+@Preview
+@PreviewLightDark
 @Composable
 @Destination
 @RootNavGraph(start = true)
 fun LoginScreen(
     modifier: Modifier = Modifier,
-    navigator: DestinationsNavigator
 ) {
     val viewModel = hiltViewModel<LoginViewModel>()
     var email by rememberSaveable {
@@ -52,9 +54,7 @@ fun LoginScreen(
     }
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
-            .fillMaxSize()
-            .background(color = Background)
+        modifier = modifier.fillMaxSize()
     ) {
         Spacer(modifier = Modifier.height(170.dp))
         Icon(
@@ -93,7 +93,7 @@ fun LoginScreen(
             modifier = Modifier
                 .width(275.dp)
                 .padding(top = 200.dp),
-            onClick = { navigator.navigate(RegistrationScreenDestination) },
+            onClick = {  },
             text = stringResource(R.string.create_new_account)
         )
     }
