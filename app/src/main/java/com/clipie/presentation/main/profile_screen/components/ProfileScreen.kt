@@ -76,53 +76,10 @@ import com.clipie.ui.theme.ButtonBackground
 @PreviewScreenSizes
 @Preview
 @Composable
-fun ProfileScreen() {
-
-    Scaffold(topBar = {
-        ProfileScreenTopBar()
-    }, bottomBar = {
-        ProfileScreenBottomBar()
-    }) { padding ->
-        LazyColumn(
-            modifier = Modifier
-                .padding(padding)
-                .fillMaxSize()
-        ) {
-
-        }
-    }
-
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun ProfileScreenBottomBar(
+fun ProfileScreen(
     modifier: Modifier = Modifier
 ) {
-    var selectedItem by rememberSaveable { mutableIntStateOf(0) }
-    BottomAppBar {
-        Row(
-            modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            listOfItems.forEachIndexed { index, item ->
-                BadgedBox(badge = {
-                    if (item.hasNews) Badge()
-                }) {
-                    IconButton(onClick = { selectedItem = index }) {
-                        Icon(
-                            imageVector = if (selectedItem == index) item.selectedIcon else item.unselectedIcon,
-                            contentDescription = item.title,
-                            modifier = Modifier.size(40.dp)
-                        )
-                    }
-                }
-            }
-        }
-    }
+    Text(text = "Profile screen", modifier = modifier)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
