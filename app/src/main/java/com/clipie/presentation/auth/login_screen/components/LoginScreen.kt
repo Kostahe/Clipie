@@ -20,22 +20,22 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.clipie.R
 import com.clipie.presentation.auth.components.AuthenticationButton
 import com.clipie.presentation.auth.components.AuthenticationOutlinedButton
 import com.clipie.presentation.auth.components.AuthenticationPasswordTextField
 import com.clipie.presentation.auth.components.AuthenticationTextField
 import com.clipie.presentation.auth.login_screen.LoginViewModel
+import com.clipie.presentation.navigation.app.AppNavConstant
+import com.clipie.presentation.navigation.app.AuthenticationNavConstant
 
-@Preview
-@PreviewLightDark
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
+    navController: NavHostController
 ) {
     val viewModel = hiltViewModel<LoginViewModel>()
     var email by rememberSaveable {
@@ -72,7 +72,9 @@ fun LoginScreen(
             modifier = Modifier
                 .width(275.dp)
                 .padding(10.dp),
-            onClick = { viewModel.login(email, password) },
+            onClick = {
+                navController.navigate(AppNavConstant.Main.route)
+                viewModel.login(email, password) },
             text = stringResource(R.string.log_in)
         )
         TextButton(onClick = { }) {
@@ -85,7 +87,7 @@ fun LoginScreen(
             modifier = Modifier
                 .width(275.dp)
                 .padding(top = 200.dp),
-            onClick = { },
+            onClick = { navController.navigate(AuthenticationNavConstant.Register.route) },
             text = stringResource(R.string.create_new_account)
         )
     }
