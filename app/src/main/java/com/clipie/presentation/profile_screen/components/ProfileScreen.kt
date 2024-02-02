@@ -67,8 +67,8 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import com.clipie.R
-import com.clipie.presentation.main_screen.components.TopListOfItems
-import com.clipie.presentation.main_screen.components.listOfItems
+import com.clipie.presentation.main.main_screen.components.TopListOfItems
+import com.clipie.presentation.main.main_screen.components.listOfItems
 import com.clipie.ui.theme.ButtonBackground
 
 @PreviewLightDark
