@@ -5,8 +5,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.clipie.presentation.home_screen.components.HomeScreen
-import com.clipie.presentation.profile_screen.components.ProfileScreen
+import com.clipie.presentation.main.home_screen.components.HomeScreen
+import com.clipie.presentation.main.profile_screen.components.ProfileScreen
 
 @Composable
 fun MainNavHost(
