@@ -37,7 +37,6 @@ fun AppNavHost(
                 val viewModel = it.sharedViewModel<AuthenticationViewModel>(navController = navController)
                 RegistrationScreen(navController = navController, viewModel = viewModel)
             }
-        }
         composable(route = AppNavConstant.Main.route) {
             MainScreen()
         }
