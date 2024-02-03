@@ -25,19 +25,19 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.clipie.R
 import com.clipie.domain.model.User
+import com.clipie.presentation.auth.AuthenticationViewModel
 import com.clipie.presentation.auth.components.AuthenticationButton
 import com.clipie.presentation.auth.components.AuthenticationPasswordTextField
 import com.clipie.presentation.auth.components.AuthenticationTextField
-import com.clipie.presentation.auth.registration_screen.RegistrationViewModel
 import com.clipie.presentation.navigation.app.AuthenticationNavConstant
 import com.clipie.ui.theme.Background
 
 @Composable
 fun RegistrationScreen(
     modifier: Modifier = Modifier,
-    navController: NavHostController
+    navController: NavHostController,
+    viewModel: AuthenticationViewModel
 ) {
-    val viewModel = hiltViewModel<RegistrationViewModel>()
     var email by rememberSaveable {
         mutableStateOf("")
     }
@@ -81,11 +81,12 @@ fun RegistrationScreen(
             modifier = modifier.padding(top = 5.dp),
         )
         AuthenticationButton(
-            modifier = Modifier.width(275.dp)
+            modifier = Modifier
+                .width(275.dp)
                 .padding(10.dp),
             onClick = {
-                navController.navigate(AuthenticationNavConstant.Login.route)
-                viewModel.createUser(email, password, User(email = email, username = username)) },
+//                viewModel.register(email, password, User(username = username, email = email))
+                navController.navigate(AuthenticationNavConstant.Login.route) },
             text = stringResource(id = R.string.create_account)
         )
         TextButton(
