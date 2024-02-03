@@ -13,7 +13,7 @@ import androidx.navigation.navigation
 import com.clipie.presentation.auth.AuthenticationViewModel
 import com.clipie.presentation.auth.login_screen.components.LoginScreen
 import com.clipie.presentation.auth.registration_screen.components.RegistrationScreen
-import com.clipie.presentation.main.main_screen.components.MainScreen
+import com.clipie.presentation.main.MainScreen
 
 @Composable
 fun AppNavHost(
@@ -39,9 +39,9 @@ fun AppNavHost(
                     it.sharedViewModel<AuthenticationViewModel>(navController = navController)
                 RegistrationScreen(navController = navController, viewModel = viewModel)
             }
-            composable(route = AppNavConstant.Main.route) {
-                MainScreen()
-            }
+        }
+        composable(route = AppNavConstant.Main.route) {
+            MainScreen()
         }
     }
 }
