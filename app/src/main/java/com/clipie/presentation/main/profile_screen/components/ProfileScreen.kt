@@ -1,4 +1,4 @@
-package com.clipie.presentation.profile_screen.components
+package com.clipie.presentation.main.profile_screen.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
@@ -67,66 +67,19 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import com.clipie.R
-import com.clipie.presentation.main_screen.components.TopListOfItems
-import com.clipie.presentation.main_screen.components.listOfItems
+import com.clipie.presentation.main.main_screen.components.TopListOfItems
+import com.clipie.presentation.main.main_screen.components.listOfItems
 import com.clipie.ui.theme.ButtonBackground
-import com.clipie.ui.theme.ClipieTheme
-import com.ramcosta.composedestinations.annotation.Destination
 
-
-@Destination
 @PreviewLightDark
 @PreviewFontScale
 @PreviewScreenSizes
 @Preview
 @Composable
-fun ProfileScreen() {
-
-    Scaffold(topBar = {
-        ProfileScreenTopBar()
-    }, bottomBar = {
-        ProfileScreenBottomBar()
-    }) { padding ->
-        LazyColumn(
-            modifier = Modifier
-                .padding(padding)
-                .fillMaxSize()
-        ) {
-
-        }
-    }
-
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun ProfileScreenBottomBar(
+fun ProfileScreen(
     modifier: Modifier = Modifier
 ) {
-    var selectedItem by rememberSaveable { mutableIntStateOf(0) }
-    BottomAppBar {
-        Row(
-            modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            listOfItems.forEachIndexed { index, item ->
-                BadgedBox(badge = {
-                    if (item.hasNews) Badge()
-                }) {
-                    IconButton(onClick = { selectedItem = index }) {
-                        Icon(
-                            imageVector = if (selectedItem == index) item.selectedIcon else item.unselectedIcon,
-                            contentDescription = item.title,
-                            modifier = Modifier.size(40.dp)
-                        )
-                    }
-                }
-            }
-        }
-    }
+    Text(text = "Profile screen", modifier = modifier)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

@@ -22,25 +22,22 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import com.clipie.R
 import com.clipie.domain.model.User
+import com.clipie.presentation.auth.AuthenticationViewModel
 import com.clipie.presentation.auth.components.AuthenticationButton
 import com.clipie.presentation.auth.components.AuthenticationPasswordTextField
 import com.clipie.presentation.auth.components.AuthenticationTextField
-import com.clipie.presentation.auth.registration_screen.RegistrationViewModel
+import com.clipie.presentation.navigation.app.AuthenticationNavConstant
 import com.clipie.ui.theme.Background
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.annotation.RootNavGraph
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
-@Destination
 @Composable
 fun RegistrationScreen(
     modifier: Modifier = Modifier,
-    navigator: DestinationsNavigator
+    navController: NavHostController,
+    viewModel: AuthenticationViewModel
 ) {
-    val viewModel = hiltViewModel<RegistrationViewModel>()
     var email by rememberSaveable {
         mutableStateOf("")
     }
@@ -87,11 +84,13 @@ fun RegistrationScreen(
             modifier = Modifier
                 .width(275.dp)
                 .padding(10.dp),
-            onClick = {viewModel.createUser(email, password, User(username = username, email = email))},
+            onClick = {
+//                viewModel.register(email, password, User(username = username, email = email))
+                navController.navigate(AuthenticationNavConstant.Login.route) },
             text = stringResource(id = R.string.create_account)
         )
         TextButton(
-            onClick = { navigator.navigateUp() },
+            onClick = { navController.navigate(AuthenticationNavConstant.Login.route) },
             modifier = Modifier.padding(top = 200.dp)
         ) {
             Text(

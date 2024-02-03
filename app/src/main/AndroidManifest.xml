@@ -14,7 +14,7 @@
         android:theme="@style/Theme.Clipie"
         tools:targetApi="34">
         <activity
-            android:name=".MainActivity"
+            android:name=".presentation.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.Clipie">
             <intent-filter>

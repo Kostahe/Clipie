@@ -11,7 +11,9 @@ import com.clipie.ui.theme.OnButtonBackground
 
 @Composable
 fun AuthenticationButton(
-    modifier: Modifier = Modifier, onClick: () -> Unit, text: String
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
+    text: String
 ) {
     Button(
         onClick = onClick, colors = ButtonDefaults.buttonColors(

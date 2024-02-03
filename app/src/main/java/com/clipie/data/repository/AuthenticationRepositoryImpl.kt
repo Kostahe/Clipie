@@ -18,7 +18,7 @@ class AuthenticationRepositoryImpl @Inject constructor(
     private val gson: Gson
 ) : AuthenticationRepository {
 
-    override fun createUser(
+    override fun register(
         email: String,
         password: String,
         user: User, result: (State<Unit>) -> Unit
