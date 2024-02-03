@@ -99,7 +99,10 @@ fun ProfileScreen() {
 fun ProfileScreenBottomBar(
     modifier: Modifier = Modifier
 ) {
-    var selectedItem by rememberSaveable { mutableIntStateOf(0) }
+    var selectedItem by rememberSaveable {
+        mutableIntStateOf(0)
+    }
+
     BottomAppBar {
         Row(
             modifier

@@ -27,8 +27,6 @@ import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.AddCircle
 import androidx.compose.material.icons.outlined.KeyboardArrowDown
 import androidx.compose.material.icons.outlined.KeyboardArrowUp
-import androidx.compose.material.icons.outlined.List
-import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.PlayArrow
 import androidx.compose.material.icons.outlined.Search
@@ -53,8 +51,9 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import com.clipie.presentation.navigation.main.MainNavConstant
 
 val TopListOfItems: List<TopNavigationItem> = listOf(
     TopNavigationItem(
@@ -63,7 +62,12 @@ val TopListOfItems: List<TopNavigationItem> = listOf(
     TopNavigationItem(
         "Notifications", Icons.Outlined.FavoriteBorder, Icons.Outlined.FavoriteBorder, true
     ),
-    TopNavigationItem("Send", Icons.AutoMirrored.Filled.Send, Icons.AutoMirrored.Outlined.Send, true),
+    TopNavigationItem(
+        "Send",
+        Icons.AutoMirrored.Filled.Send,
+        Icons.AutoMirrored.Outlined.Send,
+        true
+    ),
     TopNavigationItem(
         "Profiles", Icons.Outlined.KeyboardArrowDown, Icons.Outlined.KeyboardArrowUp, true
     ),
@@ -72,21 +76,20 @@ val TopListOfItems: List<TopNavigationItem> = listOf(
 )
 
 val listOfItems: List<BottomNavigationItem> = listOf(
-    BottomNavigationItem("Home", Icons.Filled.Home, Icons.Outlined.Home, true),
-    BottomNavigationItem("Search", Icons.Filled.Search, Icons.Outlined.Search, false),
-    BottomNavigationItem("Add", Icons.Filled.AddCircle, Icons.Outlined.AddCircle, false),
-    BottomNavigationItem("Clips", Icons.Filled.PlayArrow, Icons.Outlined.PlayArrow, false),
-    BottomNavigationItem("Profile", Icons.Filled.AccountCircle, Icons.Outlined.AccountCircle, false)
+    BottomNavigationItem("Home", Icons.Filled.Home, Icons.Outlined.Home, true, MainNavConstant.Home.route),
+    BottomNavigationItem("Search", Icons.Filled.Search, Icons.Outlined.Search, false, MainNavConstant.Search.route),
+    BottomNavigationItem("Add", Icons.Filled.AddCircle, Icons.Outlined.AddCircle, false, MainNavConstant.Add.route),
+    BottomNavigationItem("Clips", Icons.Filled.PlayArrow, Icons.Outlined.PlayArrow, false, MainNavConstant.Clips.route),
+    BottomNavigationItem("Profile", Icons.Filled.AccountCircle, Icons.Outlined.AccountCircle, false, MainNavConstant.Profile.route)
 )
 
-@Preview
 @Composable
-fun MainScreen() {
+fun MainScreen(navController: NavHostController) {
 
     Scaffold(topBar = {
         MainScreenTopBar()
     }, bottomBar = {
-        MainScreenBottomBar()
+        MainScreenBottomBar(navController = navController, modifier = Modifier)
     }) { padding ->
         Text(text = "", modifier = Modifier.padding(padding))
 
@@ -104,20 +107,24 @@ data class BottomNavigationItem(
     val title: String,
     val selectedIcon: ImageVector,
     val unselectedIcon: ImageVector,
-    val hasNews: Boolean
+    val hasNews: Boolean,
+    val route: String
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreenBottomBar(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    navController: NavHostController
 ) {
     var selectedItem by rememberSaveable {
         mutableIntStateOf(0)
     }
+
     BottomAppBar {
         Row(
-            modifier.fillMaxWidth()
+            modifier
+                .fillMaxWidth()
                 .padding(horizontal = 16.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
@@ -126,7 +133,7 @@ fun MainScreenBottomBar(
                 BadgedBox(badge = {
                     if (item.hasNews) Badge()
                 }) {
-                    IconButton(onClick = { selectedItem = index }) {
+                    IconButton(onClick = { selectedItem = index; navController.navigate(listOfItems[index].route) }) {
                         Icon(
                             imageVector = if (selectedItem == index) item.selectedIcon else item.unselectedIcon,
                             contentDescription = item.title,
@@ -235,8 +242,6 @@ fun MainScreenTopBar() {
                 )
             }
         }
-
-
     })
 }
 
