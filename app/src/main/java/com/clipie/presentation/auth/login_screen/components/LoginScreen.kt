@@ -24,20 +24,20 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.clipie.R
+import com.clipie.presentation.auth.AuthenticationViewModel
 import com.clipie.presentation.auth.components.AuthenticationButton
 import com.clipie.presentation.auth.components.AuthenticationOutlinedButton
 import com.clipie.presentation.auth.components.AuthenticationPasswordTextField
 import com.clipie.presentation.auth.components.AuthenticationTextField
-import com.clipie.presentation.auth.login_screen.LoginViewModel
 import com.clipie.presentation.navigation.app.AppNavConstant
 import com.clipie.presentation.navigation.app.AuthenticationNavConstant
 
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
-    navController: NavHostController
+    navController: NavHostController,
+    viewModel: AuthenticationViewModel
 ) {
-    val viewModel = hiltViewModel<LoginViewModel>()
     var email by rememberSaveable {
         mutableStateOf("")
     }
@@ -73,8 +73,13 @@ fun LoginScreen(
                 .width(275.dp)
                 .padding(10.dp),
             onClick = {
-                navController.navigate(AppNavConstant.Main.route)
-                viewModel.login(email, password) },
+//                viewModel.login(email, password)
+                navController.navigate(AppNavConstant.Main.route) {
+                    popUpTo(AppNavConstant.Authentication.route) {
+                        inclusive = true
+                    }
+                }
+                },
             text = stringResource(R.string.log_in)
         )
         TextButton(onClick = { }) {
