@@ -45,7 +45,7 @@ fun AppNavHost(
                 RegistrationScreen(navController = navController, viewModel = viewModel)
             }
             composable(route = AppNavConstant.Main.route) {
-                MainScreen(navController = navController)
+                MainScreen()
             }
             composable(route = MainNavConstant.Home.route){
                 HomeScreen()
