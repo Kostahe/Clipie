@@ -30,15 +30,18 @@ fun AppNavHost(
             route = AppNavConstant.Authentication.route
         ) {
             composable(route = AuthenticationNavConstant.Login.route) {
-                val viewModel = it.sharedViewModel<AuthenticationViewModel>(navController = navController)
+                val viewModel =
+                    it.sharedViewModel<AuthenticationViewModel>(navController = navController)
                 LoginScreen(navController = navController, viewModel = viewModel)
             }
             composable(route = AuthenticationNavConstant.Register.route) {
-                val viewModel = it.sharedViewModel<AuthenticationViewModel>(navController = navController)
+                val viewModel =
+                    it.sharedViewModel<AuthenticationViewModel>(navController = navController)
                 RegistrationScreen(navController = navController, viewModel = viewModel)
             }
-        composable(route = AppNavConstant.Main.route) {
-            MainScreen()
+            composable(route = AppNavConstant.Main.route) {
+                MainScreen()
+            }
         }
     }
 }
