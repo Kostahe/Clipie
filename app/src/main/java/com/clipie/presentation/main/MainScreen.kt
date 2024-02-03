@@ -1,4 +1,4 @@
-package com.clipie.presentation.main.main_screen.components
+package com.clipie.presentation.main
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -141,8 +141,3 @@ fun MainBottomBar(navController: NavHostController) {
         }
     }
 }
-
-
-
-
-
