@@ -68,12 +68,12 @@ fun LoginScreen(
                 onValueChange = { password = it },
                 label = stringResource(R.string.password),
                 imeAction = ImeAction.Done,
-                modifier = Modifier.padding(top = 5.dp),
+                modifier = Modifier.padding(top = 10.dp),
             )
             AuthenticationButton(
                 modifier = Modifier
                     .width(275.dp)
-                    .padding(10.dp),
+                    .padding(top = 15.dp),
                 onClick = {
 //                viewModel.login(email, password)
                     navController.navigate(AppNavConstant.Main.route) {
@@ -90,11 +90,10 @@ fun LoginScreen(
                 )
             }
             AuthenticationOutlinedButton(
-                modifier = Modifier
-                    .width(275.dp)
+                modifier = Modifier.width(275.dp)
                     .padding(top = 200.dp),
                 onClick = { navController.navigate(AuthenticationNavConstant.Register.route) },
-                text = stringResource(R.string.create_new_account)
+                text = stringResource(R.string.create_account)
             )
         }
     }
