@@ -46,7 +46,7 @@ fun HomeScreenTopBar() {
     val followNotification = false
     val favoritesNotification = false
     TopAppBar(title = {
-
+//      For You Dropdownbutton
         BadgedBox(badge = {
             if (favoritesNotification || followNotification) {
                 Badge(
@@ -92,6 +92,9 @@ fun HomeScreenTopBar() {
 
 
     }, actions = {
+
+//        Favorites IconButton
+
         BadgedBox(badge = {
             if (TopListOfItems[1].hasNews) {
                 Badge(
@@ -109,6 +112,9 @@ fun HomeScreenTopBar() {
                 )
             }
         }
+
+//        Messages IconButton
+
         BadgedBox(badge = {
             if (TopListOfItems[2].hasNews) {
                 Badge(
@@ -134,33 +140,32 @@ fun HomeScreenTopBar() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ForYouDropdownMenuItem(text: String, icon: ImageVector, onClick: () -> Unit,hasNotification: Boolean, contentDescription: String?) {
+fun ForYouDropdownMenuItem(
+    text: String,
+    icon: ImageVector,
+    onClick: () -> Unit,
+    hasNotification: Boolean,
+    contentDescription: String?
+) {
     DropdownMenuItem(modifier = Modifier.size(width = 180.dp, height = 40.dp), text = {
-    Row(Modifier.fillMaxWidth()) {
-        Text(
-            text = text,
-            style = MaterialTheme.typography.headlineSmall,
-            modifier = Modifier.weight(1f)
-        )
-        BadgedBox(badge = {
-            if (hasNotification) {
-                Badge(Modifier.size(9.dp)) {
-
-                }
-            }
-        }, modifier = Modifier.padding(top = 8.dp)) {
-            Icon(
-                imageVector = icon,
-                contentDescription = contentDescription
+        Row(Modifier.fillMaxWidth()) {
+            Text(
+                text = text,
+                style = MaterialTheme.typography.headlineSmall,
+                modifier = Modifier.weight(1f)
             )
+            BadgedBox(badge = {
+                if (hasNotification) {
+                    Badge(Modifier.size(9.dp)) {
+
+                    }
+                }
+            }, modifier = Modifier.padding(top = 8.dp)) {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = contentDescription
+                )
+            }
         }
-
-    }
-
-
-
-
-
-
-    }, onClick = {onClick})
+    }, onClick = { onClick })
 }
