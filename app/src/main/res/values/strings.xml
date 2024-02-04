@@ -22,4 +22,5 @@
     <string name="username">Username</string>
     <string name="already_have_an_account">Already have an account?</string>
     <string name="please_enter_your_details">Please enter your details</string>
+    <string name="for_you">For you</string>
 </resources>

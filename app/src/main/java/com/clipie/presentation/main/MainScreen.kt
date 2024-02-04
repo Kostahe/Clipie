@@ -3,22 +3,15 @@ package com.clipie.presentation.main
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.List
-import androidx.compose.material.icons.automirrored.filled.Send
-import androidx.compose.material.icons.automirrored.outlined.List
-import androidx.compose.material.icons.automirrored.outlined.Send
 import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.AddBox
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material3.Icon
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.AccountCircle
-import androidx.compose.material.icons.outlined.AddCircle
-import androidx.compose.material.icons.outlined.KeyboardArrowDown
-import androidx.compose.material.icons.outlined.KeyboardArrowUp
+import androidx.compose.material.icons.outlined.AddBox
 import androidx.compose.material.icons.outlined.PlayArrow
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Badge
@@ -44,28 +37,12 @@ import com.clipie.presentation.main.search_screen.components.SearchScreenTopBar
 import com.clipie.presentation.navigation.main.MainNavConstant
 import com.clipie.presentation.navigation.main.MainNavHost
 
-val TopListOfItems: List<TopNavigationItem> = listOf(
-    TopNavigationItem(
-        "ForYouDropDownMenu", Icons.Outlined.KeyboardArrowDown, Icons.Outlined.KeyboardArrowUp, true
-    ),
-    TopNavigationItem(
-        "Notifications", Icons.Outlined.FavoriteBorder, Icons.Outlined.FavoriteBorder, true
-    ),
-    TopNavigationItem(
-        "Send", Icons.AutoMirrored.Filled.Send, Icons.AutoMirrored.Outlined.Send, true
-    ),
-    TopNavigationItem(
-        "Profiles", Icons.Outlined.KeyboardArrowDown, Icons.Outlined.KeyboardArrowUp, true
-    ),
-    TopNavigationItem("Create", Icons.Filled.AddCircle, Icons.Outlined.AddCircle, true),
-    TopNavigationItem(null, Icons.AutoMirrored.Outlined.List, Icons.AutoMirrored.Filled.List, true)
-)
 
 val listOfItems: List<BottomNavigationItem> = listOf(
     BottomNavigationItem(MainNavConstant.Home.route, Icons.Filled.Home, Icons.Outlined.Home, true),
-    BottomNavigationItem("Search", Icons.Filled.Search, Icons.Outlined.Search, false),
-    BottomNavigationItem("Add", Icons.Filled.AddCircle, Icons.Outlined.AddCircle, false),
-    BottomNavigationItem("Clips", Icons.Filled.PlayArrow, Icons.Outlined.PlayArrow, false),
+    BottomNavigationItem(MainNavConstant.Search.route, Icons.Filled.Search, Icons.Outlined.Search, false),
+    BottomNavigationItem(MainNavConstant.Add.route, Icons.Filled.AddBox, Icons.Outlined.AddBox, false),
+    BottomNavigationItem(MainNavConstant.Clips.route, Icons.Filled.PlayArrow, Icons.Outlined.PlayArrow, false),
     BottomNavigationItem(MainNavConstant.Profile.route, Icons.Filled.AccountCircle, Icons.Outlined.AccountCircle, false)
 )
 
