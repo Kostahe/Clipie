@@ -1,6 +1,7 @@
 package com.clipie.presentation.main
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.automirrored.filled.Send
@@ -33,6 +34,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -133,7 +135,8 @@ fun MainBottomBar(navController: NavHostController) {
                         Icon(
                             imageVector = if (index == selectedItemIndex) item.selectedIcon
                             else item.unselectedIcon,
-                            contentDescription = null
+                            contentDescription = null,
+                            modifier = Modifier.size(45.dp)
                         )
                     }
                 }
