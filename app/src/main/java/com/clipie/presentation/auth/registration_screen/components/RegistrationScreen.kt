@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -44,11 +45,11 @@ fun RegistrationScreen(
     var password by rememberSaveable {
         mutableStateOf("")
     }
-    Scaffold { padding ->
+    Scaffold { innerPadding ->
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = modifier.fillMaxSize()
-                .padding(padding)
+                .padding(innerPadding)
         ) {
             Text(
                 text = stringResource(R.string.create_new_account),
@@ -87,12 +88,12 @@ fun RegistrationScreen(
                 text = stringResource(id = R.string.create_account)
             )
             TextButton(
-                onClick = { navController.navigate(AuthenticationNavConstant.Login.route) },
+                onClick = { navController.navigateUp() },
                 modifier = Modifier.padding(top = 200.dp)
             ) {
                 Text(
                     text = stringResource(R.string.already_have_an_account),
-                    color = Color(0xFF0064e0),
+                    color = MaterialTheme.colorScheme.primary,
                 )
             }
         }
