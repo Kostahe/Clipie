@@ -40,6 +40,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.clipie.presentation.main.home_screen.components.HomeScreenTopBar
 import com.clipie.presentation.main.profile_screen.components.ProfileScreenTopBar
+import com.clipie.presentation.main.search_screen.components.SearchScreenTopBar
 import com.clipie.presentation.navigation.main.MainNavConstant
 import com.clipie.presentation.navigation.main.MainNavHost
 
@@ -83,6 +84,9 @@ fun MainScreen(
                 }
                 MainNavConstant.Profile.route -> {
                     ProfileScreenTopBar()
+                }
+                MainNavConstant.Search.route -> {
+                    SearchScreenTopBar()
                 }
             }
         }, bottomBar = {
