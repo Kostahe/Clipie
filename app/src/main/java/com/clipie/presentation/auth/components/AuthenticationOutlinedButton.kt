@@ -2,30 +2,25 @@ package com.clipie.presentation.auth.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.clipie.ui.theme.ButtonBackground
-import com.clipie.ui.theme.OnButtonBackground
 
 
 @Composable
 fun AuthenticationOutlinedButton(
     modifier: Modifier = Modifier,
-    onClick: () -> Unit,
-    text: String
+    onClick: () -> Unit = {},
+    text: String = "Test"
 ) {
     OutlinedButton(
-        onClick = onClick, colors = ButtonDefaults.outlinedButtonColors(
-            contentColor = ButtonBackground,
-            containerColor = OnButtonBackground
-        ),
+        onClick = onClick,
         modifier = modifier,
         shape = RoundedCornerShape(25),
-        border = BorderStroke(1.dp, ButtonBackground)
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary)
     ) {
         Text(
             text = text
