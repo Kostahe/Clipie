@@ -2,15 +2,6 @@ package com.clipie.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Background = Color(0xFFebf4fc)
-val TextField = Color.White
-val UnFocusedOnTextField = Color(0xFFa7b1b8)
-val FocusedOnTextField = Color(0xFF1c2b33)
-val CursorTextField = Color.Black
-val ButtonBackground = Color(0xFF4cb5f9)
-val OnButtonBackground = Color(0xFFfafafa)
-val DividerColor = Color(225, 225, 225)
-
 val md_theme_light_primary = Color(0xFF006494)
 val md_theme_light_onPrimary = Color(0xFFFFFFFF)
 val md_theme_light_primaryContainer = Color(0xFFCAE6FF)
