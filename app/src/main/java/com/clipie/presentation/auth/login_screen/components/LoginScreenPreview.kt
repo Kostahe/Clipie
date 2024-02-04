@@ -55,7 +55,7 @@ fun LoginScreenPreview() {
                     painter = painterResource(id = R.drawable.app_logo),
                     contentDescription = null,
                     modifier = Modifier.padding(bottom = 30.dp),
-
+                    tint = MaterialTheme.colorScheme.primary
                 )
                 AuthenticationTextField(
                     value = email,
@@ -68,12 +68,12 @@ fun LoginScreenPreview() {
                     onValueChange = { password = it },
                     label = stringResource(R.string.password),
                     imeAction = ImeAction.Done,
-                    modifier = Modifier.padding(top = 5.dp),
+                    modifier = Modifier.padding(top = 10.dp),
                 )
                 AuthenticationButton(
                     modifier = Modifier
                         .width(275.dp)
-                        .padding(10.dp),
+                        .padding(top = 15.dp),
                     onClick = {},
                     text = stringResource(R.string.log_in)
                 )
