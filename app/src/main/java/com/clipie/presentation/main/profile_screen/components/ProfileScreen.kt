@@ -62,7 +62,6 @@ import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import com.clipie.R
 import com.clipie.presentation.main.TopListOfItems
-import com.clipie.ui.theme.ButtonBackground
 
 @PreviewLightDark
 @PreviewFontScale
@@ -404,8 +403,7 @@ fun ListsBottomSheetItem(
         ) {
             Text(
                 text = notificationFormat(notificationCount),
-                modifier = Modifier
-                    .background(ButtonBackground, shape = RoundedCornerShape(100)),
+                modifier = Modifier,
                 style = MaterialTheme.typography.labelLarge, color = Color.White
             )
         }
