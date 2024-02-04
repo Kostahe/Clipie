@@ -2,11 +2,9 @@ package com.clipie.presentation.main.home_screen.components
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.automirrored.filled.List
@@ -41,11 +39,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
-import com.clipie.presentation.main.TopListOfItems
-import kotlin.reflect.KClass
 import com.clipie.presentation.main.TopNavigationItem
 
 val TopListOfItems: List<TopNavigationItem> = listOf(
@@ -74,7 +68,7 @@ fun HomeScreenTopBar() {
     val followNotification = false
     val favoritesNotification = false
     TopAppBar(title = {
-//      For You Dropdownbutton
+//      ForYou Dropdownbutton
         BadgedBox(badge = {
             if (favoritesNotification || followNotification) {
                 Badge(
