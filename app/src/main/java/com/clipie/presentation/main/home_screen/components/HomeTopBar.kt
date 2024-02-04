@@ -4,6 +4,15 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.List
+import androidx.compose.material.icons.automirrored.filled.Send
+import androidx.compose.material.icons.automirrored.outlined.List
+import androidx.compose.material.icons.automirrored.outlined.Send
+import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.outlined.AddCircle
+import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material.icons.outlined.KeyboardArrowDown
+import androidx.compose.material.icons.outlined.KeyboardArrowUp
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.Badge
@@ -27,7 +36,26 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.clipie.presentation.main.TopListOfItems
+import com.clipie.presentation.main.TopNavigationItem
+
+val TopListOfItems: List<TopNavigationItem> = listOf(
+    TopNavigationItem(
+        "ForYouDropDownMenu", Icons.Outlined.KeyboardArrowDown, Icons.Outlined.KeyboardArrowUp, true
+    ),
+    TopNavigationItem(
+        "Notifications", Icons.Outlined.FavoriteBorder, Icons.Outlined.FavoriteBorder, true
+    ),
+    TopNavigationItem(
+        "Send", Icons.AutoMirrored.Filled.Send, Icons.AutoMirrored.Outlined.Send, true
+    ),
+    TopNavigationItem(
+        "Profiles", Icons.Outlined.KeyboardArrowDown, Icons.Outlined.KeyboardArrowUp, true
+    ),
+    TopNavigationItem("Create", Icons.Filled.AddCircle, Icons.Outlined.AddCircle, true),
+    TopNavigationItem(null, Icons.AutoMirrored.Outlined.List, Icons.AutoMirrored.Filled.List, true)
+)
+
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
