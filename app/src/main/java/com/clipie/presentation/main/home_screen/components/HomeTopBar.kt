@@ -27,7 +27,26 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.clipie.presentation.main.TopListOfItems
+import com.clipie.presentation.main.TopNavigationItem
+
+val TopListOfItems: List<TopNavigationItem> = listOf(
+    TopNavigationItem(
+        "ForYouDropDownMenu", Icons.Outlined.KeyboardArrowDown, Icons.Outlined.KeyboardArrowUp, true
+    ),
+    TopNavigationItem(
+        "Notifications", Icons.Outlined.FavoriteBorder, Icons.Outlined.FavoriteBorder, true
+    ),
+    TopNavigationItem(
+        "Send", Icons.AutoMirrored.Filled.Send, Icons.AutoMirrored.Outlined.Send, true
+    ),
+    TopNavigationItem(
+        "Profiles", Icons.Outlined.KeyboardArrowDown, Icons.Outlined.KeyboardArrowUp, true
+    ),
+    TopNavigationItem("Create", Icons.Filled.AddCircle, Icons.Outlined.AddCircle, true),
+    TopNavigationItem(null, Icons.AutoMirrored.Outlined.List, Icons.AutoMirrored.Filled.List, true)
+)
+
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
