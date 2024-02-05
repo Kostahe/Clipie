@@ -78,6 +78,18 @@ class AuthenticationRepositoryImpl @Inject constructor(
         }
     }
 
+    override fun forgotPassword(email: String, result: (State<Unit>) -> Unit) {
+        authentication.sendPasswordResetEmail(email).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                result.invoke(State.Success(Unit))
+            } else {
+                result.invoke(State.Error(task.exception?.message.toString()))
+            }
+        }.addOnFailureListener {
+            result.invoke(State.Error(it.localizedMessage?.toString() ?: ""))
+        }
+    }
+
     override fun storeSession(
         id: String,
         result: (User?) -> Unit
