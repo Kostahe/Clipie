@@ -63,7 +63,6 @@ import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import com.clipie.R
 import com.clipie.presentation.main.home_screen.components.TopListOfItems
-import com.google.firebase.firestore.auth.User
 
 @PreviewLightDark
 @PreviewFontScale
