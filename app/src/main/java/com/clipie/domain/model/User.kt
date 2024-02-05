@@ -1,11 +1,15 @@
 package com.clipie.domain.model
 
-import com.google.firebase.firestore.ServerTimestamp
 import java.util.Date
 
 data class User(
     var id: String = "",
     val username: String = "",
     val email: String = "",
-    @ServerTimestamp val signUpDate: Date = Date()
+    val imageUrl: String = "",
+    val following: List<String>,
+    val followers: List<String>,
+    val totalPosts: String = "",
+    val bio: String = "",
+    val signUpDate: Date = Date(),
 )
