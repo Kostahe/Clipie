@@ -84,7 +84,7 @@ fun LoginScreen(
                 },
                 text = stringResource(R.string.log_in)
             )
-            TextButton(onClick = { }) {
+            TextButton(onClick = { navController.navigate(AuthenticationNavConstant.ForgotPassword.route) }) {
                 Text(
                     text = stringResource(R.string.forgot_password),
                 )

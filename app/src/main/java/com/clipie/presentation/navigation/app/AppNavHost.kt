@@ -11,6 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.clipie.presentation.auth.AuthenticationViewModel
+import com.clipie.presentation.auth.forgot_password_screen.ForgotPasswordScreen
 import com.clipie.presentation.auth.login_screen.components.LoginScreen
 import com.clipie.presentation.auth.registration_screen.components.RegistrationScreen
 import com.clipie.presentation.main.MainScreen
@@ -38,6 +39,11 @@ fun AppNavHost(
                 val viewModel =
                     it.sharedViewModel<AuthenticationViewModel>(navController = navController)
                 RegistrationScreen(navController = navController, viewModel = viewModel)
+            }
+            composable(route = AuthenticationNavConstant.ForgotPassword.route) {
+                val viewModel =
+                    it.sharedViewModel<AuthenticationViewModel>(navController = navController)
+                ForgotPasswordScreen(navController = navController, viewModel = viewModel)
             }
         }
         composable(route = AppNavConstant.Main.route) {

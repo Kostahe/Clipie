@@ -1,12 +1,13 @@
 package com.clipie.presentation.main.profile_screen.components
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Row
-import androidx.compose.runtime.mutableStateOf
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Row
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,7 +16,9 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.CheckCircle
@@ -26,13 +29,13 @@ import androidx.compose.material.icons.outlined.PlayArrow
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material.icons.outlined.Star
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
@@ -60,6 +63,7 @@ import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import com.clipie.R
 import com.clipie.presentation.main.home_screen.components.TopListOfItems
+import com.google.firebase.firestore.auth.User
 
 @PreviewLightDark
 @PreviewFontScale
@@ -67,10 +71,12 @@ import com.clipie.presentation.main.home_screen.components.TopListOfItems
 @Preview
 @Composable
 fun ProfileScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
-
-
+    Column(modifier.verticalScroll(rememberScrollState()).fillMaxWidth()) {
+        ProfileScreenInformation(user = User())
+        UserPanel()
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -363,7 +369,8 @@ fun ListsBottomSheetItem(
 ) {
     Row(modifier = Modifier
         .fillMaxWidth()
-        .clickable { }) {
+        .clickable { }
+    ) {
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier
@@ -396,6 +403,7 @@ fun ListsBottomSheetItem(
                 style = MaterialTheme.typography.labelLarge, color = Color.White
             )
         }
+
     }
 }
 
