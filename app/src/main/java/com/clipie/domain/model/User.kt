@@ -7,9 +7,9 @@ data class User(
     val username: String = "",
     val email: String = "",
     val imageUrl: String = "",
-    val following: List<String>,
-    val followers: List<String>,
     val totalPosts: String = "",
     val bio: String = "",
+    val following: List<String>,
+    val followers: List<String>,
     val signUpDate: Date = Date(),
 )
