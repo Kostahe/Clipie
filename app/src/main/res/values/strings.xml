@@ -23,4 +23,9 @@
     <string name="already_have_an_account">Already have an account?</string>
     <string name="please_enter_your_details">Please enter your details</string>
     <string name="for_you">For you</string>
+    <string name="posts">posts</string>
+    <string name="followers">followers</string>
+    <string name="following">following</string>
+    <string name="edit_profile">Edit profile</string>
+    <string name="share_profile">Share profile</string>
 </resources>
