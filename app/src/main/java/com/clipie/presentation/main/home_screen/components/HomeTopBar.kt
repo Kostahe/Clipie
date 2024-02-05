@@ -1,9 +1,12 @@
 package com.clipie.presentation.main.home_screen.components
 
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material.icons.automirrored.outlined.List
@@ -14,7 +17,6 @@ import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.KeyboardArrowDown
 import androidx.compose.material.icons.outlined.KeyboardArrowUp
 import androidx.compose.material.icons.outlined.Person
-import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.DropdownMenu
@@ -34,7 +36,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.clipie.presentation.main.TopNavigationItem
 
@@ -56,14 +60,17 @@ val TopListOfItems: List<TopNavigationItem> = listOf(
 )
 
 
-
 @OptIn(ExperimentalMaterial3Api::class)
+@Preview
 @Composable
 fun HomeScreenTopBar() {
     var expanded by rememberSaveable { mutableStateOf(false) }
+    val followNotification = false
+    val favoritesNotification = false
     TopAppBar(title = {
+//      ForYou Dropdownbutton
         BadgedBox(badge = {
-            if (TopListOfItems[0].hasNews) {
+            if (favoritesNotification || followNotification) {
                 Badge(
                     Modifier
                         .offset(x = (-9).dp, y = 35.dp)
@@ -85,33 +92,31 @@ fun HomeScreenTopBar() {
                 )
             }
         }
-        DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-            DropdownMenuItem(modifier = Modifier.size(width = 180.dp, height = 40.dp), text = {
-                Text(
-                    text = "Following",
-                    style = MaterialTheme.typography.headlineSmall,
-                )
-                Icon(
-                    imageVector = Icons.Outlined.Person,
-                    contentDescription = null,
-                    Modifier.offset(130.dp, 3.dp)
-                )
-            }, onClick = { /*TODO*/ })
 
-            DropdownMenuItem(modifier = Modifier.size(width = 180.dp, height = 40.dp), text = {
-                Text(
-                    text = "Favorites", style = MaterialTheme.typography.headlineSmall
-                )
-                Icon(
-                    imageVector = Icons.Outlined.Star,
-                    contentDescription = null,
-                    Modifier.offset(130.dp, 4.dp)
-                )
-            }, onClick = { /*TODO*/ })
+        DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+
+            ForYouDropdownMenuItem(
+                text = "Follow",
+                icon = Icons.Outlined.Person,
+                onClick = { /*TODO*/ },
+                hasNotification = followNotification,
+                contentDescription = null
+            )
+            ForYouDropdownMenuItem(
+                text = "Favorites",
+                icon = Icons.Filled.Star,
+                onClick = { /*TODO*/ },
+                hasNotification = favoritesNotification,
+                contentDescription = null
+            )
+
         }
 
 
     }, actions = {
+
+//        Favorites IconButton
+
         BadgedBox(badge = {
             if (TopListOfItems[1].hasNews) {
                 Badge(
@@ -129,6 +134,9 @@ fun HomeScreenTopBar() {
                 )
             }
         }
+
+//        Messages IconButton
+
         BadgedBox(badge = {
             if (TopListOfItems[2].hasNews) {
                 Badge(
@@ -150,4 +158,36 @@ fun HomeScreenTopBar() {
             }
         }
     })
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ForYouDropdownMenuItem(
+    text: String,
+    icon: ImageVector,
+    onClick: () -> Unit,
+    hasNotification: Boolean,
+    contentDescription: String?
+) {
+    DropdownMenuItem(modifier = Modifier.size(width = 180.dp, height = 40.dp), text = {
+        Row(Modifier.fillMaxWidth()) {
+            Text(
+                text = text,
+                style = MaterialTheme.typography.headlineSmall,
+                modifier = Modifier.weight(1f)
+            )
+            BadgedBox(badge = {
+                if (hasNotification) {
+                    Badge(Modifier.size(9.dp)) {
+
+                    }
+                }
+            }, modifier = Modifier.padding(top = 8.dp)) {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = contentDescription
+                )
+            }
+        }
+    }, onClick = { onClick })
 }
