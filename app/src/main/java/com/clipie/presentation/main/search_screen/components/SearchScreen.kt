@@ -48,7 +48,11 @@ fun SearchScreenTopBar() {
             modifier = Modifier.offset(y = (-5).dp),
             query = searchText,
             onQueryChange = { searchText = it },
-            onSearch = { active = false; searchHistory.add(it) },
+            onSearch = {
+                active = false; if (searchText.isNotEmpty()) {
+                searchHistory.add(it)
+            }
+            },
             active = active,
             onActiveChange = { active = it },
             placeholder = { Text(text = "Search") },
@@ -76,9 +80,9 @@ fun SearchScreenTopBar() {
             }
 
         ) {
-            
+
             LazyColumn {
-                items(searchHistory){
+                items(searchHistory) {
                     Row(modifier = Modifier
                         .padding(all = 14.dp)
                         .clickable { searchText = it }) {
@@ -90,17 +94,16 @@ fun SearchScreenTopBar() {
                         )
 
                         Text(text = it)
+
                         Spacer(modifier = Modifier.weight(1f))
+
                         Icon(imageVector = Icons.Outlined.Close,
                             contentDescription = null,
-                            modifier = Modifier.clickable { searchHistory.remove(it) })
+                            modifier = Modifier.clickable { searchHistory.remove(it) }
+                        )
                     }
                 }
-
             }
-
-
         }
     }
-
 }
