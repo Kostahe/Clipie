@@ -72,10 +72,10 @@ import com.clipie.presentation.main.home_screen.components.TopListOfItems
 fun ProfileScreen(
     modifier: Modifier = Modifier,
 ) {
-    Column(modifier.verticalScroll(rememberScrollState()).fillMaxWidth()) {
-        ProfileScreenInformation(user = User())
-        UserPanel()
-    }
+//    Column(modifier.verticalScroll(rememberScrollState()).fillMaxWidth()) {
+//        ProfileScreenInformation(user = User())
+//        UserPanel()
+//    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
