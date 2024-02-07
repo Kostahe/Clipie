@@ -11,10 +11,13 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.History
 import androidx.compose.material.icons.outlined.MoreHoriz
 import androidx.compose.material.icons.outlined.Search
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.SearchBar
@@ -24,11 +27,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Popup
 import com.clipie.ui.theme.ClipieTheme
 
 @Composable
@@ -44,6 +49,8 @@ fun SearchScreenTopBar() {
     var searchText by remember { mutableStateOf("") }
     var active by remember { mutableStateOf(false) }
     val searchHistory = remember { mutableStateListOf<String>() }
+    var moreMenu by rememberSaveable { mutableStateOf(false) }
+    var selectSwitch by rememberSaveable { mutableStateOf(false) }
     ClipieTheme {
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
 
@@ -54,7 +61,7 @@ fun SearchScreenTopBar() {
                 onSearch = {
                     active = false; if (searchText.isNotEmpty()) {
                     searchHistory.add(it)
-                    }
+                }
                 },
                 active = active,
                 onActiveChange = { active = it },
@@ -95,11 +102,25 @@ fun SearchScreenTopBar() {
                 }
             }
             Icon(imageVector = Icons.Outlined.MoreHoriz,
-                contentDescription = null, modifier = Modifier.size(30.dp)
+                contentDescription = null, modifier = Modifier
+                    .size(30.dp)
                     .align(Alignment.CenterVertically)
-                    .clickable {  }
+                    .clickable { moreMenu = true }
             )
+
+
         }
+
+        DropdownMenu(expanded = moreMenu, onDismissRequest = { moreMenu = false }) {
+            Text(text = "Filter suggestions", modifier = Modifier.padding(horizontal = 10.dp))
+            MoreDropdownMenuItem(selected = selectSwitch) {
+                selectSwitch = true
+            }
+            MoreDropdownMenuItem(selected = !selectSwitch) {
+                selectSwitch = false
+            }
+        }
+
 
     }
 }
@@ -132,4 +153,18 @@ fun SearchHistoryItem(
             modifier = Modifier.clickable { searchHistoryList.remove(it) }
         )
     }
+}
+
+
+@Composable
+fun MoreDropdownMenuItem(selected: Boolean, onClick: () -> Unit) {
+
+    DropdownMenuItem(text = {
+        if (selected) {
+            Icon(imageVector = Icons.Outlined.Check, contentDescription = null)
+
+        }
+
+
+    }, onClick = { onClick() })
 }
