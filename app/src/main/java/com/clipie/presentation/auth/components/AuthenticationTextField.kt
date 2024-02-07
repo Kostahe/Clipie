@@ -33,6 +33,7 @@ fun AuthenticationTextField(
             errorIndicatorColor = MaterialTheme.colorScheme.surface,
         ),
         shape = RoundedCornerShape(25),
+        singleLine = true,
         modifier = modifier,
     )
 }

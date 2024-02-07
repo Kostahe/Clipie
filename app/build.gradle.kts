@@ -94,4 +94,8 @@ dependencies {
     //Gson
     val gsonVersion = "2.10.1"
     implementation("com.google.code.gson:gson:$gsonVersion")
+
+    // Coil
+    val coilVersion = "2.5.0"
+    implementation("io.coil-kt:coil-compose:$coilVersion")
 }

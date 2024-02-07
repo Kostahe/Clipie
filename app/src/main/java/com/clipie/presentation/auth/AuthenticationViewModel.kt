@@ -21,6 +21,9 @@ class AuthenticationViewModel @Inject constructor(
     private val _register: MutableState<State<Unit>> = mutableStateOf(State.Loading())
     val register: ImmutableState<State<Unit>> = _register
 
+    private val _forgotPassword: MutableState<State<Unit>> = mutableStateOf(State.Loading())
+    val forgotPassword: ImmutableState<State<Unit>> = _forgotPassword
+
     fun login(
         email: String,
         password: String
@@ -37,6 +40,14 @@ class AuthenticationViewModel @Inject constructor(
     ) {
         repository.register(email, password, user) { state ->
             _register.value = state
+        }
+    }
+
+    fun forgotPassword(
+        email: String
+    ) {
+        repository.forgotPassword(email) { state ->
+            _forgotPassword.value = state
         }
     }
 }
