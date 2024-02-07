@@ -111,7 +111,7 @@ fun SearchScreenTopBar() {
                     }
                 }
             }
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = { /*TODO*/ }, modifier = Modifier.align(Alignment.CenterVertically)) {
                 Icon(imageVector = Icons.Outlined.MoreHoriz,
                     contentDescription = null, modifier = Modifier
                         .size(30.dp)
