@@ -15,11 +15,14 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.History
 import androidx.compose.material.icons.outlined.MoreHoriz
+import androidx.compose.material.icons.outlined.PeopleOutline
 import androidx.compose.material.icons.outlined.Search
+import androidx.compose.material3.Divider
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -39,6 +42,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.clipie.ui.theme.ClipieTheme
 
@@ -116,16 +120,28 @@ fun SearchScreenTopBar() {
                 )
                 DropdownMenu(expanded = moreMenu,
                     onDismissRequest = { moreMenu = false }) {
-                    Text(text = "Filter suggestions", modifier = Modifier.padding(horizontal = 10.dp))
-                    MoreDropdownMenuItem("For you", selected = selectSwitch) {
-                        selectSwitch = true
-                    }
-                    MoreDropdownMenuItem("Not Personalised", selected = !selectSwitch) {
-                        selectSwitch = false
-                    }
+                    Text(
+                        text = "Filter suggestions",
+                        modifier = Modifier.padding(horizontal = 10.dp)
+                    )
+                    MoreDropdownMenuItem(
+                        "For you",
+                        icon = Icons.Outlined.PeopleOutline,
+                        selected = selectSwitch,
+                        onClick = { selectSwitch = true },
+                        null
+                    )
+                    MoreDropdownMenuItem(
+                        "Not Personalised",
+                        icon = Icons.Outlined.AccountCircle,
+                        selected = !selectSwitch,
+                        onClick = {
+                            selectSwitch = false
+                        },
+                        null
+                    )
                 }
             }
-
 
 
         }
@@ -164,22 +180,31 @@ fun SearchHistoryItem(
 
 
 @Composable
-fun MoreDropdownMenuItem(text: String, selected: Boolean, onClick: () -> Unit) {
+fun MoreDropdownMenuItem(
+    text: String,
+    icon: ImageVector,
+    selected: Boolean,
+    onClick: () -> Unit,
+    contentDesc: String?
+) {
 
     DropdownMenuItem(text = {
         Row(modifier = Modifier.height(50.dp)) {
             if (selected) {
-                Box(modifier = Modifier.size(30.dp)){
-                    Icon(imageVector = Icons.Outlined.Check,
+                Box(modifier = Modifier.size(30.dp).align(Alignment.CenterVertically)) {
+                    Icon(
+                        imageVector = Icons.Outlined.Check,
                         contentDescription = null,
-                        modifier = Modifier.size(25.dp))
+                        modifier = Modifier.size(25.dp)
+                    )
                 }
-            }else{
+            } else {
                 Spacer(modifier = Modifier.width(30.dp))
             }
-            Text(text = text, style = MaterialTheme.typography.titleLarge)
+            Text(text = text, style = MaterialTheme.typography.titleMedium, modifier = Modifier.align(Alignment.CenterVertically).weight(1f))
+            Icon(imageVector = icon, contentDescription = contentDesc, modifier = Modifier.align(Alignment.CenterVertically))
         }
-
+        Divider()
 
 
     }, onClick = { onClick() })
