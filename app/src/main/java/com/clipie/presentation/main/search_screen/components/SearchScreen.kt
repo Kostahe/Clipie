@@ -102,11 +102,11 @@ fun SearchScreenTopBar() {
             ) {
 
                 LazyColumn {
-                    items(searchHistory) {
+                    items(searchHistory) { item ->
                         SearchHistoryItem(
-                            searchHistoryList = searchHistory,
-                            it = it,
-                            searchText = searchText
+                            it = item,
+                            onDelete = {searchHistory.remove(item)},
+                            onClick = { searchText = it },
                         )
                     }
                 }
@@ -151,15 +151,14 @@ fun SearchScreenTopBar() {
 
 @Composable
 fun SearchHistoryItem(
-    searchHistoryList: SnapshotStateList<String>,
     it: String,
-    searchText: String
+    onDelete: () -> Unit,
+    onClick: (String) -> Unit
 ) {
-    var searchText = searchText
     Row(modifier = Modifier
         .fillMaxWidth(1f)
         .padding(all = 14.dp)
-        .clickable { searchText = it }) {
+        .clickable { onClick.invoke(it) }) {
 
         Icon(
             imageVector = Icons.Outlined.History,
@@ -173,7 +172,7 @@ fun SearchHistoryItem(
 
         Icon(imageVector = Icons.Outlined.Close,
             contentDescription = null,
-            modifier = Modifier.clickable { searchHistoryList.remove(it) }
+            modifier = Modifier.clickable { onDelete() }
         )
     }
 }
