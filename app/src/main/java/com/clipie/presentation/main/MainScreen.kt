@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.clipie.presentation.main.clips_screen.components.ClipsTopAppBar
 import com.clipie.presentation.main.home_screen.components.HomeScreenTopBar
 import com.clipie.presentation.main.profile_screen.components.ProfileScreenTopBar
 import com.clipie.presentation.main.search_screen.components.SearchScreenTopBar
@@ -64,6 +65,9 @@ fun MainScreen(
                 }
                 MainNavConstant.Search.route -> {
                     SearchScreenTopBar()
+                }
+                MainNavConstant.Clips.route -> {
+                    ClipsTopAppBar()
                 }
             }
         }, bottomBar = {
