@@ -98,20 +98,21 @@ fun SearchScreenTopBar() {
                         )
                     }
                 }
-
             ) {
-
                 LazyColumn {
                     items(searchHistory) { item ->
                         SearchHistoryItem(
                             it = item,
-                            onDelete = {searchHistory.remove(item)},
+                            onDelete = { searchHistory.remove(item) },
                             onClick = { searchText = it },
                         )
                     }
                 }
             }
-            IconButton(onClick = { /*TODO*/ }, modifier = Modifier.align(Alignment.CenterVertically)) {
+            IconButton(
+                onClick = {  },
+                modifier = Modifier.align(Alignment.CenterVertically)
+            ) {
                 Icon(imageVector = Icons.Outlined.MoreHoriz,
                     contentDescription = null, modifier = Modifier
                         .size(30.dp)
@@ -142,8 +143,6 @@ fun SearchScreenTopBar() {
                     )
                 }
             }
-
-
         }
     }
 }
@@ -159,17 +158,13 @@ fun SearchHistoryItem(
         .fillMaxWidth(1f)
         .padding(all = 14.dp)
         .clickable { onClick.invoke(it) }) {
-
         Icon(
             imageVector = Icons.Outlined.History,
             contentDescription = null,
             modifier = Modifier.padding(end = 15.dp)
         )
-
         Text(text = it)
-
         Spacer(modifier = Modifier.weight(1f))
-
         Icon(imageVector = Icons.Outlined.Close,
             contentDescription = null,
             modifier = Modifier.clickable { onDelete() }
@@ -186,11 +181,12 @@ fun MoreDropdownMenuItem(
     onClick: () -> Unit,
     contentDesc: String?
 ) {
-
     DropdownMenuItem(text = {
         Row(modifier = Modifier.height(50.dp)) {
             if (selected) {
-                Box(modifier = Modifier.size(30.dp).align(Alignment.CenterVertically)) {
+                Box(modifier = Modifier
+                    .size(30.dp)
+                    .align(Alignment.CenterVertically)) {
                     Icon(
                         imageVector = Icons.Outlined.Check,
                         contentDescription = null,
@@ -200,11 +196,19 @@ fun MoreDropdownMenuItem(
             } else {
                 Spacer(modifier = Modifier.width(30.dp))
             }
-            Text(text = text, style = MaterialTheme.typography.titleMedium, modifier = Modifier.align(Alignment.CenterVertically).weight(1f))
-            Icon(imageVector = icon, contentDescription = contentDesc, modifier = Modifier.align(Alignment.CenterVertically))
+            Text(
+                text = text,
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier
+                    .align(Alignment.CenterVertically)
+                    .weight(1f)
+            )
+            Icon(
+                imageVector = icon,
+                contentDescription = contentDesc,
+                modifier = Modifier.align(Alignment.CenterVertically)
+            )
         }
         Divider()
-
-
     }, onClick = { onClick() })
 }
