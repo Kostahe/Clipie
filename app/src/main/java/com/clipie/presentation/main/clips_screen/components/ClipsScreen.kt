@@ -28,13 +28,15 @@ import com.clipie.ui.theme.ClipieTheme
 fun ClipsScreen() {
     var appBarColor by remember { mutableStateOf(Color(0, 0, 0, 100)) }
     ClipieTheme {
-        ClipsTopAppBar(title = "Clips")
+
+        Text(text = "Clips feed")
+
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ClipsTopAppBar(title: String, backgroundColor: Color = Color.Transparent) {
+fun ClipsTopAppBar(backgroundColor: Color = Color.Transparent) {
     TopAppBar(
         title = { Text(text = "Clips", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold) },
         modifier = Modifier
