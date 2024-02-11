@@ -110,7 +110,7 @@ fun SearchScreenTopBar() {
                 }
             }
             IconButton(
-                onClick = { /*TODO*/ },
+                onClick = {  },
                 modifier = Modifier.align(Alignment.CenterVertically)
             ) {
                 Icon(imageVector = Icons.Outlined.MoreHoriz,
