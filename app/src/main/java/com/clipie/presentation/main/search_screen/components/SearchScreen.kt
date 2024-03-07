@@ -45,7 +45,7 @@ import com.clipie.ui.theme.ClipieTheme
 @Composable
 fun SearchScreen() {
 
-    Text(text = "Random unordered content")
+    Text(text = "Content dependant on Filter suggestions")
 
 }
 
@@ -186,7 +186,7 @@ fun MoreDropdownMenuItem(
                     Icon(
                         imageVector = Icons.Outlined.Check,
                         contentDescription = null,
-                        modifier = Modifier.size(25.dp)
+                        modifier = Modifier.size(20.dp)
                     )
                 }
             } else {
@@ -199,6 +199,7 @@ fun MoreDropdownMenuItem(
                     .align(Alignment.CenterVertically)
                     .weight(1f)
             )
+            Spacer(modifier = Modifier.weight(1f))
             Icon(
                 imageVector = icon,
                 contentDescription = contentDesc,
