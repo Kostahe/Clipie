@@ -104,9 +104,6 @@ fun RegistrationScreen(
                 )
             }
         }
-        if (viewModel.register.value is State.Loading) {
-            CircularProgressIndicator()
-        }
     }
 
 }
