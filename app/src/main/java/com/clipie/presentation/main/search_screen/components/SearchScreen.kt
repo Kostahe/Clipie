@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredSize
+import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -119,7 +121,8 @@ fun SearchScreenTopBar() {
                     onDismissRequest = { moreMenu = false }) {
                     Text(
                         text = "Filter suggestions",
-                        modifier = Modifier.padding(horizontal = 10.dp)
+                        modifier = Modifier.padding(horizontal = 40.dp),
+                        style = MaterialTheme.typography.titleMedium
                     )
                     MoreDropdownMenuItem(
                         "For you",
@@ -199,7 +202,7 @@ fun MoreDropdownMenuItem(
                     .align(Alignment.CenterVertically)
                     .weight(1f)
             )
-            Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier)
             Icon(
                 imageVector = icon,
                 contentDescription = contentDesc,
@@ -207,5 +210,5 @@ fun MoreDropdownMenuItem(
             )
         }
         Divider()
-    }, onClick = { onClick() })
+    }, onClick = { onClick() }, modifier = Modifier.requiredWidth(220.dp))
 }
