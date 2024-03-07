@@ -17,10 +17,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
             ClipieTheme {
-                val viewModel = hiltViewModel<MessagesViewModel>()
-                viewModel.sendMessages(Message(sender = ""))
                 App(navController = navController)
-
             }
         }
     }
