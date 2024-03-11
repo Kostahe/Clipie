@@ -117,10 +117,10 @@ fun SearchScreenTopBar() {
                         .clickable { moreMenu = true }
                 )
                 DropdownMenu(expanded = moreMenu,
-                    onDismissRequest = { moreMenu = false }) {
+                    onDismissRequest = { moreMenu = false }, modifier = Modifier.weight(1f)) {
                     Text(
                         text = "Filter suggestions",
-                        modifier = Modifier.padding(horizontal = 40.dp),
+                        modifier = Modifier.padding(horizontal = 40.dp, vertical = 6.dp),
                         style = MaterialTheme.typography.titleMedium
                     )
                     MoreDropdownMenuItem(
