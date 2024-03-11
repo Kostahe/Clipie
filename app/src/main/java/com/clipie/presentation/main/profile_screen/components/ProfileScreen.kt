@@ -1,5 +1,6 @@
 package com.clipie.presentation.main.profile_screen.components
 
+import androidx.compose.foundation.layout.Column
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -11,50 +12,32 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
-import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material.icons.outlined.CheckCircle
-import androidx.compose.material.icons.outlined.Face
-import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Menu
-import androidx.compose.material.icons.outlined.Person
-import androidx.compose.material.icons.outlined.PlayArrow
-import androidx.compose.material.icons.outlined.Settings
-import androidx.compose.material.icons.outlined.Share
-import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -76,7 +59,11 @@ import com.clipie.ui.theme.ClipieTheme
 fun ProfileScreen(
     modifier: Modifier = Modifier,
 ) {
-    Column(modifier.verticalScroll(rememberScrollState()).fillMaxWidth()) {
+    Column(
+        modifier
+            .verticalScroll(rememberScrollState())
+            .fillMaxWidth()
+    ) {
         ProfileScreenInformation(user = User())
         UserPanel()
     }
@@ -85,15 +72,12 @@ fun ProfileScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileScreenTopBar() {
-    val accountSheetState = rememberModalBottomSheetState(false)
+    val userList: List<User> = listOf(User(username = "Wcman007", imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2FsN2KCsaq2KYKLQe9o1-jYQ-O_LxJQthXg&usqp=CAU"))
     var accountSheetOpenSwitch by rememberSaveable { mutableStateOf(false) }
-    val createSheetState = rememberModalBottomSheetState(true)
     var createSheetOpenSwitch by rememberSaveable { mutableStateOf(false) }
-    val listsSheetState = rememberModalBottomSheetState(true)
     var listsSheetOpenSwitch by rememberSaveable { mutableStateOf(false) }
     ClipieTheme {
         TopAppBar(title = {
-
             BadgedBox(badge = {
                 if (TopListOfItems[3].hasNews) {
                     Badge(
@@ -110,7 +94,7 @@ fun ProfileScreenTopBar() {
                         modifier = Modifier
                             .weight(1f, false)
                             .padding(1.dp),
-                        text = "Insert username here",
+                        text = stringResource(R.string.insert_username_here),
                         style = MaterialTheme.typography.headlineMedium,
                         fontWeight = FontWeight.Bold,
                         overflow = TextOverflow.Ellipsis,
@@ -124,139 +108,24 @@ fun ProfileScreenTopBar() {
                 }
             }
             if (accountSheetOpenSwitch) {
-
-                ModalBottomSheet(
-                    onDismissRequest = { accountSheetOpenSwitch = false },
-                    sheetState = accountSheetState,
-                ) {
-                    AccountItem("Franta", painterResource(id = R.drawable.temp_acc_pfp), true)
-                    AccountItem("Bob", painterResource(id = R.drawable.temp_acc_pfp), false)
-                    Row(modifier = Modifier
-                        .clickable {
-                            Log.d(
-                                "currentProfileRow", "Current account has been clicked!!!"
-                            )
-                        }
-                        .fillMaxWidth()
-                        .fillMaxHeight(0.1f),
-                        verticalAlignment = Alignment.CenterVertically) {
-                        Spacer(modifier = Modifier.width(20.dp))
-                        Icon(
-                            imageVector = Icons.Outlined.Add,
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(65.dp)
-                                .clip(CircleShape)
-                                .border(1.dp, Color.Gray, CircleShape)
-                        )
-                        Text(
-                            text = stringResource(R.string.add_account),
-                            Modifier.padding(start = 20.dp),
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold,
-                        )
-                    }
-                }
+               AccountBottomSheet(
+                   onDismissRequest = { accountSheetOpenSwitch = false },
+                   profilesList = userList,
+                   onItemClick = { },
+                   onAddAccountClick = { }
+               )
             }
             if (createSheetOpenSwitch) {
-                ModalBottomSheet(
+                CreateBottomSheet(
                     onDismissRequest = { createSheetOpenSwitch = false },
-                    sheetState = createSheetState,
-                    modifier = Modifier.height(550.dp)
-                ) {
-                    Box(
-                        modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center
-                    ) {
-                        Text(
-                            text = stringResource(R.string.create),
-                            style = MaterialTheme.typography.headlineSmall,
-                            fontWeight = FontWeight.Bold
-                        )
-                    }
-                    Spacer(modifier = Modifier.height(12.dp))
-                    Divider()
-                    CreateBottomSheetItem(
-                        text = stringResource(R.string.clip),
-                        icon = Icons.Outlined.PlayArrow
-                    ) {}
-                    CreateBottomSheetItem(
-                        text = stringResource(R.string.post),
-                        icon = Icons.Outlined.PlayArrow
-                    ) {}
-                    CreateBottomSheetItem(
-                        text = stringResource(R.string.story),
-                        icon = Icons.Outlined.PlayArrow
-                    ) {}
-                    CreateBottomSheetItem(
-                        text = stringResource(R.string.story_highlight),
-                        icon = Icons.Outlined.PlayArrow
-                    ) {}
-                    CreateBottomSheetItem(
-                        text = stringResource(R.string.live),
-                        icon = Icons.Outlined.PlayArrow
-                    ) {}
-                    CreateBottomSheetItem(
-                        text = stringResource(R.string.made_for_you),
-                        icon = Icons.Outlined.PlayArrow
-                    ) {}
-                    CreateBottomSheetItem(
-                        text = stringResource(R.string.fundraiser),
-                        icon = Icons.Outlined.PlayArrow
-                    ) {}
-                }
+                    onItemClick = { }
+                )
             }
             if (listsSheetOpenSwitch) {
-                ModalBottomSheet(
+                ListBottomSheet(
                     onDismissRequest = { listsSheetOpenSwitch = false },
-                    sheetState = listsSheetState,
-                    modifier = Modifier
-                ) {
-                    ListsBottomSheetItem(
-                        text = "Settings and Privacy",
-                        icon = Icons.Outlined.Settings,
-                        notificationCount = 69
-                    )
-                    ListsBottomSheetItem(
-                        text = "Your Activity",
-                        icon = Icons.Outlined.Info,
-                        notificationCount = 420
-                    )
-                    ListsBottomSheetItem(
-                        text = "Archived",
-                        icon = Icons.Outlined.Star,
-                        notificationCount = 0
-                    )
-                    ListsBottomSheetItem(
-                        text = "Share Account",
-                        icon = Icons.Outlined.Share,
-                        notificationCount = 1
-                    )
-                    ListsBottomSheetItem(
-                        text = "Saved",
-                        icon = Icons.Outlined.Star,
-                        notificationCount = 36
-                    )
-                    ListsBottomSheetItem(
-                        text = "Supervision",
-                        icon = Icons.Outlined.Face,
-                        notificationCount = 0
-                    )
-                    ListsBottomSheetItem(
-                        text = "Verification",
-                        icon = Icons.Outlined.CheckCircle,
-                        notificationCount = 0
-                    )
-                    ListsBottomSheetItem(
-                        text = "Close Friends",
-                        icon = Icons.Outlined.Person,
-                        notificationCount = 0
-                    )
-                    ListsBottomSheetItem(
-                        text = "Favorites",
-                        icon = Icons.Outlined.Star,
-                        notificationCount = 22
-                    )
-                }
+                    onItemClick = { }
+                )
             }
         }, actions = {
             BadgedBox(badge = {
@@ -296,120 +165,6 @@ fun ProfileScreenTopBar() {
                 }
             }
         })
-    }
-
-
-}
-
-@Composable
-fun AccountItem(accountName: String, pfp: Painter, selected: Boolean) {
-
-    Row(modifier = Modifier
-        .clickable {
-            Log.d(
-                "currentProfileRow", "Current account has been clicked!!!"
-            )
-        }
-        .fillMaxWidth()
-        .fillMaxHeight(0.1f), verticalAlignment = Alignment.CenterVertically) {
-        Spacer(modifier = Modifier.width(20.dp))
-        Row(
-            modifier = Modifier.weight(1f)
-        ) {
-            Image(
-                painter = pfp,
-                contentDescription = null,
-                modifier = Modifier
-                    .size(65.dp)
-                    .clip(CircleShape)
-                    .border(1.dp, Color.Gray, CircleShape)
-            )
-            Text(
-                text = accountName,
-                Modifier.padding(start = 20.dp, top = 20.dp),
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold,
-            )
-        }
-//                  TO DO: Don't forget to add functionality to RadioButtons so only one can be selected
-        RadioButton(
-            selected = selected, onClick = { }, modifier = Modifier.weight(0.2f)
-        )
-    }
-}
-
-@Composable
-fun CreateBottomSheetItem(
-    text: String,
-    icon: ImageVector,
-    iconContentDescription: String? = null,
-    onClick: () -> Unit
-) {
-    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier
-        .clickable { onClick() }
-        .fillMaxWidth()) {
-        Box(contentAlignment = Alignment.Center, modifier = Modifier.size(40.dp)) {
-            Icon(
-                imageVector = icon, contentDescription = iconContentDescription,
-                modifier = Modifier.size(35.dp)
-            )
-        }
-        Text(
-            text = text,
-            style = MaterialTheme.typography.headlineSmall,
-            modifier = Modifier.padding(vertical = 9.dp)
-        )
-    }
-    Divider(
-        modifier = Modifier.offset(42.dp),
-    )
-
-}
-
-@Composable
-fun ListsBottomSheetItem(
-    text: String,
-    icon: ImageVector,
-    notificationCount: Int,
-    iconContentDescription: String? = null
-) {
-    Row(modifier = Modifier
-        .fillMaxWidth()
-        .clickable { }
-    ) {
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier
-                .size(50.dp)
-                .align(Alignment.CenterVertically)
-        ) {
-            Icon(
-                imageVector = icon,
-                contentDescription = iconContentDescription,
-                Modifier.size(30.dp)
-            )
-        }
-
-        Text(
-            text = text,
-            style = MaterialTheme.typography.headlineSmall,
-            modifier = Modifier.align(Alignment.CenterVertically)
-        )
-
-        Box(
-            contentAlignment = Alignment.CenterEnd,
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.CenterVertically)
-                .padding(end = 12.dp)
-        ) {
-            Text(
-                text = notificationFormat(notificationCount),
-                modifier = Modifier,
-                style = MaterialTheme.typography.labelLarge, color = Color.White
-            )
-        }
-
     }
 }
 
