@@ -30,4 +30,15 @@
     <string name="share_profile">Share profile</string>
     <string name="forgot_your_password">Forgot your password?</string>
     <string name="recover_password">Recover password</string>
+    <string name="settings_and_privacy">Settings and Privacy</string>
+    <string name="your_activity">Your Activity</string>
+    <string name="archived">Archived</string>
+    <string name="share_account">Share Account</string>
+    <string name="saved">Saved</string>
+    <string name="supervision">Supervision</string>
+    <string name="verification">Verification</string>
+    <string name="close_friends">Close Friends</string>
+    <string name="favorites">Favorites</string>
+    <string name="profile_picture">%1$s profile picture</string>
+    <string name="insert_username_here">Insert username here</string>
 </resources>
