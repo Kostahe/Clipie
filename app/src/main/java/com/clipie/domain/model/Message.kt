@@ -1,6 +1,6 @@
 package com.clipie.domain.model
 
-data class Chat(
+data class Message(
     var id: String = "",
     var message: String = "",
     val sender: String = "",
