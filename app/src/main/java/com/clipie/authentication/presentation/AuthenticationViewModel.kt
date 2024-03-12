@@ -50,4 +50,7 @@ class AuthenticationViewModel @Inject constructor(
             _forgotPassword.value = state
         }
     }
+
+    fun getSession() = repository.getSession()
+
 }
