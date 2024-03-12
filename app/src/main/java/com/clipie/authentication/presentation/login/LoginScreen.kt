@@ -38,6 +38,9 @@ fun LoginScreen(
     navController: NavHostController,
     viewModel: AuthenticationViewModel
 ) {
+    if (viewModel.getSession() != null) {
+        navController.navigate(AppNavConstant.Main.route)
+    }
     var email by rememberSaveable {
         mutableStateOf("")
     }
@@ -75,7 +78,7 @@ fun LoginScreen(
                     .width(275.dp)
                     .padding(top = 15.dp),
                 onClick = {
-//                viewModel.login(email, password)
+                viewModel.login(email, password)
                     navController.navigate(AppNavConstant.Main.route) {
                         popUpTo(AppNavConstant.Authentication.route) {
                             inclusive = true
