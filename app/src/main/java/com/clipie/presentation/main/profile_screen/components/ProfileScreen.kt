@@ -64,9 +64,11 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import com.clipie.R
-import com.clipie.domain.model.User
-import com.clipie.presentation.main.home_screen.components.TopListOfItems
-import com.clipie.ui.theme.ClipieTheme
+import com.clipie.app.presentation.ui.theme.ClipieTheme
+import com.clipie.authentication.domain.models.User
+import com.clipie.main.presentation.home.components.TopListOfItems
+import com.clipie.main.presentation.profile.components.ProfileScreenInformation
+import com.clipie.main.presentation.profile.components.UserPanel
 
 @PreviewLightDark
 @PreviewFontScale
