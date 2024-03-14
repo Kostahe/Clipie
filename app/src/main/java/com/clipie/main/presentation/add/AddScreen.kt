@@ -5,5 +5,5 @@ import androidx.compose.runtime.Composable
 
 @Composable
 fun AddScreen(){
-    Text(text = "Add screen")
+    Text(text = "Navigate to CameraScreen")
 }
