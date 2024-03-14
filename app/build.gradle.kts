@@ -43,7 +43,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.10"
     }
     packaging {
         resources {
@@ -53,7 +53,7 @@ android {
 }
 
 dependencies {
-    val composeBomVersion = "2024.01.00"
+    val composeBomVersion = "2024.02.02"
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     implementation("androidx.activity:activity-compose:1.8.2")
@@ -72,7 +72,7 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
     // Firebase
-    val firebaseBOMVersion = "32.7.1"
+    val firebaseBOMVersion = "32.7.4"
     implementation(platform("com.google.firebase:firebase-bom:$firebaseBOMVersion"))
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-auth")
@@ -84,11 +84,11 @@ dependencies {
     ksp("com.google.dagger:hilt-android-compiler:$hiltVersion")
 
     // Jetpack compose navigation
-    val navVersion = "2.7.6"
+    val navVersion = "2.7.7"
     implementation("androidx.navigation:navigation-compose:$navVersion")
 
     // Navigation hilt
-    val hiltNavigationVersion = "1.1.0"
+    val hiltNavigationVersion = "1.2.0"
     implementation("androidx.hilt:hilt-navigation-compose:$hiltNavigationVersion")
 
     //Gson

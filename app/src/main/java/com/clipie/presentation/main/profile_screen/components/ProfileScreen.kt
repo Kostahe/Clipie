@@ -297,14 +297,25 @@ fun ProfileScreenTopBar() {
             }
         })
     }
+
+
 }
+
 @Composable
 fun AccountItem(accountName: String, pfp: Painter, selected: Boolean) {
 
-    Row(modifier = Modifier.clickable { Log.d("currentProfileRow", "Current account has been clicked!!!") }
+    Row(modifier = Modifier
+        .clickable {
+            Log.d(
+                "currentProfileRow", "Current account has been clicked!!!"
+            )
+        }
         .fillMaxWidth()
         .fillMaxHeight(0.1f), verticalAlignment = Alignment.CenterVertically) {
         Spacer(modifier = Modifier.width(20.dp))
+        Row(
+            modifier = Modifier.weight(1f)
+        ) {
             Image(
                 painter = pfp,
                 contentDescription = null,
@@ -312,19 +323,17 @@ fun AccountItem(accountName: String, pfp: Painter, selected: Boolean) {
                     .size(65.dp)
                     .clip(CircleShape)
                     .border(1.dp, Color.Gray, CircleShape)
-                    .align(Alignment.CenterVertically)
             )
             Text(
                 text = accountName,
-                Modifier.padding(start = 20.dp)
-                    .align(Alignment.CenterVertically)
-                    .weight(1f),
+                Modifier.padding(start = 20.dp, top = 20.dp),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
             )
+        }
 //                  TO DO: Don't forget to add functionality to RadioButtons so only one can be selected
         RadioButton(
-            selected = selected, onClick = { }, modifier = Modifier.align(Alignment.CenterVertically)
+            selected = selected, onClick = { }, modifier = Modifier.weight(0.2f)
         )
     }
 }
