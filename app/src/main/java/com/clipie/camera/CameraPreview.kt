@@ -1,4 +1,4 @@
-package com.clipie.main.presentation.add.camera
+package com.clipie.camera
 
 import androidx.camera.view.LifecycleCameraController
 import androidx.camera.view.PreviewView
