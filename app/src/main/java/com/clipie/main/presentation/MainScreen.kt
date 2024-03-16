@@ -43,7 +43,7 @@ import com.clipie.main.presentation.upload.components.UploadTopBar
 val listOfItems: List<BottomNavigationItem> = listOf(
     BottomNavigationItem(MainNavConstant.Home.route, Icons.Filled.Home, Icons.Outlined.Home, true),
     BottomNavigationItem(MainNavConstant.Search.route, Icons.Filled.Search, Icons.Outlined.Search, false),
-    BottomNavigationItem(MainNavConstant.Add.route, Icons.Filled.AddBox, Icons.Outlined.AddBox, false),
+    BottomNavigationItem(MainNavConstant.Upload.route, Icons.Filled.AddBox, Icons.Outlined.AddBox, false),
     BottomNavigationItem(MainNavConstant.Clips.route, Icons.Filled.PlayArrow, Icons.Outlined.PlayArrow, false),
     BottomNavigationItem(MainNavConstant.Profile.route, Icons.Filled.AccountCircle, Icons.Outlined.AccountCircle, false)
 )
@@ -70,12 +70,12 @@ fun MainScreen(
                 MainNavConstant.Clips.route -> {
                     ClipsTopBar()
                 }
-                MainNavConstant.Add.route -> {
+                MainNavConstant.Upload.route -> {
                     UploadTopBar(navController)
                 }
             }
         }, bottomBar = {
-            if (currentRoute == MainNavConstant.Add.route){
+            if (currentRoute == MainNavConstant.Upload.route){
 //              Don't forget to add a Bottom bar here for Add screen with
 //              recycler view (Post, Story, Clip, Live)
                 CameraBottomBar(navController)
