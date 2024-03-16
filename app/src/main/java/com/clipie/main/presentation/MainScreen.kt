@@ -31,12 +31,13 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.clipie.main.presentation.clips.ClipsTopAppBar
+import com.clipie.main.presentation.clips.components.ClipsTopBar
 import com.clipie.main.presentation.home.components.HomeScreenTopBar
 import com.clipie.main.presentation.search.SearchScreenTopBar
 import com.clipie.main.presentation.navigation.MainNavConstant
 import com.clipie.main.presentation.navigation.MainNavHost
 import com.clipie.main.presentation.profile.ProfileScreenTopBar
+import com.clipie.main.presentation.upload.components.UploadTopBar
 
 
 val listOfItems: List<BottomNavigationItem> = listOf(
@@ -67,13 +68,17 @@ fun MainScreen(
                     SearchScreenTopBar()
                 }
                 MainNavConstant.Clips.route -> {
-                    ClipsTopAppBar()
+                    ClipsTopBar()
+                }
+                MainNavConstant.Add.route -> {
+                    UploadTopBar(navController)
                 }
             }
         }, bottomBar = {
             if (currentRoute == MainNavConstant.Add.route){
 //              Don't forget to add a Bottom bar here for Add screen with
 //              recycler view (Post, Story, Clip, Live)
+                CameraBottomBar(navController)
             }else{
                 MainBottomBar(navController)
             }
@@ -133,4 +138,9 @@ fun MainBottomBar(navController: NavHostController) {
             )
         }
     }
+}
+
+@Composable
+fun CameraBottomBar(navController: NavHostController) {
+
 }
