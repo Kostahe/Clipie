@@ -6,14 +6,12 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import com.clipie.main.presentation.add.camera.CameraPreview
-import com.clipie.main.presentation.add.camera.CameraScreen
+import androidx.navigation.NavHostController
+import com.clipie.main.presentation.navigation.MainNavConstant
 
 @Composable
-fun AddScreen(){
+fun AddScreen(navController: NavHostController) {
     Text(text = "Navigate to NewPostScreen")
-    IconButton(onClick = { /*TODO Navigate to HomeScreen*/ }) {
-        Icon(imageVector = Icons.Default.Close, contentDescription = null)
-    }
+
 //    CameraScreen()
 }
