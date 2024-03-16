@@ -1,4 +1,4 @@
-package com.clipie.main.presentation.add.components
+package com.clipie.main.presentation.upload.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -9,7 +9,7 @@ import androidx.navigation.NavHostController
 import com.clipie.main.presentation.navigation.MainNavConstant
 
 @Composable
-fun AddTopBar(navController: NavHostController) {
+fun UploadTopBar(navController: NavHostController) {
     IconButton(onClick = {
         navController.navigate(MainNavConstant.Home.route)
     }) {
