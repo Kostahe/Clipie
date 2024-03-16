@@ -28,7 +28,7 @@ fun MainNavHost(
             SearchScreen()
         }
         composable(route = MainNavConstant.Add.route){
-            AddScreen()
+            AddScreen(navController)
         }
         composable(route = MainNavConstant.Clips.route){
             ClipsScreen()
