@@ -71,7 +71,12 @@ fun MainScreen(
                 }
             }
         }, bottomBar = {
-            MainBottomBar(navController)
+            if (currentRoute == MainNavConstant.Add.route){
+//              Don't forget to add a Bottom bar here for Add screen with
+//              recycler view (Post, Story, Clip, Live)
+            }else{
+                MainBottomBar(navController)
+            }
         },
         modifier = modifier
     ) { innerPadding ->
