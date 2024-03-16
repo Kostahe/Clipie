@@ -9,7 +9,7 @@ import com.clipie.main.presentation.clips.ClipsScreen
 import com.clipie.main.presentation.home.HomeScreen
 import com.clipie.main.presentation.profile.ProfileScreen
 import com.clipie.main.presentation.search.SearchScreen
-import com.clipie.main.presentation.upload.UploadScreen
+import com.clipie.main.presentation.upload.screens.UploadClipScreen
 
 @Composable
 fun MainNavHost(
@@ -27,8 +27,8 @@ fun MainNavHost(
         composable(route = MainNavConstant.Search.route){
             SearchScreen()
         }
-        composable(route = MainNavConstant.Add.route){
-            UploadScreen(navController)
+        composable(route = MainNavConstant.Upload.route){
+            UploadClipScreen(navController)
         }
         composable(route = MainNavConstant.Clips.route){
             ClipsScreen()
