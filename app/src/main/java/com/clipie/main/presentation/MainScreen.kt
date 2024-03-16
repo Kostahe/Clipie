@@ -37,8 +37,6 @@ import com.clipie.main.presentation.search.SearchScreenTopBar
 import com.clipie.main.presentation.navigation.MainNavConstant
 import com.clipie.main.presentation.navigation.MainNavHost
 import com.clipie.main.presentation.profile.ProfileScreenTopBar
-import com.clipie.main.presentation.upload.components.UploadTopBar
-
 
 val listOfItems: List<BottomNavigationItem> = listOf(
     BottomNavigationItem(MainNavConstant.Home.route, Icons.Filled.Home, Icons.Outlined.Home, true),
@@ -69,9 +67,6 @@ fun MainScreen(
                 }
                 MainNavConstant.Clips.route -> {
                     ClipsTopBar()
-                }
-                MainNavConstant.Upload.route -> {
-                    UploadTopBar(navController)
                 }
             }
         }, bottomBar = {
