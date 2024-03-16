@@ -34,19 +34,3 @@ fun ClipsScreen() {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun ClipsTopAppBar(backgroundColor: Color = Color.Transparent) {
-    TopAppBar(
-        title = { Text(text = "Clips", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold) },
-        modifier = Modifier
-            .fillMaxWidth(1f)
-            .background(backgroundColor),
-        actions = {
-            IconButton(onClick = { /*Move to Upload Clips*/ }, modifier = Modifier.size(40.dp)) {
-                Icon(imageVector = Icons.Outlined.PhotoCamera, contentDescription = null, modifier = Modifier.size(40.dp))
-            }
-            Spacer(modifier = Modifier.width(10.dp))
-        }
-    )
-}
