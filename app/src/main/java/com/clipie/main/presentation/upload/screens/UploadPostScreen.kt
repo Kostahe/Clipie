@@ -16,6 +16,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.clipie.main.presentation.navigation.MainNavConstant
 import com.clipie.main.presentation.upload.components.BackHomeButton
+import com.clipie.main.presentation.upload.navigation.UploadNavConstant
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UploadPostScreen(navController: NavController) {
@@ -24,7 +26,7 @@ fun UploadPostScreen(navController: NavController) {
     },
         navigationIcon = { BackHomeButton(navController = navController) },
         actions = {
-            TextButton(onClick = { /*TODO Move to the next screen*/ }) {
+            TextButton(onClick = { navController.navigate(UploadNavConstant.UploadClip.route) }) {
                 Text(text = "Next", modifier = Modifier, fontSize = 25.sp)
             }
         })
