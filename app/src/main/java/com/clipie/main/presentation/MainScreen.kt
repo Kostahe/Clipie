@@ -16,11 +16,9 @@ import androidx.compose.material.icons.outlined.PlayArrow
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -38,13 +36,34 @@ import com.clipie.main.presentation.search.SearchScreenTopBar
 import com.clipie.main.presentation.navigation.MainNavConstant
 import com.clipie.main.presentation.navigation.MainNavHost
 import com.clipie.main.presentation.profile.ProfileScreenTopBar
+import com.clipie.main.presentation.upload.navigation.UploadNavConstant
 
 val listOfItems: List<BottomNavigationItem> = listOf(
     BottomNavigationItem(MainNavConstant.Home.route, Icons.Filled.Home, Icons.Outlined.Home, true),
-    BottomNavigationItem(MainNavConstant.Search.route, Icons.Filled.Search, Icons.Outlined.Search, false),
-    BottomNavigationItem(MainNavConstant.Upload.route, Icons.Filled.AddBox, Icons.Outlined.AddBox, false),
-    BottomNavigationItem(MainNavConstant.Clips.route, Icons.Filled.PlayArrow, Icons.Outlined.PlayArrow, false),
-    BottomNavigationItem(MainNavConstant.Profile.route, Icons.Filled.AccountCircle, Icons.Outlined.AccountCircle, false)
+    BottomNavigationItem(
+        MainNavConstant.Search.route,
+        Icons.Filled.Search,
+        Icons.Outlined.Search,
+        false
+    ),
+    BottomNavigationItem(
+        MainNavConstant.Upload.route,
+        Icons.Filled.AddBox,
+        Icons.Outlined.AddBox,
+        false
+    ),
+    BottomNavigationItem(
+        MainNavConstant.Clips.route,
+        Icons.Filled.PlayArrow,
+        Icons.Outlined.PlayArrow,
+        false
+    ),
+    BottomNavigationItem(
+        MainNavConstant.Profile.route,
+        Icons.Filled.AccountCircle,
+        Icons.Outlined.AccountCircle,
+        false
+    )
 )
 
 @Composable
@@ -60,23 +79,25 @@ fun MainScreen(
                 MainNavConstant.Home.route -> {
                     HomeScreenTopBar()
                 }
+
                 MainNavConstant.Profile.route -> {
                     ProfileScreenTopBar()
                 }
+
                 MainNavConstant.Search.route -> {
                     SearchScreenTopBar()
                 }
+
                 MainNavConstant.Clips.route -> {
                     ClipsTopBar()
                 }
             }
         }, bottomBar = {
-            if (currentRoute == MainNavConstant.Upload.route){
-//              Don't forget to add a Bottom bar here for Add screen with
-//              recycler view (Post, Story, Clip, Live)
-                UploadBottomBar(navController)
-            }else{
-                MainBottomBar(navController)
+            val routesList = UploadNavConstant.entries.map { uploadNavConstant ->
+                uploadNavConstant.route
+            }
+        if (currentRoute.toString() !in routesList) {
+                MainBottomBar(navController = navController)
             }
         },
         modifier = modifier
@@ -102,7 +123,6 @@ data class BottomNavigationItem(
     val hasNews: Boolean
 )
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainBottomBar(navController: NavHostController) {
     var selectedItemIndex by rememberSaveable {
@@ -114,11 +134,12 @@ fun MainBottomBar(navController: NavHostController) {
                 selected = selectedItemIndex == index,
                 onClick = {
                     selectedItemIndex = index
-                    navController.navigate(item.title) },
-                icon = { 
+                    navController.navigate(item.title)
+                },
+                icon = {
                     BadgedBox(
-                        badge =  {
-                            if(item.hasNews) {
+                        badge = {
+                            if (item.hasNews) {
                                 Badge()
                             }
                         }
@@ -138,5 +159,5 @@ fun MainBottomBar(navController: NavHostController) {
 
 @Composable
 fun UploadBottomBar(navController: NavHostController) {
-    Text(text = "Test")
+
 }
