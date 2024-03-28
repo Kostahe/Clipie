@@ -79,7 +79,7 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore")
 
     // Hilt
-    val hiltVersion = "2.48"
+    val hiltVersion = "2.49"
     implementation("com.google.dagger:hilt-android:$hiltVersion")
     ksp("com.google.dagger:hilt-android-compiler:$hiltVersion")
 
