@@ -14,7 +14,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
 @Composable
-fun CameraScreen() {
+fun CameraScreen(modifier: Modifier) {
 
     val cameraxPermissions = arrayOf(
         Manifest.permission.CAMERA,
