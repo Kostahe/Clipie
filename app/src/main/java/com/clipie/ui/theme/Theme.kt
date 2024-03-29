@@ -1,4 +1,4 @@
-package com.clipie.app.presentation.ui.theme
+package com.clipie.ui.theme
 
 import android.app.Activity
 import android.os.Build
