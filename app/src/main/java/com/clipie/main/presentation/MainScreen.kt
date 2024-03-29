@@ -36,6 +36,8 @@ import com.clipie.main.presentation.search.SearchScreenTopBar
 import com.clipie.main.presentation.navigation.MainNavConstant
 import com.clipie.main.presentation.navigation.MainNavHost
 import com.clipie.main.presentation.profile.ProfileScreenTopBar
+import com.clipie.main.presentation.upload.components.UploadClipScreenTopBar
+import com.clipie.main.presentation.upload.components.UploadPostScreenTopBar
 import com.clipie.main.presentation.upload.navigation.UploadNavConstant
 
 val listOfItems: List<BottomNavigationItem> = listOf(
@@ -91,6 +93,15 @@ fun MainScreen(
                 MainNavConstant.Clips.route -> {
                     ClipsTopBar()
                 }
+//                Upload screens
+                UploadNavConstant.UploadPost.route -> {
+                    UploadPostScreenTopBar(navController = navController)
+                }
+
+                UploadNavConstant.UploadClip.route -> {
+                    UploadClipScreenTopBar(navController = navController)
+                }
+
             }
         }, bottomBar = {
             val routesList = UploadNavConstant.entries.map { uploadNavConstant ->
@@ -98,7 +109,9 @@ fun MainScreen(
             }
         if (currentRoute.toString() !in routesList) {
                 MainBottomBar(navController = navController)
-            }
+            }else{
+                UploadBottomBar(navController = navController)
+        }
         },
         modifier = modifier
     ) { innerPadding ->
