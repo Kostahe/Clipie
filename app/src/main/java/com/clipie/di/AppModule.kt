@@ -2,7 +2,7 @@ package com.clipie.di
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.clipie.app.data.common.SharedPreferenceName
+import com.clipie.util.SharedPreferenceName
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides

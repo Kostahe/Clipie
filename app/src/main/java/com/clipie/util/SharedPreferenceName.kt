@@ -1,4 +1,4 @@
-package com.clipie.app.data.common
+package com.clipie.util
 
 enum class SharedPreferenceName(val preferenceName: String) {
     LOCAL_SHARED_PREFERENCES("local_shared_preferences"),

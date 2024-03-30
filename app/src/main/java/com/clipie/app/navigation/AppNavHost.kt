@@ -1,4 +1,4 @@
-package com.clipie.app.presentation.navigation
+package com.clipie.app.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember

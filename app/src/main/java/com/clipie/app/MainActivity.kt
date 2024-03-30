@@ -4,8 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.navigation.compose.rememberNavController
-import com.clipie.app.presentation.App
-import com.clipie.app.presentation.ui.theme.ClipieTheme
+import com.clipie.ui.theme.ClipieTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

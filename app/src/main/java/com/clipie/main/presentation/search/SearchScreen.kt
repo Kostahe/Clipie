@@ -41,7 +41,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import com.clipie.app.presentation.ui.theme.ClipieTheme
+import com.clipie.ui.theme.ClipieTheme
 
 @Composable
 fun SearchScreen() {
