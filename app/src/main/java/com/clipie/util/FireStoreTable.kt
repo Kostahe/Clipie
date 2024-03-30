@@ -1,4 +1,4 @@
-package com.clipie.app.data.common
+package com.clipie.util
 
 enum class FireStoreTable(val tableName: String) {
     USER("user"),

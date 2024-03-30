@@ -1,9 +1,9 @@
 package com.clipie.authentication.data.repository
 
 import android.content.SharedPreferences
-import com.clipie.app.data.common.FireStoreTable
-import com.clipie.app.data.common.SharedPreferenceName
-import com.clipie.app.domain.entities.State
+import com.clipie.util.FireStoreTable
+import com.clipie.util.SharedPreferenceName
+import com.clipie.util.Resource
 import com.clipie.authentication.domain.models.User
 import com.clipie.authentication.domain.repository.AuthenticationRepository
 import com.google.firebase.auth.FirebaseAuth
@@ -21,7 +21,7 @@ class AuthenticationRepositoryImpl @Inject constructor(
     override fun register(
         email: String,
         password: String,
-        user: User, result: (State<Unit>) -> Unit
+        user: User, result: (Resource<Unit>) -> Unit
     ) {
         authentication.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
@@ -29,64 +29,64 @@ class AuthenticationRepositoryImpl @Inject constructor(
                     user.id = task.result.user?.uid ?: ""
                     updateUser(user) { state ->
                         when (state) {
-                            is State.Loading -> {
+                            is Resource.Loading -> {
 
                             }
-                            is State.Success -> {
+                            is Resource.Success -> {
                                 result.invoke(state)
                             }
-                            is State.Error -> {
+                            is Resource.Error -> {
                                 result.invoke(state)
                             }
                         }
                     }
                 } else {
-                    result.invoke(State.Error("Firebase error"))
+                    result.invoke(Resource.Error("Firebase error"))
                 }
             }
     }
 
     override fun updateUser(
         user: User,
-        result: (State<Unit>) -> Unit
+        result: (Resource<Unit>) -> Unit
     ) {
         val documentRef = fireStore.collection(FireStoreTable.USER.tableName).document(user.id)
         documentRef.set(user).addOnSuccessListener {
-            result.invoke(State.Success(Unit))
+            result.invoke(Resource.Success(Unit))
         }.addOnFailureListener {
-            result.invoke(State.Error(it.localizedMessage?.toString() ?: "Firebase Error"))
+            result.invoke(Resource.Error(it.localizedMessage?.toString() ?: "Firebase Error"))
         }
     }
 
     override fun login(
         email: String,
         password: String,
-        result: (State<Unit>) -> Unit
+        result: (Resource<Unit>) -> Unit
     ) {
         authentication.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 storeSession(task.result.user?.uid ?: "") { user ->
                     if (user == null) {
-                        result.invoke(State.Error("Authentication succeed, but session didn't save user"))
+                        result.invoke(Resource.Error("Authentication succeed, but session didn't save user"))
                     } else {
-                        result.invoke(State.Success(Unit))
+                        result.invoke(Resource.Success(Unit))
                     }
                 }
             } else {
-                result.invoke(State.Error(task.exception.toString()))
+                result.invoke(Resource.Error(task.exception.toString()))
             }
         }
     }
 
-    override fun forgotPassword(email: String, result: (State<Unit>) -> Unit) {
+    override fun forgotPassword(email: String, result: (Resource<Unit>) -> Unit) {
         authentication.sendPasswordResetEmail(email).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                result.invoke(State.Success(Unit))
+                result.invoke(Resource.Success(Unit))
             } else {
-                result.invoke(State.Error(task.exception?.message.toString()))
+                result.invoke(Resource.Error(task.exception?.message.toString()))
             }
         }.addOnFailureListener {
-            result.invoke(State.Error(it.localizedMessage?.toString() ?: ""))
+            result.invoke(Resource.Error(it.localizedMessage?.toString() ?: ""))
         }
     }
 

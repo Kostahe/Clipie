@@ -1,4 +1,4 @@
-package com.clipie.app.presentation.navigation
+package com.clipie.app.navigation
 
 enum class AppNavConstant(val route: String) {
     Authentication("authentication"),

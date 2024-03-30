@@ -1,9 +1,9 @@
-package com.clipie.app.presentation
+package com.clipie.app
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import com.clipie.app.presentation.navigation.AppNavHost
+import com.clipie.app.navigation.AppNavHost
 
 @Composable
 fun App(

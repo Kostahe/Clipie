@@ -22,7 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.clipie.app.presentation.ui.theme.ClipieTheme
+import com.clipie.ui.theme.ClipieTheme
 
 @Composable
 fun ClipsScreen() {

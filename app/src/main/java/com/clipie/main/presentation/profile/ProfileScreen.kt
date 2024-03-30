@@ -37,7 +37,7 @@ import com.clipie.R
 import com.clipie.authentication.domain.models.User
 import com.clipie.main.presentation.profile.components.*
 import com.clipie.main.presentation.home.components.TopListOfItems
-import com.clipie.app.presentation.ui.theme.ClipieTheme
+import com.clipie.ui.theme.ClipieTheme
 
 @PreviewLightDark
 @PreviewFontScale

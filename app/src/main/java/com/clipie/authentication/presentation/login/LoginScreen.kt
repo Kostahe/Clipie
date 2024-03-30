@@ -29,7 +29,7 @@ import com.clipie.authentication.presentation.components.AuthenticationButton
 import com.clipie.authentication.presentation.components.AuthenticationOutlinedButton
 import com.clipie.authentication.presentation.components.AuthenticationPasswordTextField
 import com.clipie.authentication.presentation.components.AuthenticationTextField
-import com.clipie.app.presentation.navigation.AppNavConstant
+import com.clipie.app.navigation.AppNavConstant
 import com.clipie.authentication.presentation.navigation.AuthenticationNavConstant
 
 @Composable

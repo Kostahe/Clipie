@@ -4,7 +4,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State as ImmutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.clipie.app.domain.entities.State
+import com.clipie.util.Resource
 import com.clipie.authentication.domain.models.User
 import com.clipie.authentication.domain.repository.AuthenticationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,14 +15,14 @@ class AuthenticationViewModel @Inject constructor(
     private val repository: AuthenticationRepository
 ) : ViewModel() {
 
-    private val _login: MutableState<State<Unit>> = mutableStateOf(State.Loading())
-    val login: ImmutableState<State<Unit>> = _login
+    private val _login: MutableState<Resource<Unit>> = mutableStateOf(Resource.Loading())
+    val login: ImmutableState<Resource<Unit>> = _login
 
-    private val _register: MutableState<State<Unit>> = mutableStateOf(State.Loading())
-    val register: ImmutableState<State<Unit>> = _register
+    private val _register: MutableState<Resource<Unit>> = mutableStateOf(Resource.Loading())
+    val register: ImmutableState<Resource<Unit>> = _register
 
-    private val _forgotPassword: MutableState<State<Unit>> = mutableStateOf(State.Loading())
-    val forgotPassword: ImmutableState<State<Unit>> = _forgotPassword
+    private val _forgotPassword: MutableState<Resource<Unit>> = mutableStateOf(Resource.Loading())
+    val forgotPassword: ImmutableState<Resource<Unit>> = _forgotPassword
 
     fun login(
         email: String,
