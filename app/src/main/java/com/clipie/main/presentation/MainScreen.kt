@@ -1,5 +1,14 @@
 package com.clipie.main.presentation
 
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.AnchoredDraggableState
+import androidx.compose.foundation.gestures.DraggableAnchors
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.anchoredDraggable
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -16,16 +25,21 @@ import androidx.compose.material.icons.outlined.PlayArrow
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -37,6 +51,7 @@ import com.clipie.main.presentation.navigation.MainNavConstant
 import com.clipie.main.presentation.navigation.MainNavHost
 import com.clipie.main.presentation.profile.ProfileScreenTopBar
 import com.clipie.main.presentation.upload.navigation.UploadNavConstant
+import kotlin.math.roundToInt
 
 val listOfItems: List<BottomNavigationItem> = listOf(
     BottomNavigationItem(MainNavConstant.Home.route, Icons.Filled.Home, Icons.Outlined.Home, true),
@@ -96,8 +111,10 @@ fun MainScreen(
             val routesList = UploadNavConstant.entries.map { uploadNavConstant ->
                 uploadNavConstant.route
             }
-        if (currentRoute.toString() !in routesList) {
+            if (currentRoute.toString() !in routesList) {
                 MainBottomBar(navController = navController)
+            } else {
+                UploadBottomBar(navController = navController)
             }
         },
         modifier = modifier
@@ -159,5 +176,8 @@ fun MainBottomBar(navController: NavHostController) {
 
 @Composable
 fun UploadBottomBar(navController: NavHostController) {
+    BottomAppBar {
+
+    }
 
 }
