@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "com.clipie"
-        minSdk = 24
+        minSdk = 25
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -53,6 +53,7 @@ android {
 }
 
 dependencies {
+    implementation("androidx.wear.compose:compose-material:1.3.1")
     val composeBomVersion = "2024.02.02"
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
