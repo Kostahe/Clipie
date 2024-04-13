@@ -1,5 +1,9 @@
 package com.clipie.main.presentation
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -16,20 +20,23 @@ import androidx.compose.material.icons.outlined.PlayArrow
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.tv.foundation.PivotOffsets
+import androidx.tv.foundation.lazy.list.TvLazyRow
 import com.clipie.main.presentation.clips.components.ClipsTopBar
 import com.clipie.main.presentation.home.components.HomeScreenTopBar
 import com.clipie.main.presentation.search.SearchScreenTopBar
@@ -91,25 +98,17 @@ fun MainScreen(
                 MainNavConstant.Clips.route -> {
                     ClipsTopBar()
                 }
-//                Upload screens
-                UploadNavConstant.UploadPost.route -> {
-                    UploadPostScreenTopBar(navController = navController)
-                }
-
-                UploadNavConstant.UploadClip.route -> {
-                    UploadClipScreenTopBar(navController = navController)
-                }
 
             }
         }, bottomBar = {
             val routesList = UploadNavConstant.entries.map { uploadNavConstant ->
                 uploadNavConstant.route
             }
-        if (currentRoute.toString() !in routesList) {
+            if (currentRoute.toString() !in routesList) {
                 MainBottomBar(navController = navController)
-            }else{
+            } else {
                 UploadBottomBar(navController = navController)
-        }
+            }
         },
         modifier = modifier
     ) { innerPadding ->
@@ -170,5 +169,41 @@ fun MainBottomBar(navController: NavHostController) {
 
 @Composable
 fun UploadBottomBar(navController: NavHostController) {
-
+    TvLazyRow(
+        pivotOffsets = PivotOffsets(0.5f, 0.5f),
+        horizontalArrangement = Arrangement.spacedBy(20.dp)
+    ) {
+        item(1) {
+            Card(modifier = Modifier,
+                shape = CardDefaults.shape,
+                colors = CardDefaults.cardColors(),
+                elevation = CardDefaults.cardElevation(),
+                border = null,
+                content = { Text(text = "Post") })
+        }
+        item {
+            Card(modifier = Modifier,
+                shape = CardDefaults.shape,
+                colors = CardDefaults.cardColors(),
+                elevation = CardDefaults.cardElevation(),
+                border = null,
+                content = { Text(text = "Story") })
+        }
+        item {
+            Card(modifier = Modifier,
+                shape = CardDefaults.shape,
+                colors = CardDefaults.cardColors(),
+                elevation = CardDefaults.cardElevation(),
+                border = null,
+                content = { Text(text = "Clip") })
+        }
+        item {
+            Card(modifier = Modifier,
+                shape = CardDefaults.shape,
+                colors = CardDefaults.cardColors(),
+                elevation = CardDefaults.cardElevation(),
+                border = null,
+                content = { Text(text = "Live") })
+        }
+    }
 }
