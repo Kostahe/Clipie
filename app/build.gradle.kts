@@ -54,6 +54,7 @@ android {
 
 dependencies {
     implementation("androidx.wear.compose:compose-material:1.3.1")
+    implementation("androidx.tv:tv-foundation:1.0.0-alpha10")
     val composeBomVersion = "2024.02.02"
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
