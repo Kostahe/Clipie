@@ -31,19 +31,19 @@ object PreviewParameterProvider {
         Chat(
             id = "1",
             name = "Friends Chat",
-            users = listOf(userList[0], userList[1], userList[2]),
+            userList = listOf(userList[0], userList[1], userList[2]),
             lastMessageId = "msg1"
         ),
         Chat(
             id = "2",
             name = "Family Chat",
-            users = listOf(userList[0], userList[3]),
+            userList = listOf(userList[0], userList[3]),
             lastMessageId = "msg2"
         ),
         Chat(
             id = "3",
             name = "Work Chat",
-            users = listOf(userList[0], userList[2]),
+            userList = listOf(userList[0], userList[2]),
             lastMessageId = "msg3"
         )
     )
