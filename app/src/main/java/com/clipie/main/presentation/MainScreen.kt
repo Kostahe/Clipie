@@ -4,6 +4,9 @@ import android.graphics.Paint
 import android.graphics.Rect
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.gestures.detectDragGestures
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.ui.Modifier
@@ -186,9 +189,12 @@ fun UploadBottomBar(navController: NavHostController) {
     var currentlyPicked by remember {
         mutableStateOf( UploadNavConstant.UploadPost.route)
     }
-    IconButton(onClick = {navController.navigate(currentlyPicked)}) {
-        Icon(imageVector = Icons.Outlined.Search, contentDescription = null)
+    Box(modifier = Modifier.fillMaxWidth().fillMaxHeight(0.2f)) {
+        IconButton(onClick = {navController.navigate(currentlyPicked)}, modifier = Modifier.fillMaxSize()) {
+            Icon(imageVector = Icons.Outlined.Search, contentDescription = null, modifier = Modifier.fillMaxSize())
+        }
     }
+
     Picker(
         tabItems,
         onValueChanged = {
