@@ -1,15 +1,11 @@
 package com.clipie.main.presentation
 
-import androidx.compose.animation.AnimatedContentTransitionScope.SlideDirection.Companion.End
-import androidx.compose.animation.AnimatedContentTransitionScope.SlideDirection.Companion.Start
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.gestures.AnchoredDraggableState
-import androidx.compose.foundation.gestures.DraggableAnchors
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.anchoredDraggable
-import androidx.compose.foundation.layout.Arrangement.Absolute.Center
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.offset
+import android.graphics.Paint
+import android.graphics.Rect
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.gestures.detectDragGestures
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.padding
@@ -28,6 +24,7 @@ import androidx.compose.material.icons.outlined.PlayArrow
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
@@ -35,11 +32,20 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.nativeCanvas
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -50,6 +56,8 @@ import com.clipie.main.presentation.navigation.MainNavConstant
 import com.clipie.main.presentation.navigation.MainNavHost
 import com.clipie.main.presentation.profile.ProfileScreenTopBar
 import com.clipie.main.presentation.upload.navigation.UploadNavConstant
+import kotlin.math.abs
+import kotlin.math.roundToInt
 
 val listOfItems: List<BottomNavigationItem> = listOf(
     BottomNavigationItem(MainNavConstant.Home.route, Icons.Filled.Home, Icons.Outlined.Home, true),
@@ -138,7 +146,7 @@ data class BottomNavigationItem(
     val unselectedIcon: ImageVector,
     val hasNews: Boolean
 )
-
+val tabItems = listOf(UploadNavConstant.UploadPost.route, UploadNavConstant.UploadClip.route, UploadNavConstant.UploadStory.route, UploadNavConstant.Livestream.route)
 @Composable
 fun MainBottomBar(navController: NavHostController) {
     var selectedItemIndex by rememberSaveable {
@@ -173,73 +181,135 @@ fun MainBottomBar(navController: NavHostController) {
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun UploadBottomBar(navController: NavHostController) {
-    val tabItems = listOf("Post", "Clip", "Story", "LiveStream")
-    val density = LocalDensity.current
-    val anchors = with(density) {
-        DraggableAnchors {
-            Start at -100.dp.toPx()
-            Center at 0f
-            End at 100.dp.toPx()
-        }
+    var currentlyPicked by remember {
+        mutableStateOf( UploadNavConstant.UploadPost.route)
     }
-
-    val anchoredDraggableState: AnchoredDraggableState<Float> = AnchoredDraggableState(
-        positionalThreshold = { with(density) { 56.dp.toPx() } },
-        velocityThreshold = { with(density) { 125.dp.toPx() } },
-        initialValue = { 0 },
-        anchors = anchors
+    IconButton(onClick = {navController.navigate(currentlyPicked)}) {
+        Icon(imageVector = Icons.Outlined.Search, contentDescription = null)
+    }
+    Picker(
+        tabItems,
+        onValueChanged = {
+            currentlyPicked = it
+        },
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(60.dp),
+        showAmount = 3
     )
 
+}
+@Composable
+fun <T>Picker(
+    list:List<T>,
+    showAmount:Int = 3,
+    modifier: Modifier = Modifier,
+    style:PickerStyle = PickerStyle(),
+    onValueChanged:(T)->Unit
+) {
 
-    Row(
-        modifier = Modifier
-            .anchoredDraggable(
-                state = anchoredDraggableState,
-                orientation = Orientation.Horizontal
-            )
-            .offset(0.dp)
-    ) {
-        TextButton(onClick = { /*TODO*/ }) {
-            Text(text = "post")
-        }
-        TextButton(onClick = { /*TODO*/ }) {
-            Text(text = "post")
-        }
-        TextButton(onClick = { /*TODO*/ }) {
-            Text(text = "post")
-        }
-        TextButton(onClick = { /*TODO*/ }) {
-            Text(text = "post")
-        }
-        TextButton(onClick = { /*TODO*/ }) {
-            Text(text = "post")
-        }
-        TextButton(onClick = { /*TODO*/ }) {
-            Text(text = "post")
-        }
-        TextButton(onClick = { /*TODO*/ }) {
-            Text(text = "post")
-        }
-        TextButton(onClick = { /*TODO*/ }) {
-            Text(text = "post")
-        }
-        TextButton(onClick = { /*TODO*/ }) {
-            Text(text = "post")
-        }
-        TextButton(onClick = { /*TODO*/ }) {
-            Text(text = "post")
-        }
-        TextButton(onClick = { /*TODO*/ }) {
-            Text(text = "post")
-        }
-        TextButton(onClick = { /*TODO*/ }) {
-            Text(text = "post")
-        }
-
+    val listCount by remember {
+        mutableIntStateOf(list.size)
     }
 
+    val correctionValue by remember {
+        if(list.size%2 == 0){
+            mutableIntStateOf(1)
+        }else{
+            mutableIntStateOf(0)
+        }
+    }
+
+    var dragStartedX by remember {
+        mutableFloatStateOf(0f)
+    }
+
+    var currentDragX by remember {
+        mutableFloatStateOf(0f)
+    }
+
+    var oldX by remember {
+        mutableFloatStateOf(0f)
+    }
+
+    Canvas(
+        modifier = modifier
+            .pointerInput(true){
+                detectDragGestures(
+                    onDragStart = { offset ->
+                        dragStartedX = offset.x
+                    },
+                    onDragEnd = {
+                        val spacePerItem = size.width/showAmount
+                        val rest = currentDragX % spacePerItem
+
+                        val roundUp = abs(rest/spacePerItem).roundToInt() == 1
+                        val newX = if(roundUp){
+                            if(rest<0){
+                                currentDragX + abs(rest) - spacePerItem
+                            }else{
+                                currentDragX - rest + spacePerItem
+                            }
+                        }else{
+                            if(rest < 0){
+                                currentDragX + abs(rest)
+                            }else{
+                                currentDragX - rest
+                            }
+                        }
+                        currentDragX = newX.coerceIn(
+                            minimumValue = -(listCount/2f)*spacePerItem,
+                            maximumValue = (listCount/2f-correctionValue)*spacePerItem
+                        )
+                        val index = (listCount/2)+(currentDragX/spacePerItem).toInt()
+                        onValueChanged(list[index])
+                        oldX = currentDragX
+                    },
+                    onDrag = {change,_ ->
+                        val changeX = change.position.x
+                        val newX = oldX + (dragStartedX-changeX)
+                        val spacePerItem = size.width/showAmount
+                        currentDragX = newX.coerceIn(
+                            minimumValue = -(listCount/2f)*spacePerItem,
+                            maximumValue = (listCount/2f-correctionValue)*spacePerItem
+                        )
+                        val index = (listCount/2)+(currentDragX/spacePerItem).toInt()
+                        onValueChanged(list[index])
+                    }
+                )
+            }
+    ){
+
+        val spaceForEachItem = size.width/showAmount
+        for(i in 0 until listCount){
+            val currentX = i * spaceForEachItem - currentDragX -
+                    ((listCount-1+correctionValue - showAmount)/2*spaceForEachItem)
+
+
+
+            drawContext.canvas.nativeCanvas.apply {
+                val y = style.lineLength + 5.dp.toPx() + style.textSize.toPx()
+
+                drawText(
+                    list[i].toString(),
+                    currentX,
+                    y,
+                    Paint().apply {
+                        textSize = style.textSize.toPx()
+                        textAlign = Paint.Align.CENTER
+                        isFakeBoldText = true
+                    }
+                )
+            }
+        }
+    }
 
 }
+
+data class PickerStyle(
+    val lineColor:Color = Color.Yellow,
+    val lineLength:Float = 30f,
+    val textSize: TextUnit = 26.sp
+)
