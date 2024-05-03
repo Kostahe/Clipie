@@ -1,12 +1,8 @@
 package com.clipie.main.presentation
 
 import android.graphics.Paint
-import android.graphics.Rect
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.gestures.detectDragGestures
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.ui.Modifier
@@ -27,24 +23,18 @@ import androidx.compose.material.icons.outlined.PlayArrow
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.nativeCanvas
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.TextUnit
@@ -61,6 +51,7 @@ import com.clipie.main.presentation.profile.ProfileScreenTopBar
 import com.clipie.main.presentation.upload.navigation.UploadNavConstant
 import kotlin.math.abs
 import kotlin.math.roundToInt
+import kotlin.properties.Delegates
 
 val listOfItems: List<BottomNavigationItem> = listOf(
     BottomNavigationItem(MainNavConstant.Home.route, Icons.Filled.Home, Icons.Outlined.Home, true),
@@ -149,7 +140,14 @@ data class BottomNavigationItem(
     val unselectedIcon: ImageVector,
     val hasNews: Boolean
 )
-val tabItems = listOf(UploadNavConstant.UploadPost.route, UploadNavConstant.UploadClip.route, UploadNavConstant.UploadStory.route, UploadNavConstant.Livestream.route)
+
+val tabItems = listOf(
+    UploadNavConstant.UploadPost.route,
+    UploadNavConstant.UploadClip.route,
+    UploadNavConstant.UploadStory.route,
+    UploadNavConstant.Livestream.route
+)
+
 @Composable
 fun MainBottomBar(navController: NavHostController) {
     var selectedItemIndex by rememberSaveable {
@@ -186,34 +184,34 @@ fun MainBottomBar(navController: NavHostController) {
 
 @Composable
 fun UploadBottomBar(navController: NavHostController) {
-    var currentlyPicked by remember {
-        mutableStateOf( UploadNavConstant.UploadPost.route)
-    }
-    Box(modifier = Modifier.fillMaxWidth().fillMaxHeight(0.2f)) {
-        IconButton(onClick = {navController.navigate(currentlyPicked)}, modifier = Modifier.fillMaxSize()) {
-            Icon(imageVector = Icons.Outlined.Search, contentDescription = null, modifier = Modifier.fillMaxSize())
-        }
+//    var currentlyPicked by remember {
+//        mutableStateOf( UploadNavConstant.UploadPost.route)
+//    }
+    var currentlyPicked by Delegates.observable(UploadNavConstant.UploadPost.route) { _, _, newValue ->
+        navController.navigate(newValue)
     }
 
     Picker(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(60.dp),
         tabItems,
         onValueChanged = {
             currentlyPicked = it
         },
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(60.dp),
         showAmount = 3
     )
 
+
 }
+
 @Composable
-fun <T>Picker(
-    list:List<T>,
-    showAmount:Int = 3,
+fun <T> Picker(
     modifier: Modifier = Modifier,
-    style:PickerStyle = PickerStyle(),
-    onValueChanged:(T)->Unit
+    list: List<T>,
+    showAmount: Int = 3,
+    style: PickerStyle = PickerStyle(),
+    onValueChanged: (T) -> Unit
 ) {
 
     val listCount by remember {
@@ -221,9 +219,9 @@ fun <T>Picker(
     }
 
     val correctionValue by remember {
-        if(list.size%2 == 0){
+        if (list.size % 2 == 0) {
             mutableIntStateOf(1)
-        }else{
+        } else {
             mutableIntStateOf(0)
         }
     }
@@ -242,56 +240,56 @@ fun <T>Picker(
 
     Canvas(
         modifier = modifier
-            .pointerInput(true){
+            .pointerInput(true) {
                 detectDragGestures(
                     onDragStart = { offset ->
                         dragStartedX = offset.x
                     },
                     onDragEnd = {
-                        val spacePerItem = size.width/showAmount
+                        val spacePerItem = size.width / showAmount
                         val rest = currentDragX % spacePerItem
 
-                        val roundUp = abs(rest/spacePerItem).roundToInt() == 1
-                        val newX = if(roundUp){
-                            if(rest<0){
+                        val roundUp = abs(rest / spacePerItem).roundToInt() == 1
+                        val newX = if (roundUp) {
+                            if (rest < 0) {
                                 currentDragX + abs(rest) - spacePerItem
-                            }else{
+                            } else {
                                 currentDragX - rest + spacePerItem
                             }
-                        }else{
-                            if(rest < 0){
+                        } else {
+                            if (rest < 0) {
                                 currentDragX + abs(rest)
-                            }else{
+                            } else {
                                 currentDragX - rest
                             }
                         }
                         currentDragX = newX.coerceIn(
-                            minimumValue = -(listCount/2f)*spacePerItem,
-                            maximumValue = (listCount/2f-correctionValue)*spacePerItem
+                            minimumValue = -(listCount / 2f) * spacePerItem,
+                            maximumValue = (listCount / 2f - correctionValue) * spacePerItem
                         )
-                        val index = (listCount/2)+(currentDragX/spacePerItem).toInt()
+                        val index = (listCount / 2) + (currentDragX / spacePerItem).toInt()
                         onValueChanged(list[index])
                         oldX = currentDragX
                     },
-                    onDrag = {change,_ ->
+                    onDrag = { change, _ ->
                         val changeX = change.position.x
-                        val newX = oldX + (dragStartedX-changeX)
-                        val spacePerItem = size.width/showAmount
+                        val newX = oldX + (dragStartedX - changeX)
+                        val spacePerItem = size.width / showAmount
                         currentDragX = newX.coerceIn(
-                            minimumValue = -(listCount/2f)*spacePerItem,
-                            maximumValue = (listCount/2f-correctionValue)*spacePerItem
+                            minimumValue = -(listCount / 2f) * spacePerItem,
+                            maximumValue = (listCount / 2f - correctionValue) * spacePerItem
                         )
-                        val index = (listCount/2)+(currentDragX/spacePerItem).toInt()
+                        val index = (listCount / 2) + (currentDragX / spacePerItem).toInt()
                         onValueChanged(list[index])
                     }
                 )
             }
-    ){
+    ) {
 
-        val spaceForEachItem = size.width/showAmount
-        for(i in 0 until listCount){
+        val spaceForEachItem = size.width / showAmount
+        for (i in 0 until listCount) {
             val currentX = i * spaceForEachItem - currentDragX -
-                    ((listCount-1+correctionValue - showAmount)/2*spaceForEachItem)
+                    ((listCount - 1 + correctionValue - showAmount) / 2 * spaceForEachItem)
 
 
 
@@ -315,7 +313,7 @@ fun <T>Picker(
 }
 
 data class PickerStyle(
-    val lineColor:Color = Color.Yellow,
-    val lineLength:Float = 30f,
+    val lineColor: Color = Color.Yellow,
+    val lineLength: Float = 30f,
     val textSize: TextUnit = 26.sp
 )
