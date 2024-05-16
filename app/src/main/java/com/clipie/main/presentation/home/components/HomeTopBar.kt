@@ -6,12 +6,12 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material.icons.automirrored.outlined.List
 import androidx.compose.material.icons.automirrored.outlined.Send
 import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.AddCircle
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.KeyboardArrowDown
@@ -40,7 +40,10 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.clipie.main.presentation.TopNavigationItem
+import com.clipie.main.presentation.chat.navigation.ChatNavConstant
 
 val TopListOfItems: List<TopNavigationItem> = listOf(
     TopNavigationItem(
@@ -63,12 +66,13 @@ val TopListOfItems: List<TopNavigationItem> = listOf(
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
-fun HomeScreenTopBar() {
+fun HomeScreenTopBar(
+    navController: NavHostController = rememberNavController()
+) {
     var expanded by rememberSaveable { mutableStateOf(false) }
     val followNotification = false
     val favoritesNotification = false
     TopAppBar(title = {
-//      ForYou Dropdownbutton
         BadgedBox(badge = {
             if (favoritesNotification || followNotification) {
                 Badge(
@@ -146,7 +150,7 @@ fun HomeScreenTopBar() {
                 )
             }
         }) {
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = { navController.navigate(ChatNavConstant.Chat.route) }) {
                 Icon(
                     imageVector = TopListOfItems[2].unselectedIcon,
                     contentDescription = TopListOfItems[2].title,
@@ -160,7 +164,6 @@ fun HomeScreenTopBar() {
     })
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ForYouDropdownMenuItem(
     text: String,
@@ -189,5 +192,5 @@ fun ForYouDropdownMenuItem(
                 )
             }
         }
-    }, onClick = { onClick })
+    }, onClick = onClick)
 }
