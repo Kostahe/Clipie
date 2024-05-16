@@ -1,11 +1,7 @@
 package com.clipie.app.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.ViewModel
-import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -16,6 +12,7 @@ import com.clipie.authentication.presentation.login.LoginScreen
 import com.clipie.authentication.presentation.navigation.AuthenticationNavConstant
 import com.clipie.authentication.presentation.register.RegistrationScreen
 import com.clipie.main.presentation.MainScreen
+import com.clipie.util.sharedViewModel
 
 @Composable
 fun AppNavHost(
@@ -53,11 +50,3 @@ fun AppNavHost(
     }
 }
 
-@Composable
-inline fun <reified T : ViewModel> NavBackStackEntry.sharedViewModel(navController: NavHostController): T {
-    val navGraphRoute = destination.parent?.route ?: return hiltViewModel()
-    val parentEntry = remember(this) {
-        navController.getBackStackEntry(navGraphRoute)
-    }
-    return hiltViewModel(parentEntry)
-}
