@@ -22,6 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.clipie.R
+import com.clipie.main.presentation.chat.navigation.ChatNavConstant
 import com.clipie.main.presentation.components.IconBack
 import com.clipie.main.presentation.home.components.TopListOfItems
 
@@ -54,10 +55,10 @@ fun ChatScreenTopBar(
         },
         navigationIcon = { IconBack(navController = navController) },
         actions = {
-            IconButton(onClick = { }) {
+            IconButton(onClick = { navController.navigate(ChatNavConstant.CreateChat.route) }) {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    contentDescription = stringResource(R.string.new_message)
+                    contentDescription = stringResource(R.string.create_new_chat)
                 )
             }
         }
