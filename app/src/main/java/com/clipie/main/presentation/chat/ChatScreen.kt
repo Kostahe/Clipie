@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Badge
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,24 +23,33 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.clipie.R
 import com.clipie.authentication.domain.models.User
 import com.clipie.main.domain.model.Chat
+import com.clipie.main.presentation.chat.components.ChatScreenTopBar
 import com.clipie.util.PreviewParameterProvider
 import com.clipie.util.Resource
 
 
 @Composable
 fun ChatScreen(
-    modifier: Modifier = Modifier, chatState: Resource<ChatState>
+    modifier: Modifier = Modifier,
+    chatState: Resource<ChatState>
 ) {
     AnimatedContent(
         targetState = chatState, modifier = modifier
     ) { chatState ->
         when (chatState) {
-            is Resource.Error -> TODO()
-            is Resource.Loading -> TODO()
+            is Resource.Error -> {
+                Text(text = "Success Screen")
+            }
+
+            is Resource.Loading -> {
+                Text(text = "Loading Screen")
+            }
+
             is Resource.Success -> chatState.data?.let { chatState ->
                 ChatScreen(
                     chatState = chatState
@@ -72,7 +82,7 @@ fun ChatScreen(
 fun ChatItem(
     modifier: Modifier = Modifier,
     currentUser: User,
-    chat: Chat,
+    chat: Chat
 ) {
     val usersList = chat.userList.toMutableList()
     usersList.remove(currentUser)
@@ -115,12 +125,17 @@ fun ChatItem(
 @Preview(showBackground = true)
 @Composable
 fun ChatScreenPreview() {
-    ChatScreen(
-        chatState = ChatState(
-            currentUser = PreviewParameterProvider.userList[0],
-            chatList = PreviewParameterProvider.chatList
+    Scaffold(
+        topBar = { ChatScreenTopBar(userName = "Test", navController = rememberNavController()) }
+    ) { innerPadding ->
+        ChatScreen(
+            modifier = Modifier.padding(innerPadding),
+            chatState = ChatState(
+                currentUser = PreviewParameterProvider.userList[0],
+                chatList = PreviewParameterProvider.chatList
+            )
         )
-    )
+    }
 }
 
 @Preview(showBackground = true)
