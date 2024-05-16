@@ -3,13 +3,13 @@ package com.clipie.main.presentation.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.clipie.main.presentation.chat.ChatScreen
 import com.clipie.main.presentation.chat.ChatViewModel
+import com.clipie.main.presentation.chat.CreationChatScreen
 import com.clipie.main.presentation.chat.navigation.ChatNavConstant
 import com.clipie.main.presentation.clips.ClipsScreen
 import com.clipie.main.presentation.home.HomeScreen
@@ -20,6 +20,7 @@ import com.clipie.main.presentation.upload.screens.LivestreamScreen
 import com.clipie.main.presentation.upload.screens.UploadClipScreen
 import com.clipie.main.presentation.upload.screens.UploadPostScreen
 import com.clipie.main.presentation.upload.screens.UploadStoryScreen
+import com.clipie.util.sharedViewModel
 
 @Composable
 fun MainNavHost(
@@ -28,43 +29,49 @@ fun MainNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = MainNavConstant.HomeNavigation.route,
+        startDestination = MainNavConstant.Home.route,
         modifier = modifier
     ) {
+        composable(MainNavConstant.Home.route) {
+            HomeScreen()
+        }
         navigation(
-            startDestination = MainNavConstant.Home.route,
-            route = MainNavConstant.HomeNavigation.route
+            startDestination = ChatNavConstant.Chat.route,
+            route = MainNavConstant.ChatNavigation.route
         ) {
-            composable(MainNavConstant.Home.route) {
-                HomeScreen()
-            }
             composable(ChatNavConstant.Chat.route) {
-                val viewModel = hiltViewModel<ChatViewModel>()
-
+                val viewModel = it.sharedViewModel<ChatViewModel>(navController = navController)
                 ChatScreen(chatState = viewModel.state.collectAsState().value)
             }
+            composable(ChatNavConstant.CreateChat.route) {
+                val viewModel = it.sharedViewModel<ChatViewModel>(navController = navController)
+                CreationChatScreen(
+                    userListState = viewModel.userList.collectAsState().value,
+                    onSearchTextChange = { searchText -> viewModel.onSearchChangeText(searchText) }
+                )
+            }
         }
-        composable(route = MainNavConstant.Search.route){
+        composable(route = MainNavConstant.Search.route) {
             SearchScreen()
         }
         navigation(
             startDestination = UploadNavConstant.UploadPost.route,
             route = MainNavConstant.Upload.route
         ) {
-            composable(route = UploadNavConstant.UploadPost.route){
+            composable(route = UploadNavConstant.UploadPost.route) {
                 UploadPostScreen(navController = navController)
             }
-            composable(route = UploadNavConstant.UploadStory.route){
+            composable(route = UploadNavConstant.UploadStory.route) {
                 UploadStoryScreen(navController = navController)
             }
-            composable(route = UploadNavConstant.UploadClip.route){
+            composable(route = UploadNavConstant.UploadClip.route) {
                 UploadClipScreen(navController = navController)
             }
-            composable(route = UploadNavConstant.Livestream.route){
+            composable(route = UploadNavConstant.Livestream.route) {
                 LivestreamScreen(navController = navController)
             }
         }
-        composable(route = MainNavConstant.Clips.route){
+        composable(route = MainNavConstant.Clips.route) {
             ClipsScreen()
         }
         composable(route = MainNavConstant.Profile.route) {
