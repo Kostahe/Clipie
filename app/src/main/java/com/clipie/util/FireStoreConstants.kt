@@ -5,3 +5,9 @@ enum class FireStoreTable(val tableName: String) {
     MESSAGE("message"),
     CHAT("chat")
 }
+
+enum class FireStoreField(val fieldName: String) {
+    USERNAME("username"),
+    CHAT_ID("chatId"),
+    USERSID("usersId")
+}
