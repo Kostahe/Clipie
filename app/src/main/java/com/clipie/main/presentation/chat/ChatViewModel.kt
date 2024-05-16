@@ -10,6 +10,7 @@ import com.clipie.main.domain.model.Chat
 import com.clipie.main.domain.repository.ChatRepository
 import com.clipie.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -22,6 +23,10 @@ class ChatViewModel @Inject constructor(
 ) : ViewModel() {
     private var _state: MutableStateFlow<Resource<ChatState>> = MutableStateFlow(Resource.Loading())
     val state = _state.asStateFlow()
+
+    private var _userList: MutableStateFlow<Resource<List<User>>> =
+        MutableStateFlow(Resource.Loading())
+    val userList = _userList.asStateFlow()
 
     init {
         viewModelScope.launch {
@@ -44,9 +49,20 @@ class ChatViewModel @Inject constructor(
             }
         }
     }
+
+    fun onSearchChangeText(searchText: String) {
+        viewModelScope.launch {
+            delay(1000)
+            val userList = chatRepository.getUserListFromSearchedText(searchText = searchText)
+            userList?.let { userList ->
+                _userList.value = Resource.Success(userList)
+            }
+        }
+    }
 }
 
 data class ChatState(
     val chatList: List<Chat> = listOf(),
     val currentUser: User
 )
+
