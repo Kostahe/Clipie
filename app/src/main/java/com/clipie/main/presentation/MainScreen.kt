@@ -31,6 +31,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.clipie.main.presentation.chat.components.ChatScreenTopBar
+import com.clipie.main.presentation.chat.components.CreationChatTopBar
 import com.clipie.main.presentation.chat.navigation.ChatNavConstant
 import com.clipie.main.presentation.clips.components.ClipsTopBar
 import com.clipie.main.presentation.home.components.HomeScreenTopBar
@@ -44,7 +45,7 @@ import com.clipie.main.presentation.upload.navigation.UploadNavConstant
 
 val listOfItems: List<BottomNavigationItem> = listOf(
     BottomNavigationItem(
-        MainNavConstant.HomeNavigation.route,
+        MainNavConstant.Home.route,
         Icons.Filled.Home,
         Icons.Outlined.Home,
         true
@@ -100,14 +101,21 @@ fun MainScreen(
                 MainNavConstant.Clips.route -> {
                     ClipsTopBar()
                 }
+
                 UploadNavConstant.UploadPost.route -> {
                     UploadPostScreenTopBar(navController = navController)
                 }
+
                 UploadNavConstant.UploadClip.route -> {
                     UploadClipScreenTopBar(navController = navController)
                 }
+
                 ChatNavConstant.Chat.route -> {
                     ChatScreenTopBar(userName = "Wcman997", navController = navController)
+                }
+
+                ChatNavConstant.CreateChat.route -> {
+                    CreationChatTopBar(navController = navController)
                 }
             }
         }, bottomBar = {
