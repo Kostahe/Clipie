@@ -37,7 +37,6 @@ class ChatViewModel @Inject constructor(
                             )
                         )
                     }
-
                 }
 
             } catch (e: Exception) {
