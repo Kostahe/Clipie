@@ -41,5 +41,8 @@
     <string name="favorites">Favorites</string>
     <string name="profile_picture">%1$s profile picture</string>
     <string name="insert_username_here">Insert username here</string>
-    <string name="new_message">New message</string>
+    <string name="create_new_chat">Create new chat</string>
+    <string name="with">With</string>
+    <string name="create_chat">Create chat</string>
+    <string name="search">Search</string>
 </resources>
