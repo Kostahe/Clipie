@@ -7,15 +7,15 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.AddBox
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material3.Icon
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.AddBox
+import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.PlayArrow
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
+import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
@@ -30,18 +30,25 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.clipie.main.presentation.chat.components.ChatScreenTopBar
+import com.clipie.main.presentation.chat.navigation.ChatNavConstant
 import com.clipie.main.presentation.clips.components.ClipsTopBar
 import com.clipie.main.presentation.home.components.HomeScreenTopBar
-import com.clipie.main.presentation.search.SearchScreenTopBar
 import com.clipie.main.presentation.navigation.MainNavConstant
 import com.clipie.main.presentation.navigation.MainNavHost
 import com.clipie.main.presentation.profile.ProfileScreenTopBar
+import com.clipie.main.presentation.search.SearchScreenTopBar
 import com.clipie.main.presentation.upload.components.UploadClipScreenTopBar
 import com.clipie.main.presentation.upload.components.UploadPostScreenTopBar
 import com.clipie.main.presentation.upload.navigation.UploadNavConstant
 
 val listOfItems: List<BottomNavigationItem> = listOf(
-    BottomNavigationItem(MainNavConstant.Home.route, Icons.Filled.Home, Icons.Outlined.Home, true),
+    BottomNavigationItem(
+        MainNavConstant.HomeNavigation.route,
+        Icons.Filled.Home,
+        Icons.Outlined.Home,
+        true
+    ),
     BottomNavigationItem(
         MainNavConstant.Search.route,
         Icons.Filled.Search,
@@ -79,7 +86,7 @@ fun MainScreen(
         topBar = {
             when (currentRoute) {
                 MainNavConstant.Home.route -> {
-                    HomeScreenTopBar()
+                    HomeScreenTopBar(navController = navController)
                 }
 
                 MainNavConstant.Profile.route -> {
@@ -93,25 +100,27 @@ fun MainScreen(
                 MainNavConstant.Clips.route -> {
                     ClipsTopBar()
                 }
-//                Upload screens
                 UploadNavConstant.UploadPost.route -> {
                     UploadPostScreenTopBar(navController = navController)
                 }
-
                 UploadNavConstant.UploadClip.route -> {
                     UploadClipScreenTopBar(navController = navController)
                 }
-
+                ChatNavConstant.Chat.route -> {
+                    ChatScreenTopBar(userName = "Wcman997", navController = navController)
+                }
             }
         }, bottomBar = {
-            val routesList = UploadNavConstant.entries.map { uploadNavConstant ->
-                uploadNavConstant.route
+            val mainNavConstantEntries = MainNavConstant.entries.map {
+                it.route
             }
-        if (currentRoute.toString() !in routesList) {
-                MainBottomBar(navController = navController)
-            }else{
-                UploadBottomBar(navController = navController)
-        }
+            val uploadNavConstantEntries = UploadNavConstant.entries.map {
+                it.route
+            }
+            when (currentRoute) {
+                in mainNavConstantEntries -> MainBottomBar(navController = navController)
+                in uploadNavConstantEntries -> UploadBottomBar(navController = navController)
+            }
         },
         modifier = modifier
     ) { innerPadding ->
