@@ -76,6 +76,10 @@ class ChatRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getSenderFromMessage(message: Message): User? {
+        TODO("Not yet implemented")
+    }
+
 
 //    override suspend fun getUsersFromChat(chat: Chat): List<User>? {
 //        return try {

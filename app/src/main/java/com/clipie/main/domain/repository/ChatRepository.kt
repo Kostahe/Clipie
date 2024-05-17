@@ -9,4 +9,5 @@ interface ChatRepository {
     suspend fun getMessagesFromChat(chat: Chat): List<Message>?
     suspend fun getUserListFromSearchedText(searchText: String): List<User>?
     suspend fun createChat(userList: List<User>, nameOfChat: String)
+    suspend fun getSenderFromMessage(message: Message): User?
 }
