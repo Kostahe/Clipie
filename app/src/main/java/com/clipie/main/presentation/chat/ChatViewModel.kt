@@ -64,6 +64,23 @@ class ChatViewModel @Inject constructor(
             }
         }
     }
+
+    fun createChat(userList: List<User>, nameOfChat: String?) {
+        viewModelScope.launch {
+            val currentUser = authenticationRepository.getSession()
+            currentUser?.let { currentUser ->
+                val nameOfChat: String = if (!nameOfChat.isNullOrBlank()) {
+                    nameOfChat.toString()
+                } else if (userList.size > 2) {
+                    userList.joinToString(", ")
+                } else {
+                    ""
+                }
+                userList.toMutableList().add(currentUser)
+                chatRepository.createChat(userList, nameOfChat = nameOfChat)
+            }
+        }
+    }
 }
 
 data class ChatState(
