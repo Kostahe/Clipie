@@ -46,9 +46,6 @@ class ChatRepositoryImpl @Inject constructor(
     // Firebase queries are crazy Sql is better
     override suspend fun getUserListFromSearchedText(searchText: String): List<User>? {
         return try {
-            if (searchText.isBlank()) {
-                return null
-            }
             val searchTextUpperBound = searchText + "\uf8ff"
 
             fireStore.collection(FireStoreTable.USER.tableName)
