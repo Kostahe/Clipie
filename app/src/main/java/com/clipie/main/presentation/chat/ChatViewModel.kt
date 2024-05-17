@@ -51,6 +51,7 @@ class ChatViewModel @Inject constructor(
     }
 
     fun onSearchChangeText(searchText: String) {
+        _userList.value = Resource.Loading()
         viewModelScope.launch {
             delay(1000)
             val userList = chatRepository.getUserListFromSearchedText(searchText = searchText)
