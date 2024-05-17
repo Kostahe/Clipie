@@ -1,6 +1,7 @@
 package com.clipie.main.presentation.chat.navigation
 
 enum class ChatNavConstant(val route: String) {
-    Chat("chat"),
-    CreateChat("create_chat")
+    Chats("chats"),
+    CreateChat("create_chat"),
+    Chat("chat")
 }

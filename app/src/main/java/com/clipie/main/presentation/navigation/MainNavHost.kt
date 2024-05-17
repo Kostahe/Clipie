@@ -7,8 +7,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.clipie.main.presentation.chat.ChatScreen
 import com.clipie.main.presentation.chat.ChatViewModel
+import com.clipie.main.presentation.chat.ChatsScreen
 import com.clipie.main.presentation.chat.CreationChatScreen
 import com.clipie.main.presentation.chat.navigation.ChatNavConstant
 import com.clipie.main.presentation.clips.ClipsScreen
@@ -36,19 +36,29 @@ fun MainNavHost(
             HomeScreen()
         }
         navigation(
-            startDestination = ChatNavConstant.Chat.route,
+            startDestination = ChatNavConstant.Chats.route,
             route = MainNavConstant.ChatNavigation.route
         ) {
-            composable(ChatNavConstant.Chat.route) {
+            composable(ChatNavConstant.Chats.route) {
                 val viewModel = it.sharedViewModel<ChatViewModel>(navController = navController)
-                ChatScreen(chatState = viewModel.state.collectAsState().value)
+                ChatsScreen(chatState = viewModel.state.collectAsState().value)
             }
             composable(ChatNavConstant.CreateChat.route) {
                 val viewModel = it.sharedViewModel<ChatViewModel>(navController = navController)
                 CreationChatScreen(
                     userListState = viewModel.userList.collectAsState().value,
-                    onSearchTextChange = { searchText -> viewModel.onSearchChangeText(searchText) }
+                    onSearchTextChange = { searchText -> viewModel.onSearchChangeText(searchText) },
+                    onCreateChatButtonClicked = { selectedUsersList, nameOfGroup ->
+                        viewModel.createChat(
+                            selectedUsersList,
+                            nameOfGroup
+                        )
+                    }
                 )
+            }
+            composable(ChatNavConstant.Chat.route) {
+                val viewModel = it.sharedViewModel<ChatViewModel>(navController = navController)
+
             }
         }
         composable(route = MainNavConstant.Search.route) {

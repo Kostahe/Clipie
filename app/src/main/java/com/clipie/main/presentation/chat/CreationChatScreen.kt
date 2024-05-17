@@ -55,10 +55,12 @@ import com.clipie.util.Resource
 fun CreationChatScreen(
     modifier: Modifier = Modifier,
     onSearchTextChange: (String) -> Unit,
-    userListState: Resource<List<User>>
+    userListState: Resource<List<User>>,
+    onCreateChatButtonClicked: (List<User>, String?) -> Unit
 ) {
     var searchText by rememberSaveable { mutableStateOf("") }
     val selectedUserList = remember { mutableStateListOf<User>() }
+
     Column(
         modifier
             .padding(horizontal = 10.dp)
@@ -146,7 +148,7 @@ fun CreationChatScreen(
                 .padding(bottom = 16.dp)
                 .fillMaxWidth()
                 .widthIn(max = 300.dp),
-            onClick = { },
+            onClick = { onCreateChatButtonClicked(selectedUserList, null) },
             enabled = selectedUserList.isNotEmpty(),
             shape = RoundedCornerShape(25)
         ) {
@@ -230,7 +232,8 @@ fun UserCard(
 fun CreationChatScreenPreview() {
     CreationChatScreen(
         userListState = Resource.Success(PreviewParameterProvider.userList),
-        onSearchTextChange = {}
+        onSearchTextChange = {},
+        onCreateChatButtonClicked = { _, _ -> }
     )
 }
 

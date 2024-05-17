@@ -150,7 +150,7 @@ fun HomeScreenTopBar(
                 )
             }
         }) {
-            IconButton(onClick = { navController.navigate(ChatNavConstant.Chat.route) }) {
+            IconButton(onClick = { navController.navigate(ChatNavConstant.Chats.route) }) {
                 Icon(
                     imageVector = TopListOfItems[2].unselectedIcon,
                     contentDescription = TopListOfItems[2].title,

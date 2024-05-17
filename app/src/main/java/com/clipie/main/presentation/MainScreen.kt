@@ -110,7 +110,7 @@ fun MainScreen(
                     UploadClipScreenTopBar(navController = navController)
                 }
 
-                ChatNavConstant.Chat.route -> {
+                ChatNavConstant.Chats.route -> {
                     ChatScreenTopBar(userName = "Wcman997", navController = navController)
                 }
 

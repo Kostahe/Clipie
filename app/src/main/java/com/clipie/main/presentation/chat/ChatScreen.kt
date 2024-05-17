@@ -28,6 +28,6 @@ fun MessageItem(
 ) {
     val sender = message.sender
     Row {
-        AsyncImage(model = , contentDescription = )
+        AsyncImage(model = "", contentDescription = "")
     }
 }
