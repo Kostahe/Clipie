@@ -45,4 +45,5 @@
     <string name="with">With</string>
     <string name="create_chat">Create chat</string>
     <string name="search">Search</string>
+    <string name="create_group_chat">Create group chat</string>
 </resources>
