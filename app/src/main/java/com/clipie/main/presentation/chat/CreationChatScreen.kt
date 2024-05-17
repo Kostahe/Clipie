@@ -18,6 +18,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
@@ -59,9 +60,12 @@ fun CreationChatScreen(
             .fillMaxHeight()
     ) {
         Text(text = stringResource(R.string.with))
-        LazyRow(Modifier.height(32.dp)) {
+        LazyRow(modifier = Modifier.height(32.dp)) {
             items(selectedUserList) { user ->
-                UserCard(user = user)
+                UserCard(
+                    modifier = Modifier.padding(horizontal = 4.dp),
+                    user = user
+                )
             }
         }
         TextField(
@@ -183,8 +187,21 @@ fun UserCard(
     modifier: Modifier = Modifier,
     user: User
 ) {
-    Card(modifier) {
-        Text(text = user.username)
+    Card(
+        modifier = modifier.height(50.dp),
+        shape = RoundedCornerShape(50),
+        colors = CardColors(
+            containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+            contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
+            disabledContentColor = MaterialTheme.colorScheme.secondaryContainer,
+            disabledContainerColor = MaterialTheme.colorScheme.onSecondaryContainer
+        )
+
+    ) {
+        Text(
+            text = user.username,
+            modifier = Modifier.padding(vertical = 16.dp, horizontal = 20.dp)
+        )
     }
 }
 
