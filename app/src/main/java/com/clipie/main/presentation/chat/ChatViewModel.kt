@@ -51,12 +51,16 @@ class ChatViewModel @Inject constructor(
     }
 
     fun onSearchChangeText(searchText: String) {
-        _userList.value = Resource.Loading()
         viewModelScope.launch {
+            _userList.value = Resource.Loading()
+            val currentUser = authenticationRepository.getSession()
             delay(1000)
             val userList = chatRepository.getUserListFromSearchedText(searchText = searchText)
             userList?.let { userList ->
-                _userList.value = Resource.Success(userList)
+                currentUser?.let { currentUser ->
+                    userList.toMutableList().remove(currentUser)
+                    _userList.value = Resource.Success(userList)
+                }
             }
         }
     }
