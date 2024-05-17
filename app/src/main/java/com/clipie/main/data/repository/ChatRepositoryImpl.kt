@@ -2,10 +2,10 @@ package com.clipie.main.data.repository
 
 import com.clipie.authentication.domain.models.User
 import com.clipie.main.domain.model.Chat
-import com.clipie.util.FireStoreTable
 import com.clipie.main.domain.model.Message
 import com.clipie.main.domain.repository.ChatRepository
 import com.clipie.util.FireStoreField
+import com.clipie.util.FireStoreTable
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
@@ -43,10 +43,17 @@ class ChatRepositoryImpl @Inject constructor(
         }
     }
 
+    // Firebase queries are crazy Sql is better
     override suspend fun getUserListFromSearchedText(searchText: String): List<User>? {
         return try {
+            if (searchText.isBlank()) {
+                return null
+            }
+            val searchTextUpperBound = searchText + "\uf8ff"
+
             fireStore.collection(FireStoreTable.USER.tableName)
-                .whereIn(FireStoreField.USERNAME.fieldName, searchText.split(" "))
+                .whereGreaterThanOrEqualTo(FireStoreField.USERNAME.fieldName, searchText)
+                .whereLessThanOrEqualTo(FireStoreField.USERNAME.fieldName, searchTextUpperBound)
                 .get()
                 .await()
                 .toObjects(User::class.java)
