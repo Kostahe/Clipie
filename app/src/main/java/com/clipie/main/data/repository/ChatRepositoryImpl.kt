@@ -60,6 +60,22 @@ class ChatRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun createChat(userList: List<User>, nameOfChat: String) {
+        try {
+            var chat = Chat(id = "", nameOfChat, userList)
+            val chatId = fireStore.collection(FireStoreTable.CHAT.tableName)
+                .add(chat)
+                .await()
+                .id
+            chat = chat.copy(id = chatId)
+            fireStore.collection(FireStoreTable.CHAT.tableName).document(chatId)
+                .set(chat)
+                .await()
+        } catch (e: Exception) {
+            if (e is CancellationException) throw e
+        }
+    }
+
 
 //    override suspend fun getUsersFromChat(chat: Chat): List<User>? {
 //        return try {
