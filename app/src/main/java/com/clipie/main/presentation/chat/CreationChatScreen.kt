@@ -3,17 +3,22 @@
 package com.clipie.main.presentation.chat
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
@@ -48,9 +53,13 @@ fun CreationChatScreen(
 ) {
     var searchText by rememberSaveable { mutableStateOf("") }
     val selectedUserList = remember { mutableStateListOf<User>() }
-    Column(modifier.padding(start = 5.dp)) {
+    Column(
+        modifier
+            .padding(horizontal = 10.dp)
+            .fillMaxHeight()
+    ) {
         Text(text = stringResource(R.string.with))
-        LazyRow {
+        LazyRow(Modifier.height(32.dp)) {
             items(selectedUserList) { user ->
                 UserCard(user = user)
             }
@@ -77,13 +86,25 @@ fun CreationChatScreen(
             }
 
             is Resource.Loading -> {
-                Text("Loading Screen")
+                Row(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    CircularProgressIndicator()
+                }
             }
 
             is Resource.Success -> {
                 val userList = userListState.data
                 userList?.let { userList ->
-                    LazyColumn {
+                    LazyColumn(
+                        Modifier
+                            .height(300.dp)
+                            .weight(1f)
+                    ) {
                         items(userList) { user ->
                             UserItem(
                                 user = user,
@@ -100,8 +121,24 @@ fun CreationChatScreen(
                 }
             }
         }
+        Button(
+            modifier = Modifier
+                .padding(bottom = 16.dp)
+                .fillMaxWidth(),
+            onClick = { },
+            enabled = selectedUserList.isNotEmpty(),
+            shape = RoundedCornerShape(25)
+        ) {
+            Text(
+                text = if (selectedUserList.size < 2)
+                    stringResource(id = R.string.create_chat)
+                else
+                    stringResource(R.string.create_group_chat),
+            )
+        }
     }
 }
+
 
 @Composable
 fun UserItem(
@@ -117,8 +154,9 @@ fun UserItem(
                 selected = !selected
                 onClick(user, selected)
             },
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
+        verticalAlignment = Alignment.CenterVertically
+    )
+    {
         Box(modifier = modifier.weight(1f)) {
             AsyncImage(
                 modifier = Modifier
@@ -131,9 +169,12 @@ fun UserItem(
         }
         Text(
             modifier = Modifier.weight(1f),
-            text = user.username,
+            text = user.username
         )
-        RadioButton(selected = selected, onClick = null)
+        RadioButton(
+            selected = selected,
+            onClick = null
+        )
     }
 }
 
