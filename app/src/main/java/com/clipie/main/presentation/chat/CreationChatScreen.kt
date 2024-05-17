@@ -2,6 +2,9 @@
 
 package com.clipie.main.presentation.chat
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -12,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -26,6 +30,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -62,10 +67,21 @@ fun CreationChatScreen(
         Text(text = stringResource(R.string.with))
         LazyRow(modifier = Modifier.height(32.dp)) {
             items(selectedUserList) { user ->
-                UserCard(
-                    modifier = Modifier.padding(horizontal = 4.dp),
-                    user = user
-                )
+                var isVisible by remember { mutableStateOf(false) }
+
+                LaunchedEffect(key1 = user) {
+                    isVisible = true
+                }
+
+                AnimatedVisibility(
+                    visible = isVisible,
+                    enter = fadeIn(tween(1250))
+                ) {
+                    UserCard(
+                        modifier = Modifier.padding(horizontal = 4.dp),
+                        user = user
+                    )
+                }
             }
         }
         TextField(
@@ -128,7 +144,8 @@ fun CreationChatScreen(
         Button(
             modifier = Modifier
                 .padding(bottom = 16.dp)
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .widthIn(max = 300.dp),
             onClick = { },
             enabled = selectedUserList.isNotEmpty(),
             shape = RoundedCornerShape(25)
@@ -200,7 +217,10 @@ fun UserCard(
     ) {
         Text(
             text = user.username,
-            modifier = Modifier.padding(vertical = 16.dp, horizontal = 20.dp)
+            modifier = Modifier.padding(
+                vertical = 4.dp,
+                horizontal = 16.dp
+            )
         )
     }
 }
