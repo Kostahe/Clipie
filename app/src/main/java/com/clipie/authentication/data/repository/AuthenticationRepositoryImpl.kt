@@ -12,6 +12,10 @@ import com.google.gson.Gson
 import javax.inject.Inject
 import androidx.core.content.edit
 
+private const val ERR_FETCH_USER = "Failed to retrieve user data"
+private const val ERR_UNKNOWN = "An unknown error occurred"
+private const val ERR_DB_UPDATE = "Failed to update database"
+
 class AuthenticationRepositoryImpl @Inject constructor(
     private val authentication: FirebaseAuth,
     private val fireStore: FirebaseFirestore,
@@ -25,12 +29,34 @@ class AuthenticationRepositoryImpl @Inject constructor(
         user: User,
         result: (Resource<Unit>) -> Unit
     ) {
+        result.invoke(Resource.Loading())
         authentication.createUserWithEmailAndPassword(email, password)
             .addOnSuccessListener { authResult ->
                 user.id = authResult.user?.uid ?: ""
-                updateUser(user, result)
+
+                updateUser(user) { updateUserResult ->
+                    when (updateUserResult) {
+                        is Resource.Success -> {
+                            storeSession(authResult.user?.uid ?: "") { user ->
+                                if (user != null) {
+                                    result.invoke(Resource.Success(Unit))
+                                } else {
+                                    result.invoke(Resource.Error(ERR_FETCH_USER))
+                                }
+                            }
+                        }
+
+                        is Resource.Error -> result.invoke(
+                            Resource.Error(
+                                message = updateUserResult.message ?: ERR_UNKNOWN
+                            )
+                        )
+
+                        is Resource.Loading -> Unit
+                    }
+                }
             }.addOnFailureListener { exception ->
-                result.invoke(Resource.Error(exception.localizedMessage ?: "Unknown error"))
+                result.invoke(Resource.Error(exception.localizedMessage ?: ERR_UNKNOWN))
             }
     }
 
@@ -42,7 +68,7 @@ class AuthenticationRepositoryImpl @Inject constructor(
         documentRef.set(user).addOnSuccessListener {
             result.invoke(Resource.Success(Unit))
         }.addOnFailureListener { exception ->
-            result.invoke(Resource.Error(exception.localizedMessage ?: "Unknown error"))
+            result.invoke(Resource.Error(exception.localizedMessage ?: ERR_DB_UPDATE))
         }
     }
 
@@ -51,21 +77,28 @@ class AuthenticationRepositoryImpl @Inject constructor(
         password: String,
         result: (Resource<Unit>) -> Unit
     ) {
+        result.invoke(Resource.Loading())
         authentication.signInWithEmailAndPassword(email, password)
             .addOnSuccessListener { authResult ->
-                storeSession(authResult.user?.uid ?: "") { _ ->
-                    result.invoke(Resource.Success(Unit))
+                val userId = authResult.user?.uid ?: ""
+                storeSession(userId) { user ->
+                    if (user != null) {
+                        result.invoke(Resource.Success(Unit))
+                    } else {
+                        result.invoke(Resource.Error(ERR_FETCH_USER))
+                    }
                 }
             }.addOnFailureListener { exception ->
-                result.invoke(Resource.Error(exception.localizedMessage ?: "Unknown error"))
+                result.invoke(Resource.Error(exception.localizedMessage ?: ERR_UNKNOWN))
             }
     }
 
     override fun forgotPassword(email: String, result: (Resource<Unit>) -> Unit) {
+        result.invoke(Resource.Loading())
         authentication.sendPasswordResetEmail(email).addOnSuccessListener {
             result.invoke(Resource.Success(Unit))
         }.addOnFailureListener {
-            result.invoke(Resource.Error(it.localizedMessage ?: "Unknown error"))
+            result.invoke(Resource.Error(it.localizedMessage ?: ERR_UNKNOWN))
         }
     }
 
