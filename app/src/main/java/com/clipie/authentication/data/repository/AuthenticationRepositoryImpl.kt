@@ -10,6 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
 import javax.inject.Inject
+import androidx.core.content.edit
 
 class AuthenticationRepositoryImpl @Inject constructor(
     private val authentication: FirebaseAuth,
@@ -52,7 +53,7 @@ class AuthenticationRepositoryImpl @Inject constructor(
     ) {
         authentication.signInWithEmailAndPassword(email, password)
             .addOnSuccessListener { authResult ->
-                storeSession(authResult.user?.uid ?: "") { user ->
+                storeSession(authResult.user?.uid ?: "") { _ ->
                     result.invoke(Resource.Success(Unit))
                 }
             }.addOnFailureListener { exception ->
@@ -75,9 +76,9 @@ class AuthenticationRepositoryImpl @Inject constructor(
         val documentRef = fireStore.collection(FireStoreTable.USER.tableName).document(id)
         documentRef.get().addOnSuccessListener { userResult ->
             val user = userResult.toObject(User::class.java)
-            sharedPreferences.edit()
-                .putString(SharedPreferenceName.USER_SESSION.preferenceName, gson.toJson(user))
-                .apply()
+            sharedPreferences.edit {
+                putString(SharedPreferenceName.USER_SESSION.preferenceName, gson.toJson(user))
+            }
             result.invoke(user)
         }.addOnFailureListener {
             result.invoke(null)
