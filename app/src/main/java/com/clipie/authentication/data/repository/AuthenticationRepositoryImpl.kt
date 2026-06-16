@@ -21,28 +21,15 @@ class AuthenticationRepositoryImpl @Inject constructor(
     override fun register(
         email: String,
         password: String,
-        user: User, result: (Resource<Unit>) -> Unit
+        user: User,
+        result: (Resource<Unit>) -> Unit
     ) {
         authentication.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    user.id = task.result.user?.uid ?: ""
-                    updateUser(user) { state ->
-                        when (state) {
-                            is Resource.Loading -> {
-
-                            }
-                            is Resource.Success -> {
-                                result.invoke(state)
-                            }
-                            is Resource.Error -> {
-                                result.invoke(state)
-                            }
-                        }
-                    }
-                } else {
-                    result.invoke(Resource.Error("Firebase error"))
-                }
+            .addOnSuccessListener { authResult ->
+                user.id = authResult.user?.uid ?: ""
+                updateUser(user, result)
+            }.addOnFailureListener { exception ->
+                result.invoke(Resource.Error(exception.localizedMessage ?: "Unknown error"))
             }
     }
 
@@ -53,8 +40,8 @@ class AuthenticationRepositoryImpl @Inject constructor(
         val documentRef = fireStore.collection(FireStoreTable.USER.tableName).document(user.id)
         documentRef.set(user).addOnSuccessListener {
             result.invoke(Resource.Success(Unit))
-        }.addOnFailureListener {
-            result.invoke(Resource.Error(it.localizedMessage?.toString() ?: "Firebase Error"))
+        }.addOnFailureListener { exception ->
+            result.invoke(Resource.Error(exception.localizedMessage ?: "Unknown error"))
         }
     }
 
@@ -63,30 +50,21 @@ class AuthenticationRepositoryImpl @Inject constructor(
         password: String,
         result: (Resource<Unit>) -> Unit
     ) {
-        authentication.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                storeSession(task.result.user?.uid ?: "") { user ->
-                    if (user == null) {
-                        result.invoke(Resource.Error("Authentication succeed, but session didn't save user"))
-                    } else {
-                        result.invoke(Resource.Success(Unit))
-                    }
+        authentication.signInWithEmailAndPassword(email, password)
+            .addOnSuccessListener { authResult ->
+                storeSession(authResult.user?.uid ?: "") { user ->
+                    result.invoke(Resource.Success(Unit))
                 }
-            } else {
-                result.invoke(Resource.Error(task.exception.toString()))
+            }.addOnFailureListener { exception ->
+                result.invoke(Resource.Error(exception.localizedMessage ?: "Unknown error"))
             }
-        }
     }
 
     override fun forgotPassword(email: String, result: (Resource<Unit>) -> Unit) {
-        authentication.sendPasswordResetEmail(email).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                result.invoke(Resource.Success(Unit))
-            } else {
-                result.invoke(Resource.Error(task.exception?.message.toString()))
-            }
+        authentication.sendPasswordResetEmail(email).addOnSuccessListener {
+            result.invoke(Resource.Success(Unit))
         }.addOnFailureListener {
-            result.invoke(Resource.Error(it.localizedMessage?.toString() ?: ""))
+            result.invoke(Resource.Error(it.localizedMessage ?: "Unknown error"))
         }
     }
 
@@ -95,16 +73,14 @@ class AuthenticationRepositoryImpl @Inject constructor(
         result: (User?) -> Unit
     ) {
         val documentRef = fireStore.collection(FireStoreTable.USER.tableName).document(id)
-        documentRef.get().addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val user = task.result?.toObject(User::class.java)
-                sharedPreferences.edit()
-                    .putString(SharedPreferenceName.USER_SESSION.preferenceName, gson.toJson(user))
-                    .apply()
-                result.invoke(user)
-            } else {
-                result.invoke(null)
-            }
+        documentRef.get().addOnSuccessListener { userResult ->
+            val user = userResult.toObject(User::class.java)
+            sharedPreferences.edit()
+                .putString(SharedPreferenceName.USER_SESSION.preferenceName, gson.toJson(user))
+                .apply()
+            result.invoke(user)
+        }.addOnFailureListener {
+            result.invoke(null)
         }
     }
 
