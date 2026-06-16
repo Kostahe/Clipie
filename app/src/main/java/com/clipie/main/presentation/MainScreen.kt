@@ -35,7 +35,7 @@ import com.clipie.main.presentation.home.components.HomeScreenTopBar
 import com.clipie.main.presentation.search.SearchScreenTopBar
 import com.clipie.main.presentation.navigation.MainNavConstant
 import com.clipie.main.presentation.navigation.MainNavHost
-import com.clipie.main.presentation.profile.ProfileScreenTopBar
+import com.clipie.main.presentation.profile.components.ProfileScreenTopBar
 import com.clipie.main.presentation.upload.components.UploadClipScreenTopBar
 import com.clipie.main.presentation.upload.components.UploadPostScreenTopBar
 import com.clipie.main.presentation.upload.navigation.UploadNavConstant
