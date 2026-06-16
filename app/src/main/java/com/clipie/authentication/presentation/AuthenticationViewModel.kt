@@ -42,7 +42,10 @@ class AuthenticationViewModel @Inject constructor(
     }
 
     fun register() {
-        val user = User(email, password)
+        val user = User(
+            email = email,
+            username = username
+        )
         repository.register(email, password, user) { state ->
             _register.value = state
         }
