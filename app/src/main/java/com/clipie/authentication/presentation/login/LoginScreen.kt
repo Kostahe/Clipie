@@ -12,10 +12,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -29,8 +28,9 @@ import com.clipie.authentication.presentation.components.AuthenticationButton
 import com.clipie.authentication.presentation.components.AuthenticationOutlinedButton
 import com.clipie.authentication.presentation.components.AuthenticationPasswordTextField
 import com.clipie.authentication.presentation.components.AuthenticationTextField
-import com.clipie.app.navigation.AppNavConstant
 import com.clipie.authentication.presentation.navigation.AuthenticationNavConstant
+import com.clipie.util.Resource
+import com.clipie.util.navigateToMainFromAuth
 
 @Composable
 fun LoginScreen(
@@ -38,19 +38,26 @@ fun LoginScreen(
     navController: NavHostController,
     viewModel: AuthenticationViewModel
 ) {
-    if (viewModel.getSession() != null) {
-        navController.navigate(AppNavConstant.Main.route)
+    val loginState by viewModel.login
+    LaunchedEffect(Unit) {
+        if (viewModel.getSession() != null) {
+            navController.navigateToMainFromAuth()
+        }
     }
-    var email by rememberSaveable {
-        mutableStateOf("")
+
+    LaunchedEffect(loginState) {
+        if (loginState is Resource.Success) {
+            navController.navigateToMainFromAuth()
+        }
     }
-    var password by rememberSaveable {
-        mutableStateOf("")
+    DisposableEffect(Unit) {
+        onDispose { viewModel.clearData() }
     }
     Scaffold { padding ->
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = modifier.fillMaxSize()
+            modifier = modifier
+                .fillMaxSize()
                 .padding(padding)
         ) {
             Spacer(modifier = Modifier.height(170.dp))
@@ -61,14 +68,14 @@ fun LoginScreen(
                 tint = MaterialTheme.colorScheme.primary
             )
             AuthenticationTextField(
-                value = email,
-                onValueChange = { email = it },
+                value = viewModel.email,
+                onValueChange = viewModel::onEmailChange,
                 label = stringResource(R.string.email),
                 imeAction = ImeAction.Next
             )
             AuthenticationPasswordTextField(
-                value = password,
-                onValueChange = { password = it },
+                value = viewModel.password,
+                onValueChange = viewModel::onPasswordChange,
                 label = stringResource(R.string.password),
                 imeAction = ImeAction.Done,
                 modifier = Modifier.padding(top = 10.dp),
@@ -77,14 +84,7 @@ fun LoginScreen(
                 modifier = Modifier
                     .width(275.dp)
                     .padding(top = 15.dp),
-                onClick = {
-                viewModel.login(email, password)
-                    navController.navigate(AppNavConstant.Main.route) {
-                        popUpTo(AppNavConstant.Authentication.route) {
-                            inclusive = true
-                        }
-                    }
-                },
+                onClick = viewModel::login,
                 text = stringResource(R.string.log_in)
             )
             TextButton(onClick = { navController.navigate(AuthenticationNavConstant.ForgotPassword.route) }) {
@@ -93,7 +93,8 @@ fun LoginScreen(
                 )
             }
             AuthenticationOutlinedButton(
-                modifier = Modifier.width(275.dp)
+                modifier = Modifier
+                    .width(275.dp)
                     .padding(top = 200.dp),
                 onClick = { navController.navigate(AuthenticationNavConstant.Register.route) },
                 text = stringResource(R.string.create_account)

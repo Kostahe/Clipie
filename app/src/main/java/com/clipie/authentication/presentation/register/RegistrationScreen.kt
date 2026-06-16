@@ -11,10 +11,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -23,12 +22,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.clipie.R
-import com.clipie.authentication.domain.models.User
 import com.clipie.authentication.presentation.AuthenticationViewModel
 import com.clipie.authentication.presentation.components.AuthenticationButton
 import com.clipie.authentication.presentation.components.AuthenticationPasswordTextField
 import com.clipie.authentication.presentation.components.AuthenticationTextField
-import com.clipie.authentication.presentation.navigation.AuthenticationNavConstant
+import com.clipie.util.Resource
+import com.clipie.util.navigateToMainFromAuth
 
 @Composable
 fun RegistrationScreen(
@@ -36,14 +35,15 @@ fun RegistrationScreen(
     navController: NavHostController,
     viewModel: AuthenticationViewModel
 ) {
-    var email by rememberSaveable {
-        mutableStateOf("")
+    val registerState by viewModel.register
+
+    LaunchedEffect(registerState) {
+        if (registerState is Resource.Success) {
+            navController.navigateToMainFromAuth()
+        }
     }
-    var username by rememberSaveable {
-        mutableStateOf("")
-    }
-    var password by rememberSaveable {
-        mutableStateOf("")
+    DisposableEffect(Unit) {
+        onDispose { viewModel.clearData() }
     }
     Scaffold { innerPadding ->
         Column(
@@ -60,21 +60,21 @@ fun RegistrationScreen(
             )
             Spacer(modifier = Modifier.height(170.dp))
             AuthenticationTextField(
-                value = email,
-                onValueChange = { email = it },
+                value = viewModel.email,
+                onValueChange = viewModel::onEmailChange,
                 label = stringResource(R.string.email),
                 imeAction = ImeAction.Next
             )
             AuthenticationTextField(
-                value = username,
-                onValueChange = { username = it },
+                value = viewModel.username,
+                onValueChange = viewModel::onUsernameChange,
                 label = stringResource(R.string.username),
                 imeAction = ImeAction.Done,
                 modifier = modifier.padding(top = 5.dp),
             )
             AuthenticationPasswordTextField(
-                value = password,
-                onValueChange = { password = it },
+                value = viewModel.password,
+                onValueChange = viewModel::onPasswordChange,
                 label = stringResource(R.string.password),
                 imeAction = ImeAction.Done,
                 modifier = modifier.padding(top = 5.dp),
@@ -85,10 +85,7 @@ fun RegistrationScreen(
                 modifier = Modifier
                     .width(275.dp)
                     .padding(10.dp),
-                onClick = {
-                    viewModel.register(email , password, User(email = email, username = username))
-                    navController.navigate(AuthenticationNavConstant.Login.route)
-                },
+                onClick = viewModel::register,
                 text = stringResource(id = R.string.create_account)
             )
 
