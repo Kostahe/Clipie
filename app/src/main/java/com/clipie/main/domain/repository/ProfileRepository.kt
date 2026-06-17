@@ -1,7 +1,14 @@
 package com.clipie.main.domain.repository
 
 import android.net.Uri
+import com.clipie.util.Resource
 
 interface ProfileRepository {
-    fun uploadAvatar(userId: String, imageUri: Uri, result: (Result<String>) -> Unit)
+    suspend fun uploadAvatar(userId: String, imageUri: Uri): Resource<String>
+    suspend fun updateProfileDetails(
+        userId: String,
+        username: String,
+        bio: String,
+        imageUrl: String
+    ) : Resource<Unit>
 }
