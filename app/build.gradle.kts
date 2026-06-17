@@ -64,6 +64,8 @@ dependencies {
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.storage)
 
+    implementation(libs.kotlinx.coroutines.play.services)
+
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     ksp(libs.metadata.artifact)
