@@ -1,5 +1,7 @@
 package com.clipie.di
 
+import com.clipie.app.data.repository.SessionRepositoryImpl
+import com.clipie.app.domain.repository.SessionRepository
 import com.clipie.authentication.data.repository.AuthenticationRepositoryImpl
 import com.clipie.main.data.repository.MessagesRepositoryImpl
 import com.clipie.authentication.domain.repository.AuthenticationRepository
@@ -21,4 +23,8 @@ interface RepositoryModule {
     @Binds
     @Singleton
     fun bindMessagesRepository(messagesRepositoryImpl: MessagesRepositoryImpl): MessagesRepository
+
+    @Binds
+    @Singleton
+    fun bindSessionRepository(sessionRepositoryImpl: SessionRepositoryImpl): SessionRepository
 }

@@ -6,7 +6,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.clipie.authentication.domain.models.User
+import com.clipie.app.domain.models.User
 import com.clipie.main.presentation.profile.components.*
 
 @Composable

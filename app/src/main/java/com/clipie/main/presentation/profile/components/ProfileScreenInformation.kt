@@ -17,7 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.clipie.R
-import com.clipie.authentication.domain.models.User
+import com.clipie.app.domain.models.User
 
 @Composable
 fun ProfileScreenInformation(

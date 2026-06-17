@@ -6,7 +6,8 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.clipie.util.Resource
-import com.clipie.authentication.domain.models.User
+import com.clipie.app.domain.models.User
+import com.clipie.app.domain.repository.SessionRepository
 import com.clipie.authentication.domain.repository.AuthenticationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -14,7 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AuthenticationViewModel @Inject constructor(
-    private val repository: AuthenticationRepository
+    private val authenticationRepository: AuthenticationRepository,
+    private val sessionRepository: SessionRepository
 ) : ViewModel() {
 
     var email by mutableStateOf("")
@@ -38,7 +40,7 @@ class AuthenticationViewModel @Inject constructor(
     fun login() {
         viewModelScope.launch {
             loginState = Resource.Loading
-            loginState = repository.login(email, password)
+            loginState = authenticationRepository.login(email, password)
         }
     }
 
@@ -46,18 +48,18 @@ class AuthenticationViewModel @Inject constructor(
         viewModelScope.launch {
             val user = User(email = email, username = username)
             registerState = Resource.Loading
-            registerState = repository.register(email, password, user)
+            registerState = authenticationRepository.register(email, password, user)
         }
     }
 
     fun forgotPassword() {
         viewModelScope.launch {
             forgotPasswordState = Resource.Loading
-            forgotPasswordState = repository.forgotPassword(email)
+            forgotPasswordState = authenticationRepository.forgotPassword(email)
         }
     }
 
-    fun getSession() = repository.getSession()
+    fun getSession() = sessionRepository.getSession()
 
     fun onEmailChange(email: String) {
         this.email = email

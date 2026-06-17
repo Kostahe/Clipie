@@ -1,4 +1,4 @@
-package com.clipie.authentication.domain.models
+package com.clipie.app.domain.models
 
 import java.util.Date
 

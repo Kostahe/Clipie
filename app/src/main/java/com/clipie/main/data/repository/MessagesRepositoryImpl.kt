@@ -1,7 +1,7 @@
 package com.clipie.main.data.repository
 
 
-import com.clipie.authentication.domain.models.User
+import com.clipie.app.domain.models.User
 import com.clipie.main.domain.model.Chat
 import com.clipie.util.FireStoreTable
 import com.clipie.util.Resource

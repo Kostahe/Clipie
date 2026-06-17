@@ -26,7 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.clipie.R
-import com.clipie.authentication.domain.models.User
+import com.clipie.app.domain.models.User
 import com.clipie.main.presentation.home.components.TopListOfItems
 import com.clipie.ui.theme.ClipieTheme
 

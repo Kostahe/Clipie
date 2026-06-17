@@ -1,16 +1,13 @@
 package com.clipie.authentication.data.repository
 
-import android.content.SharedPreferences
 import com.clipie.util.FireStoreTable
-import com.clipie.util.SharedPreferenceName
 import com.clipie.util.Resource
-import com.clipie.authentication.domain.models.User
+import com.clipie.app.domain.models.User
 import com.clipie.authentication.domain.repository.AuthenticationRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.gson.Gson
 import javax.inject.Inject
-import androidx.core.content.edit
+import com.clipie.app.domain.repository.SessionRepository
 import kotlinx.coroutines.tasks.await
 
 private const val ERR_FETCH_USER = "Failed to retrieve user data"
@@ -20,8 +17,7 @@ private const val ERR_DB_UPDATE = "Failed to update database"
 class AuthenticationRepositoryImpl @Inject constructor(
     private val authentication: FirebaseAuth,
     private val fireStore: FirebaseFirestore,
-    private val sharedPreferences: SharedPreferences,
-    private val gson: Gson
+    private val sessionRepository: SessionRepository
 ) : AuthenticationRepository {
 
     override suspend fun register(email: String, password: String, user: User): Resource<Unit> {
@@ -39,7 +35,7 @@ class AuthenticationRepositoryImpl @Inject constructor(
                 return Resource.Error(updatedResult.message ?: ERR_DB_UPDATE)
             }
 
-            saveSession(createdUser)
+            sessionRepository.saveSession(createdUser)
 
             Resource.Success(Unit)
         } catch (e: Exception) {
@@ -73,7 +69,7 @@ class AuthenticationRepositoryImpl @Inject constructor(
             val userId = authResult.user?.uid ?: return Resource.Error(ERR_FETCH_USER)
             val user = fetchUser(userId) ?: return Resource.Error(ERR_FETCH_USER)
 
-            saveSession(user)
+            sessionRepository.saveSession(user)
 
             Resource.Success(Unit)
 
@@ -101,25 +97,6 @@ class AuthenticationRepositoryImpl @Inject constructor(
             .await()
 
         return snapshot.toObject(User::class.java)
-    }
-
-    private fun saveSession(user: User) {
-        sharedPreferences.edit {
-            putString(
-                SharedPreferenceName.USER_SESSION.preferenceName,
-                gson.toJson(user)
-            )
-        }
-    }
-
-    override fun getSession(): User? {
-        val userString = sharedPreferences
-            .getString(SharedPreferenceName.USER_SESSION.preferenceName, null)
-        return if (userString != null) {
-            gson.fromJson(userString, User::class.java)
-        } else {
-            null
-        }
     }
 }
 
