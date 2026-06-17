@@ -7,7 +7,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -24,7 +23,7 @@ fun ForgotPasswordScreen(
     navController: NavHostController,
     viewModel: AuthenticationViewModel
 ) {
-    val forgotPasswordState by viewModel.forgotPassword
+    val forgotPasswordState = viewModel.forgotPasswordState
 
     LaunchedEffect(forgotPasswordState) {
         if (forgotPasswordState is Resource.Success) {

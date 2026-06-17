@@ -1,15 +1,15 @@
 package com.clipie.authentication.presentation
 
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.State as ImmutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.clipie.util.Resource
 import com.clipie.authentication.domain.models.User
 import com.clipie.authentication.domain.repository.AuthenticationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,48 +26,54 @@ class AuthenticationViewModel @Inject constructor(
     var password by mutableStateOf("")
         private set
 
-    private val _login: MutableState<Resource<Unit>> = mutableStateOf(Resource.Loading())
-    val login: ImmutableState<Resource<Unit>> = _login
+    var loginState by mutableStateOf<Resource<Unit>>(Resource.Idle)
+        private set
 
-    private val _register: MutableState<Resource<Unit>> = mutableStateOf(Resource.Loading())
-    val register: ImmutableState<Resource<Unit>> = _register
+    var registerState by mutableStateOf<Resource<Unit>>(Resource.Idle)
+        private set
 
-    private val _forgotPassword: MutableState<Resource<Unit>> = mutableStateOf(Resource.Loading())
-    val forgotPassword: ImmutableState<Resource<Unit>> = _forgotPassword
+    var forgotPasswordState by mutableStateOf<Resource<Unit>>(Resource.Idle)
+        private set
 
     fun login() {
-        repository.login(email, password) { state ->
-            _login.value = state
+        viewModelScope.launch {
+            loginState = Resource.Loading
+            loginState = repository.login(email, password)
         }
     }
 
     fun register() {
-        val user = User(
-            email = email,
-            username = username
-        )
-        repository.register(email, password, user) { state ->
-            _register.value = state
+        viewModelScope.launch {
+            val user = User(email = email, username = username)
+            registerState = Resource.Loading
+            registerState = repository.register(email, password, user)
         }
     }
 
     fun forgotPassword() {
-        repository.forgotPassword(email) { state ->
-            _forgotPassword.value = state
+        viewModelScope.launch {
+            forgotPasswordState = Resource.Loading
+            forgotPasswordState = repository.forgotPassword(email)
         }
     }
 
     fun getSession() = repository.getSession()
 
-    fun onEmailChange(email: String) {this.email = email}
+    fun onEmailChange(email: String) {
+        this.email = email
+    }
 
-    fun onUsernameChange(username: String) {this.username = username}
+    fun onUsernameChange(username: String) {
+        this.username = username
+    }
 
-    fun onPasswordChange(password: String) {this.password = password}
+    fun onPasswordChange(password: String) {
+        this.password = password
+    }
 
     fun clearData() {
         this.email = ""
         this.username = ""
-         this.password = ""
+        this.password = ""
     }
 }

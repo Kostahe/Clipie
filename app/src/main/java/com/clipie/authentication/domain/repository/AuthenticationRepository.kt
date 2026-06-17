@@ -4,10 +4,9 @@ import com.clipie.util.Resource
 import com.clipie.authentication.domain.models.User
 
 interface AuthenticationRepository {
-    fun register(email: String, password: String, user: User, result: (Resource<Unit>) -> Unit)
-    fun updateUser(user: User, result: (Resource<Unit>) -> Unit)
-    fun forgotPassword(email: String, result: (Resource<Unit>) -> Unit)
-    fun login(email: String, password: String, result: (Resource<Unit>) -> Unit)
-    fun storeSession(id: String, result: (User?) -> Unit)
+    suspend fun register(email: String, password: String, user: User): Resource<Unit>
+    suspend fun updateUser(user: User): Resource<Unit>
+    suspend fun forgotPassword(email: String): Resource<Unit>
+    suspend fun login(email: String, password: String): Resource<Unit>
     fun getSession(): User?
 }
